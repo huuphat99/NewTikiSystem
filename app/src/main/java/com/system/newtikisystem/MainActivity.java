@@ -4,22 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.system.newtikisystem.databases.DatabaseManager;
-import com.system.newtikisystem.databases.models.Productrating;
+import com.system.newtikisystem.dao.UserDAO;
+import com.system.newtikisystem.entity.Productrating;
+import com.system.newtikisystem.entity.User;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    List<Productrating> topicModelList;
+    TextView  textView3;
+    EditText textView1, textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        topicModelList = DatabaseManager.getInstance(this).getListTopic();
+        textView1 = findViewById(R.id.username);
+        textView2 = findViewById(R.id.password);
+        textView3 = findViewById(R.id.textView3);
+    }
 
-        Log.i(String.valueOf(topicModelList), "123123123");
+    public void onClick(View view){
+        UserDAO proDAO = new UserDAO();
+        User product;
+        try {
+            product = proDAO.getData(textView1.getText().toString(), textView2.getText().toString());
+            if(product == null){
+                textView3.setText("Null roi dm ");
+            } else {
+                textView3.setText("Co du lieu roi");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
