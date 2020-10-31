@@ -8,6 +8,7 @@ import android.util.Log;
 import com.system.newtikisystem.databases.models.Advertisements;
 import com.system.newtikisystem.databases.models.Favorites;
 import com.system.newtikisystem.databases.models.Productrating;
+import com.system.newtikisystem.databases.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,5 +80,25 @@ public class DatabaseManager {
         Log.d(TAG, "getListTopic: " + testData);
 
         return testData;
+    }
+
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+        sqLiteDatabase = assetHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + User, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            User user = new User();
+            user.setEmail(cursor.getString(0));
+            user.setPassword(cursor.getString(1));
+            user.setName(cursor.getString(2));
+            user.setPhone(cursor.getString(3));
+            user.setDob(cursor.getString(4));
+            users.add(user);
+            cursor.moveToNext();
+        }
+
+        return users;
     }
 }
