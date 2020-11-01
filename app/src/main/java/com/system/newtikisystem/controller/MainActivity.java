@@ -1,4 +1,4 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.system.newtikisystem.R;
 import com.system.newtikisystem.dao.UserDAO;
 import com.system.newtikisystem.entity.Productrating;
 import com.system.newtikisystem.entity.User;
