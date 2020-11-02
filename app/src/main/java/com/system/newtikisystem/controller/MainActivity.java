@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.dao.UserDAO;
-import com.system.newtikisystem.entity.Productrating;
 import com.system.newtikisystem.entity.User;
 
 
