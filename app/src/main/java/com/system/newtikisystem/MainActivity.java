@@ -2,6 +2,7 @@ package com.system.newtikisystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 textView3.setText("Null roi dm ");
             } else {
                 textView3.setText("Co du lieu roi");
+                Intent intent = new Intent(this, RateProductDialog.class);
+                startActivity(intent);
             }
         } catch (Exception e) {
             e.printStackTrace();
