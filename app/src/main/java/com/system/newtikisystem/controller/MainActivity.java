@@ -2,21 +2,21 @@ package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.dao.UserDAO;
-import com.system.newtikisystem.entity.Productrating;
 import com.system.newtikisystem.entity.User;
 
 
 public class MainActivity extends AppCompatActivity {
-    TextView  textView3;
+    TextView textView3;
     EditText textView1, textView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +27,17 @@ public class MainActivity extends AppCompatActivity {
         textView3 = findViewById(R.id.textView3);
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         UserDAO proDAO = new UserDAO();
         User product;
         try {
             product = proDAO.getData(textView1.getText().toString(), textView2.getText().toString());
-            if(product == null){
+            if (product == null) {
                 textView3.setText("Null roi dm ");
             } else {
                 textView3.setText("Co du lieu roi");
+                Intent intent = new Intent(this, ShoppingCart.class);
+                startActivity(intent);
             }
         } catch (Exception e) {
             e.printStackTrace();
