@@ -1,6 +1,5 @@
 package com.system.newtikisystem.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CartVi
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.shop_cart_layout, parent, false);
+        View view = inflater.inflate(R.layout.cart_item, parent, false);
         return new CartViewHolder(view);
     }
 

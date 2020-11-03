@@ -1,10 +1,13 @@
 package com.system.newtikisystem.controller;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.system.newtikisystem.R;
@@ -20,8 +23,11 @@ public class ShoppingCart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
-
         RecyclerView recyclerView = findViewById(R.id.cartRecyclerView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         ArrayList<CartItem> items = new ArrayList<>();
 
         for(int i = 1; i < 10; i++){
@@ -42,5 +48,15 @@ public class ShoppingCart extends AppCompatActivity {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

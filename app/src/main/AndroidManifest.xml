@@ -12,16 +12,17 @@
         android:theme="@style/Theme.NewTikiSystem">
         <activity
             android:name=".controller.MainActivity"
-            android:label="Login">
+            android:label="Login"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-
             android:name=".controller.ShoppingCart"
-            android:label="Shopping cart"></activity>
+            android:label="Shopping cart" />
     </application>
 
 </manifest>
