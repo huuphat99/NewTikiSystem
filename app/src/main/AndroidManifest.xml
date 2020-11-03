@@ -14,18 +14,19 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".controller.MainActivity">
 
         </activity>
         <activity
             android:name=".controller.ShoppingCart"
-            android:label="Shopping cart" />
+            android:label="Shopping cart" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -3,15 +3,15 @@ package com.system.newtikisystem.entity;
 public class CartItem {
     private int id;
     private String name;
-    private int imageId;
+    private String url;
     private int quantity;
     private int price;
     private int sale;
 
-    public CartItem(int id, String name, int imageId, int quantity, int price, int sale) {
+    public CartItem(int id, String name, String url, int quantity, int price, int sale) {
         this.id = id;
         this.name = name;
-        this.imageId = imageId;
+        this.url = url;
         this.quantity = quantity;
         this.price = price;
         this.sale = sale;
@@ -33,12 +33,12 @@ public class CartItem {
         this.name = name;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setUrl(int imageId) {
+        this.url = url;
     }
 
     public int getQuantity() {
@@ -70,7 +70,7 @@ public class CartItem {
         return "CartItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", imageId=" + imageId +
+                ", imageId=" + url +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", sale=" + sale +

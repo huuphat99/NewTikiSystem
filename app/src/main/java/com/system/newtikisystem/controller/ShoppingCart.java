@@ -31,23 +31,13 @@ public class ShoppingCart extends AppCompatActivity {
         ArrayList<CartItem> items = new ArrayList<>();
 
         for(int i = 1; i < 10; i++){
-            items.add(new CartItem(i, "Logitech" + i, getResId("i1", R.drawable.class), 2, i * 1000000, i* 1000000 - 500000));
+            items.add(new CartItem(i, "Logitech" + i, "https://product.hstatic.net/1000026716/product/gvn_log_g304_3df28cd60a48412b8fb1d2ff762dc6a9.png", 2, i * 1000000, i* 1000000 - 500000));
         }
 
         RecyclerAdapter adapter= new RecyclerAdapter(items);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-    }
-
-    public static int getResId(String resName, Class<?> c) {
-        try {
-            Field idField = c.getDeclaredField(resName);
-            return idField.getInt(idField);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
     }
 
     @Override

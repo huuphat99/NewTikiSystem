@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.CartItem;
 
@@ -34,7 +35,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CartVi
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        holder.cartItemImage.setImageResource(items.get(position).getImageId());
+        Picasso.get().load(items.get(position).getUrl()).into(holder.cartItemImage);
         holder.cartItemName.setText(items.get(position).getName());
         holder.cartItemPrice.setText(Integer.toString(items.get(position).getPrice()));
         holder.cartItemSalePrice.setText(Integer.toString(items.get(position).getSale()));
@@ -51,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CartVi
         ImageView cartItemImage;
         TextView cartItemName, cartItemPrice, cartItemSalePrice;
         EditText cartItemQuantity;
-        ImageButton decrease, increase, delete;
+        ImageButton decrease, increase;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
