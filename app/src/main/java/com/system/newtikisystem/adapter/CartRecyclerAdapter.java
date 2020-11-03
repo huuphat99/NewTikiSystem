@@ -17,11 +17,11 @@ import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CartViewHolder>{
+public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>{
 
     ArrayList<CartItem> items;
 
-    public RecyclerAdapter(ArrayList<CartItem> items){
+    public CartRecyclerAdapter(ArrayList<CartItem> items){
         this.items = items;
     }
 
@@ -56,10 +56,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CartVi
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            cartItemImage = itemView.findViewById(R.id.cartItemImage);
-            cartItemName = itemView.findViewById(R.id.cartItemName);
+            cartItemImage = itemView.findViewById(R.id.orderDetailItemImage);
+            cartItemName = itemView.findViewById(R.id.orderDetailItemName);
             cartItemPrice = itemView.findViewById(R.id.cartItemPrice);
-            cartItemSalePrice = itemView.findViewById(R.id.cartItemSalePrice);
+            cartItemSalePrice = itemView.findViewById(R.id.orderDetailItemPrice);
             cartItemQuantity = itemView.findViewById(R.id.cartItemQuantity);
             decrease = itemView.findViewById(R.id.cartItemDe);
             increase = itemView.findViewById(R.id.cartItemIn);

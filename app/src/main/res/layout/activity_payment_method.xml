@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="376dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -41,5 +42,15 @@
             android:layout_height="wrap_content"
             android:text="Credit card / Debit card" />
     </RadioGroup>
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.system.newtikisystem.controller.CheckoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        tools:layout="@layout/fragment_checkout_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

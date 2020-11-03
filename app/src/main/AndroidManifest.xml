@@ -11,10 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTikiSystem">
-        <activity android:name=".PaymentMethodActivity"></activity>
-        <activity
-            android:name=".ShippingAdressActivity"
-            android:label="Shipping address">
+        <activity android:name=".OrderDetailActivity"
+            android:label="Order detail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,17 +20,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home">
-        </activity>
-        <activity android:name=".controller.MainActivity">
-
+            android:name=".OrderHistoryActivity"
+            android:label="My history orders">
         </activity>
         <activity
-            android:name=".controller.ShoppingCart"
-            android:label="Shopping cart" >
-        </activity>
+            android:name=".PayCardActivity"
+            android:label="Credit Cart / Debit Cart" />
+        <activity
+            android:name=".OrderConfirmActivity"
+            android:label="Order confirmation" />
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:label="Payment method" />
+        <activity
+            android:name=".ShippingAdressActivity"
+            android:label="Shipping address" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" />
         <activity android:name=".controller.MainActivity" />
+        <activity
+            android:name=".controller.ShoppingCart"
+            android:label="Shopping cart"></activity>
     </application>
 
 </manifest>
