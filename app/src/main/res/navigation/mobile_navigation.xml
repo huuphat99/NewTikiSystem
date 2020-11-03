@@ -22,4 +22,29 @@
         android:name="com.system.newtikisystem.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_category"
+        android:name="com.system.newtikisystem.navigation_category"
+        android:label="fragment_navigation_category"
+        tools:layout="@layout/fragment_navigation_category" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.system.newtikisystem.navigation_search"
+        android:label="fragment_navigation_search"
+        tools:layout="@layout/fragment_navigation_search" />
+    <fragment
+        android:id="@+id/navigation_home3"
+        android:name="com.system.newtikisystem.navigation_home"
+        android:label="fragment_navigation_home"
+        tools:layout="@layout/fragment_navigation_home" />
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.system.newtikisystem.navigation_notification"
+        android:label="fragment_navigation_notification"
+        tools:layout="@layout/fragment_navigation_notification" />
+    <fragment
+        android:id="@+id/navigation_personal"
+        android:name="com.system.newtikisystem.navigation_personal"
+        android:label="fragment_navigation_personal"
+        tools:layout="@layout/fragment_navigation_personal" />
 </navigation>
