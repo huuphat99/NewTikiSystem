@@ -13,11 +13,7 @@
         android:theme="@style/Theme.NewTikiSystem">
         <activity android:name=".OrderDetailActivity"
             android:label="Order detail">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".OrderHistoryActivity"
@@ -41,7 +37,13 @@
         <activity android:name=".controller.MainActivity" />
         <activity
             android:name=".controller.ShoppingCart"
-            android:label="Shopping cart"></activity>
+            android:label="Shopping cart">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
