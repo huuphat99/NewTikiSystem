@@ -3,6 +3,7 @@ package com.system.newtikisystem.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +19,11 @@ import java.util.ArrayList;
 public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetailRecyclerAdapter.OrderDetailViewHolder> {
 
     ArrayList<CartItem> items;
+    private OnRateProductListener mOnRateProductListener;
 
-    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items) {
+    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items, OnRateProductListener onRateProductListener) {
         this.items = items;
+        this.mOnRateProductListener = onRateProductListener;
     }
 
     @NonNull
@@ -28,7 +31,7 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
     public OrderDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.order_detail_item, parent, false);
-        return new OrderDetailViewHolder(view);
+        return new OrderDetailViewHolder(view, mOnRateProductListener);
     }
 
     @Override
@@ -44,17 +47,32 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
         return items.size();
     }
 
-    public class OrderDetailViewHolder extends RecyclerView.ViewHolder {
+    public class OrderDetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView orderDetailItemImage;
         TextView orderDetailItemName, orderDetailItemPrice, orderDetailItemQuantity;
+        OnRateProductListener onRateProductListener;
+        Button rateDetailButton;
 
-        public OrderDetailViewHolder(@NonNull View itemView) {
+        public OrderDetailViewHolder(@NonNull View itemView, OnRateProductListener onRateProductListener) {
             super(itemView);
             orderDetailItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderDetailItemName = itemView.findViewById(R.id.orderDetailItemName);
             orderDetailItemPrice = itemView.findViewById(R.id.orderDetailItemPrice);
             orderDetailItemQuantity = itemView.findViewById(R.id.orderDetailItemQuantity);
+            rateDetailButton = itemView.findViewById(R.id.rateDetailButton);
+
+            this.onRateProductListener = onRateProductListener;
+            rateDetailButton.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onRateProductListener.onRateProductClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnRateProductListener {
+        void onRateProductClick(int position);
     }
 }

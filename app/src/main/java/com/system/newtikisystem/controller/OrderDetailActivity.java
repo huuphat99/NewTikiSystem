@@ -22,7 +22,7 @@ import com.system.newtikisystem.entity.PaymentMethods;
 
 import java.util.ArrayList;
 
-public class OrderDetailActivity extends AppCompatActivity {
+public class OrderDetailActivity extends AppCompatActivity implements OrderDetailRecyclerAdapter.OnRateProductListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         // TODO get first image of each product, products by order id
         items.add(new CartItem(20, "Logitech" + 20, "https://product.hstatic.net/1000026716/product/gvn_log_g304_3df28cd60a48412b8fb1d2ff762dc6a9.png", 2, 20 * 1000000, 20 * 1000000 - 500000));
 
-        OrderDetailRecyclerAdapter adapter = new OrderDetailRecyclerAdapter(items);
+        OrderDetailRecyclerAdapter adapter = new OrderDetailRecyclerAdapter(items, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -77,5 +77,11 @@ public class OrderDetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onRateProductClick(int position) {
+        Intent intent = new Intent();
     }
 }
