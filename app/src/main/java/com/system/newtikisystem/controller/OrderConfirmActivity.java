@@ -1,4 +1,4 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
+
+import com.system.newtikisystem.R;
 
 public class OrderConfirmActivity extends AppCompatActivity {
 

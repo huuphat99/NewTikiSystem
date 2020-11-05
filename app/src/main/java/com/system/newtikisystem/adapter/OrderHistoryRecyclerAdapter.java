@@ -3,29 +3,29 @@ package com.system.newtikisystem.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
-import com.system.newtikisystem.entity.CartItem;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.entity.Orders;
-import com.system.newtikisystem.entity.Products;
 
 import java.util.ArrayList;
 
 public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHistoryRecyclerAdapter.OrderHisViewHolder> {
 
     ArrayList<Orders> orderItems;
-    // get Product of order
-    String productNames ;
+    ArrayList<String> productNames;
+    Common common = new Common();
+    private OnViewDetailListener mOnViewDetailListener;
 
-    public OrderHistoryRecyclerAdapter(ArrayList<Orders> OrderItems, String productNames) {
+    public OrderHistoryRecyclerAdapter(ArrayList<Orders> OrderItems, ArrayList<String> productNames, OnViewDetailListener onViewDetailListener) {
         this.orderItems = OrderItems;
         this.productNames = productNames;
+        this.mOnViewDetailListener = onViewDetailListener;
     }
 
     @NonNull
@@ -33,14 +33,14 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
     public OrderHisViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.order_history_item, parent, false);
-        return new OrderHisViewHolder(view);
+        return new OrderHisViewHolder(view, mOnViewDetailListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderHisViewHolder holder, int position) {
-        holder.orderHisProductsName.setText(productNames);
+        holder.orderHisProductsName.setText(productNames.get(position));
         holder.orderHisId.setText(Integer.toString(orderItems.get(position).getId()));
-        holder.orderHisOrderDate.setText((CharSequence) orderItems.get(position).getOrderTime());
+        holder.orderHisOrderDate.setText(common.changeDateToString(orderItems.get(position).getOrderTime()));
         String status = orderItems.get(position).isStatus() == true ? "Successful delivery" : "Shipping";
         holder.orderHisStatus.setText(status);
     }
@@ -50,16 +50,32 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
         return orderItems.size();
     }
 
-    public class OrderHisViewHolder extends RecyclerView.ViewHolder {
+    public class OrderHisViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView orderHisProductsName, orderHisId, orderHisOrderDate, orderHisStatus;
+        Button viewDetailButton;
+        OnViewDetailListener onViewDetailListener;
 
-        public OrderHisViewHolder(@NonNull View itemView) {
+        public OrderHisViewHolder(@NonNull View itemView, OnViewDetailListener onViewDetailListener) {
             super(itemView);
-            orderHisProductsName = itemView.findViewById(R.id.order_his_name);
-            orderHisId = itemView.findViewById(R.id.order_his_id);
-            orderHisOrderDate = itemView.findViewById(R.id.order_his_order_date);
-            orderHisStatus = itemView.findViewById(R.id.order_his_status);
+            orderHisProductsName = itemView.findViewById(R.id.order_history_item_name);
+            orderHisId = itemView.findViewById(R.id.order_history_item_id);
+            orderHisOrderDate = itemView.findViewById(R.id.order_history_item_order_date);
+            orderHisStatus = itemView.findViewById(R.id.order_history_item_status);
+            viewDetailButton = itemView.findViewById(R.id.viewDetailButton);
+
+            this.onViewDetailListener = onViewDetailListener;
+            viewDetailButton.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onViewDetailListener.onViewDetailClick(getAdapterPosition());
         }
     }
+
+    public interface OnViewDetailListener {
+        void onViewDetailClick(int position);
+    }
 }
+

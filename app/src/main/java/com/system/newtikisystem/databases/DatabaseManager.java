@@ -19,7 +19,7 @@ public class DatabaseManager {
     private  static String ip = "34.92.72.160";//? ip nao d
     private static String port = "1433";
     private static String Classes = "net.sourceforge.jtds.jdbc.Driver"; // connection name nay ko phai cua sql server anh xem thay giup em voi
-    private static String database = "testDB";
+    private static String database = "PRM391";
     private static String username = "sa";
     private static String password = "PhatFU@2020";
 

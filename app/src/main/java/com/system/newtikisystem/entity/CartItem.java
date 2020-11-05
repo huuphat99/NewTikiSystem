@@ -8,6 +8,9 @@ public class CartItem {
     private int price;
     private int sale;
 
+    public CartItem() {
+    }
+
     public CartItem(int id, String name, String url, int quantity, int price, int sale) {
         this.id = id;
         this.name = name;
@@ -37,7 +40,7 @@ public class CartItem {
         return url;
     }
 
-    public void setUrl(int imageId) {
+    public void setUrl(String url) {
         this.url = url;
     }
 

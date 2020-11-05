@@ -15,11 +15,11 @@ import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
 
-public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetailRecyclerAdapter.OrderDetailViewHolder>{
+public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetailRecyclerAdapter.OrderDetailViewHolder> {
 
     ArrayList<CartItem> items;
 
-    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items){
+    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items) {
         this.items = items;
     }
 
