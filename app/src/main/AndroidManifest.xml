@@ -3,6 +3,8 @@
     package="com.system.newtikisystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -17,15 +19,19 @@
             android:windowSoftInputMode="adjustPan"
             android:name=".RateProductDialog">
         </activity>
-        <activity android:name=".MainActivity">
-        android:theme="@style/Theme.NewTikiSystem">
+        <activity android:name=".MainActivity"
+        android:theme="@style/Theme.NewTikiSystem" />
         <activity android:name=".OrderDetailActivity"
             android:label="Order detail">
-
         </activity>
         <activity
             android:name=".OrderHistoryActivity"
             android:label="My history orders">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PayCardActivity"
@@ -46,11 +52,7 @@
         <activity
             android:name=".controller.ShoppingCart"
             android:label="Shopping cart">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

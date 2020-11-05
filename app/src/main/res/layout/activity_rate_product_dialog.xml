@@ -9,7 +9,7 @@
     tools:context=".RateProductDialog">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/rateProductImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -19,17 +19,17 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/rateProductName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
         android:layout_marginTop="44dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/rateProductImage"
+        app:layout_constraintTop_toTopOf="@+id/rateProductImage" />
 
     <RatingBar
-        android:id="@+id/ratingBar2"
+        android:id="@+id/rateBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -42,14 +42,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="436dp"
-        android:text="Button"
+        android:text="Comfirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/rateProductComment"
         android:layout_width="307dp"
         android:layout_height="273dp"
         android:layout_marginTop="136dp"
@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/rateProductImage"
         tools:layout_editor_absoluteX="-145dp"
         tools:layout_editor_absoluteY="-6dp" />
 
