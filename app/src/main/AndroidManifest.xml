@@ -19,17 +19,38 @@
         </activity>
         <activity android:name=".MainActivity">
         android:theme="@style/Theme.NewTikiSystem">
+        <activity android:name=".OrderDetailActivity"
+            android:label="Order detail">
+
+        </activity>
+        <activity
+            android:name=".OrderHistoryActivity"
+            android:label="My history orders">
+        </activity>
+        <activity
+            android:name=".PayCardActivity"
+            android:label="Credit Cart / Debit Cart" />
+        <activity
+            android:name=".OrderConfirmActivity"
+            android:label="Order confirmation" />
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:label="Payment method" />
+        <activity
+            android:name=".ShippingAdressActivity"
+            android:label="Shipping address" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home">
+            android:label="@string/title_activity_home" />
+        <activity android:name=".controller.MainActivity" />
+        <activity
+            android:name=".controller.ShoppingCart"
+            android:label="Shopping cart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".controller.MainActivity">
-
         </activity>
     </application>
 

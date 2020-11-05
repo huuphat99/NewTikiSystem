@@ -1,22 +1,23 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.system.newtikisystem.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link navigation_home#newInstance} factory method to
+ * Use the {@link CheckoutBottom#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class navigation_home extends Fragment {
+public class CheckoutBottom extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +28,7 @@ public class navigation_home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public navigation_home() {
+    public CheckoutBottom() {
         // Required empty public constructor
     }
 
@@ -37,21 +38,16 @@ public class navigation_home extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment navigation_home.
+     * @return A new instance of fragment CheckoutBottom.
      */
     // TODO: Rename and change types and number of parameters
-    public static navigation_home newInstance(String param1, String param2) {
-        navigation_home fragment = new navigation_home();
+    public static CheckoutBottom newInstance(String param1, String param2) {
+        CheckoutBottom fragment = new CheckoutBottom();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -67,6 +63,6 @@ public class navigation_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation_home, container, false);
+        return inflater.inflate(R.layout.fragment_checkout_bottom, container, false);
     }
 }
