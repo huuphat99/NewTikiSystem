@@ -17,12 +17,14 @@ import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
 
-public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>{
+public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder> {
 
     ArrayList<CartItem> items;
+    OnHandleCartItemListener onHandleCartItemListener;
 
-    public CartRecyclerAdapter(ArrayList<CartItem> items){
+    public CartRecyclerAdapter(ArrayList<CartItem> items, OnHandleCartItemListener onHandleCartItemListener) {
         this.items = items;
+        this.onHandleCartItemListener = onHandleCartItemListener;
     }
 
     @NonNull
@@ -30,7 +32,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.cart_item, parent, false);
-        return new CartViewHolder(view);
+        return new CartViewHolder(view, onHandleCartItemListener);
     }
 
     @Override
@@ -52,9 +54,10 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         ImageView cartItemImage;
         TextView cartItemName, cartItemPrice, cartItemSalePrice;
         EditText cartItemQuantity;
-        ImageButton decrease, increase;
+        ImageButton decrease, increase, delete;
+        OnHandleCartItemListener onHandleCartItemListener;
 
-        public CartViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull View itemView, OnHandleCartItemListener onHandleCartItemListener) {
             super(itemView);
             cartItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             cartItemName = itemView.findViewById(R.id.orderDetailItemName);
@@ -63,7 +66,20 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
             cartItemQuantity = itemView.findViewById(R.id.cartItemQuantity);
             decrease = itemView.findViewById(R.id.cartItemDe);
             increase = itemView.findViewById(R.id.cartItemIn);
-            decrease = itemView.findViewById(R.id.cartItemDelete);
+            delete = itemView.findViewById(R.id.cartItemDelete);
+
+            this.onHandleCartItemListener = onHandleCartItemListener;
+            increase.setOnClickListener(v -> onHandleCartItemListener.onIncreaseQuantityClick(getAdapterPosition()));
+            decrease.setOnClickListener(v -> onHandleCartItemListener.onDecreaseQuantityClick(getAdapterPosition()));
+            delete.setOnClickListener(v -> onHandleCartItemListener.onDeleteClick(getAdapterPosition()));
         }
+    }
+
+    public interface OnHandleCartItemListener {
+        void onDecreaseQuantityClick(int position);
+
+        void onIncreaseQuantityClick(int position);
+
+        void onDeleteClick(int position);
     }
 }

@@ -5,24 +5,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
-import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.adapter.OrderDetailRecyclerAdapter;
 import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.dao.OrderDAO;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Orders;
 import com.system.newtikisystem.entity.PaymentMethods;
+import com.system.newtikisystem.entity.Productrating;
 
 import java.util.ArrayList;
 
 public class OrderDetailActivity extends AppCompatActivity implements OrderDetailRecyclerAdapter.OnRateProductListener {
+
+    ArrayList<CartItem> items;
+    OrderDAO dao = new OrderDAO();
+    OrderDetailRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +43,15 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        OrderDAO dao = new OrderDAO();
         Common common = new Common();
         RecyclerView recyclerView = findViewById(R.id.order_detail_recycler_view);
         Intent intent = getIntent();
         int orderID = intent.getIntExtra("orderId", 0);
 
         // set data for recycler view
-        ArrayList<CartItem> items = dao.getCartItemsByOrder(orderID);
-        // TODO get first image of each product, products by order id
-        items.add(new CartItem(20, "Logitech" + 20, "https://product.hstatic.net/1000026716/product/gvn_log_g304_3df28cd60a48412b8fb1d2ff762dc6a9.png", 2, 20 * 1000000, 20 * 1000000 - 500000));
+        items = dao.getCartItemsByOrder(orderID);
 
-        OrderDetailRecyclerAdapter adapter = new OrderDetailRecyclerAdapter(items, this);
+        adapter = new OrderDetailRecyclerAdapter(items, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -82,6 +91,44 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
 
     @Override
     public void onRateProductClick(int position) {
-        Intent intent = new Intent();
+        CartItem item = items.get(position);
+        final Dialog rateDialog = new Dialog(this);
+        rateDialog.setCanceledOnTouchOutside(false);
+        rateDialog.setContentView(R.layout.activity_rate_product_dialog);
+        ImageButton cancelRateDialog = rateDialog.findViewById(R.id.cancelRateDialog);
+        TextView rateProductName = rateDialog.findViewById(R.id.rateProductName);
+        ImageView rateProductImage = rateDialog.findViewById(R.id.rateProductImage);
+        Button rateConfirmButton = rateDialog.findViewById(R.id.rateConfirmButton);
+        EditText rateContent = rateDialog.findViewById(R.id.rateProductContent);
+        RatingBar rateBar = rateDialog.findViewById(R.id.rateBar);
+
+
+        // fill data
+        Picasso.get().load(item.getUrl()).into(rateProductImage);
+        rateProductName.setText(item.getName());
+
+        cancelRateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rateDialog.dismiss();
+            }
+        });
+
+        rateConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int productId = item.getId();
+                String content = rateContent.getText().toString();
+                float stars = rateBar.getRating();
+                String email = "123123@gmail.com";
+                dao.rateProduct(new Productrating(productId, email, content, stars));
+                Toast toast = Toast.makeText(getApplicationContext(), "Successful rating", Toast.LENGTH_LONG);
+                toast.show();
+                rateDialog.dismiss();
+                recreate();
+            }
+        });
+
+        rateDialog.show();
     }
 }

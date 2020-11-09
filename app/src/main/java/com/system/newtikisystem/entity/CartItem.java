@@ -1,6 +1,8 @@
 package com.system.newtikisystem.entity;
 
-public class CartItem {
+import java.io.Serializable;
+
+public class CartItem implements Serializable {
     private int id;
     private String name;
     private String url;

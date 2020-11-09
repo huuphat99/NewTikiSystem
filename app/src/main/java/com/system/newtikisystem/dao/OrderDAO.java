@@ -4,6 +4,7 @@ import com.system.newtikisystem.databases.DatabaseManager;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Orders;
 import com.system.newtikisystem.entity.PaymentMethods;
+import com.system.newtikisystem.entity.Productrating;
 import com.system.newtikisystem.entity.Products;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,6 @@ public class OrderDAO extends DatabaseManager {
 
     public ArrayList<Orders> getOrdersByEmail(String email) {
         ArrayList<Orders> orders = new ArrayList<>();
-        Statement statement = null;
         try {
             String query = "select * from orders where email = ?";
             connection = connect();
@@ -46,9 +46,24 @@ public class OrderDAO extends DatabaseManager {
         return orders;
     }
 
+    public void rateProduct(Productrating productrating) {
+        try {
+            String query = "insert into productrating values (?,?,?,?)";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, productrating.getProductid());
+            ps.setString(2, productrating.getEmail());
+            ps.setString(3, productrating.getRatingContent());
+            ps.setFloat(4, productrating.getStars());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Orders getOrderById(int id) {
         ArrayList<Orders> orders = new ArrayList<>();
-        Statement statement;
         try {
             String query = "select * from orders where id = ?";
             connection = connect();
@@ -75,7 +90,6 @@ public class OrderDAO extends DatabaseManager {
 
     public ArrayList<Products> getProductsByOrder(int orderId) {
         ArrayList<Products> products = new ArrayList<>();
-        Statement statement = null;
         try {
             String query = "select p.* from \n" +
                     "  products p \n" +
@@ -120,7 +134,6 @@ public class OrderDAO extends DatabaseManager {
 
     public PaymentMethods getPaymentMethodById(int id) {
         ArrayList<PaymentMethods> paymentMethods = new ArrayList<>();
-        Statement statement = null;
         try {
             String query = "select * from paymentmethods where id = ?";
             connection = connect();
@@ -141,7 +154,6 @@ public class OrderDAO extends DatabaseManager {
 
     public ArrayList<CartItem> getCartItemsByOrder(int orderId) {
         ArrayList<CartItem> cartItems = new ArrayList<>();
-        Statement statement = null;
         try {
             String query = "select top 1 with ties p.id, p.name,pp.imageurl, od.quantity, p.price, p.sale from \n" +
                     "  orders o \n" +
@@ -168,5 +180,26 @@ public class OrderDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return cartItems;
+    }
+
+    public boolean isRatedPosition(String email, int productId) {
+        String checkEmail = null;
+        try {
+            String query = "select * from productrating where email = ? and productid = ?";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setInt(2, productId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                checkEmail = rs.getString(2);
+            }
+            if (checkEmail != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

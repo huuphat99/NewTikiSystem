@@ -5,13 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RateProductDialog">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/rateProductImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,13 +19,15 @@
 
     <TextView
         android:id="@+id/rateProductName"
-        android:layout_width="wrap_content"
+        android:layout_width="222dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="3"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/rateProductImage"
-        app:layout_constraintTop_toTopOf="@+id/rateProductImage" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
         android:id="@+id/rateBar"
@@ -38,26 +39,28 @@
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/rateConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="436dp"
-        android:text="Comfirm"
+        android:text="Confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <EditText
-        android:id="@+id/rateProductComment"
+        android:id="@+id/rateProductContent"
         android:layout_width="307dp"
         android:layout_height="273dp"
         android:layout_marginTop="136dp"
         android:background="@drawable/edit_tex_background"
         android:gravity="top|left"
+        android:hint="Write your review"
         android:inputType="textMultiLine"
         android:lines="14"
         android:overScrollMode="always"
+        android:padding="10dp"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical"
         android:scrollHorizontally="false"
@@ -66,6 +69,7 @@
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
+
 
     <View
         android:id="@+id/divider"
@@ -79,5 +83,13 @@
         app:layout_constraintTop_toBottomOf="@+id/rateProductImage"
         tools:layout_editor_absoluteX="-145dp"
         tools:layout_editor_absoluteY="-6dp" />
+
+    <ImageButton
+        android:id="@+id/cancelRateDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

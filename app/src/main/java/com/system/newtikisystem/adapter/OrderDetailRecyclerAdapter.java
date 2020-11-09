@@ -1,17 +1,21 @@
 package com.system.newtikisystem.adapter;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.dao.OrderDAO;
 import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
@@ -19,11 +23,21 @@ import java.util.ArrayList;
 public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetailRecyclerAdapter.OrderDetailViewHolder> {
 
     ArrayList<CartItem> items;
-    private OnRateProductListener mOnRateProductListener;
+    private OnRateProductListener onRateProductListener;
+    private boolean isRated;
+    OrderDAO dao = new OrderDAO();
+
+    public boolean isRated() {
+        return isRated;
+    }
+
+    public void setRated(boolean rated) {
+        isRated = rated;
+    }
 
     public OrderDetailRecyclerAdapter(ArrayList<CartItem> items, OnRateProductListener onRateProductListener) {
         this.items = items;
-        this.mOnRateProductListener = onRateProductListener;
+        this.onRateProductListener = onRateProductListener;
     }
 
     @NonNull
@@ -31,7 +45,7 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
     public OrderDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.order_detail_item, parent, false);
-        return new OrderDetailViewHolder(view, mOnRateProductListener);
+        return new OrderDetailViewHolder(view, onRateProductListener);
     }
 
     @Override
@@ -40,6 +54,12 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
         holder.orderDetailItemName.setText(items.get(position).getName());
         holder.orderDetailItemPrice.setText(Integer.toString(items.get(position).getPrice()));
         holder.orderDetailItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
+        int productId = items.get(position).getId();
+        String email = "123123@gmail.com";
+        if (dao.isRatedPosition(email, productId)) {
+            holder.rateDetailButton.setClickable(false);
+            holder.rateDetailButton.setText("Rated");
+        }
     }
 
     @Override
