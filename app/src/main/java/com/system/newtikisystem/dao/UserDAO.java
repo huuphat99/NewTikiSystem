@@ -11,28 +11,32 @@ import java.sql.Statement;
 
 public class UserDAO extends DatabaseManager {
 
-    PreparedStatement ps = null;
-    ResultSet rs = null;
 
-    public User getData(String username, String password) throws Exception {
+
+    public User checkLogin(String username, String password){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            Statement statement = null;
             try {
-                String query = "SELECT TOP (1000) [id]\n" +
-                        "      ,[username]\n" +
-                        "      ,[password]\n" +
-                        "  FROM [testdb].[dbo].[user] where username = ? and password = ?";
+                String query = "SELECT [email]\n" +
+                        "      ,[pass_word]\n" +
+                        "      ,[name]\n" +
+                        "      ,[phone]\n" +
+                        "      ,[dob]\n" +
+                        "  FROM [PRM391].[dbo].[users] where email = ? and pass_word = ?;";
                 connection = connect();
                 ps = connection.prepareStatement(query);
                 ps.setString(1, username);
                 ps.setString(2, password);
                 rs = ps.executeQuery();
                 while (rs.next()){
-                    User product = new User();
-                    product.setId(rs.getInt(1));
-                    product.setUsername(rs.getString(2));
-                    product.setPassword(rs.getString(3));
-                    return product;
+                    User user = new User();
+                    user.setEmail(rs.getString(1));
+                    user.setPass_word(rs.getString(2));
+                    user.setName(rs.getString(3));
+                    user.setPhone(rs.getString(4));
+                    user.setDob(rs.getDate(5));
+                    return user;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -41,5 +45,50 @@ public class UserDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean checkUserForget(String email){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String query = "SELECT[email]\n" +
+                    "      ,[pass_word]\n" +
+                    "      ,[name]\n" +
+                    "      ,[phone]\n" +
+                    "      ,[dob]\n" +
+                    "  FROM [PRM391].[dbo].[users] where email = ?";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                User user = new User();
+                user.setEmail(rs.getString(1));
+                user.setPass_word(rs.getString(2));
+                user.setName(rs.getString(3));
+                user.setPhone(rs.getString(4));
+                user.setDob(rs.getDate(5));
+                return true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public int updatePassword(String username, String password){
+        PreparedStatement ps = null;
+
+        try {
+            String query = "UPDATE [PRM391].[dbo].[users] SET pass_word = ? WHERE email = ?";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, password);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
