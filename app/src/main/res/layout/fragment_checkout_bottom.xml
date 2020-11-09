@@ -10,11 +10,12 @@
     tools:context=".controller.CheckoutBottom">
 
     <Button
-        android:id="@+id/payButton"
+        android:id="@+id/btnConfirmAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onNextStepOrderClick"
         android:text="Pay order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,15 +29,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total payments"
-        app:layout_constraintStart_toStartOf="@+id/payButton"
-        app:layout_constraintTop_toTopOf="@+id/textTotalPrice" />
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmAddress"
+        app:layout_constraintTop_toTopOf="@+id/txtView23" />
 
     <TextView
-        android:id="@+id/textTotalPrice"
+        android:id="@+id/txtView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="totalPrice"
-        app:layout_constraintEnd_toEndOf="@+id/payButton"
+        android:textColor="#FF0000"
+        app:layout_constraintEnd_toEndOf="@+id/btnConfirmAddress"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

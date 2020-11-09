@@ -99,7 +99,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
         TextView rateProductName = rateDialog.findViewById(R.id.rateProductName);
         ImageView rateProductImage = rateDialog.findViewById(R.id.rateProductImage);
         Button rateConfirmButton = rateDialog.findViewById(R.id.rateConfirmButton);
-        EditText rateContent = rateDialog.findViewById(R.id.rateProductContent);
+        EditText rateContent = rateDialog.findViewById(R.id.edtCardNumber);
         RatingBar rateBar = rateDialog.findViewById(R.id.rateBar);
 
 

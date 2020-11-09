@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTikiSystem">
-        <activity android:name=".controller.ProductDetailActivity"></activity>
+        <activity android:name=".controller.EmptyCartActivity"></activity>
+        <activity android:name=".controller.ProductDetailActivity" />
         <activity
             android:name=".controller.OrderDetailActivity"
             android:label="Order detail" />
@@ -32,16 +33,16 @@
             android:label="Shipping address" />
         <activity
             android:name=".controller.HomeActivity"
-            android:label="@string/title_activity_home" />
-        <activity android:name=".controller.MainActivity"></activity>
-        <activity
-            android:name=".controller.ShoppingCart"
-            android:label="Shopping cart">
+            android:label="@string/title_activity_home"></activity>
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".controller.ShoppingCart"
+            android:label="Shopping cart"></activity>
     </application>
+
 </manifest>

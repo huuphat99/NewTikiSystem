@@ -25,17 +25,36 @@ public class Constants {
     }
 
     public static class personalCart {
-        public static ArrayList<PersonalCartItems> getData() {
+        public static ArrayList<PersonalCartItems> getDataCart() {
             ArrayList<PersonalCartItems> listPersonalCartItems = new ArrayList<>();
             ArrayList<CartItem> items = new ArrayList<>();
 
             for (int i = 1; i < 5; i++) {
                 items.add(new CartItem(i, "Logitech" + i, "https://product.hstatic.net/1000026716/product/gvn_log_g304_3df28cd60a48412b8fb1d2ff762dc6a9.png", 2, i * 1000000, i * 1000000 - 500000));
             }
-            listPersonalCartItems.add(new PersonalCartItems("123123@gmail.com", items));
+            listPersonalCartItems.add(new PersonalCartItems(accountSave.emailAccount, items));
             return listPersonalCartItems;
         }
 
-        public static ArrayList<PersonalCartItems> listPersonalCartItems = getData();
+        public static PersonalCartItems getCartOfUser() {
+            PersonalCartItems pCart = new PersonalCartItems();
+            String email = accountSave.emailAccount;
+            for (PersonalCartItems p : personalCart.listPersonalCartItems) {
+                if (p.getEmail() == email) {
+                    pCart = p;
+                }
+            }
+            return pCart;
+        }
+
+        public static int totalCost() {
+            int totalPrice = 0;
+            for (CartItem item : getCartOfUser().getCartItems()) {
+                totalPrice += item.getSale() * item.getQuantity();
+            }
+            return totalPrice;
+        }
+
+        public static ArrayList<PersonalCartItems> listPersonalCartItems = getDataCart();
     }
 }

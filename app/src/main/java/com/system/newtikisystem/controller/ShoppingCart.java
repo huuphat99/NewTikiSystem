@@ -5,24 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.common.Constants;
-import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.PersonalCartItems;
-
-import java.util.ArrayList;
 
 public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapter.OnHandleCartItemListener {
 
     PersonalCartItems pCart;
-    int totalPrice = 0;
+    int totalCost = Constants.personalCart.totalCost();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +31,11 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
         getSupportActionBar().setHomeButtonEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        for (PersonalCartItems p : Constants.personalCart.listPersonalCartItems) {
-            if (p.getEmail() == "123123@gmail.com") {
-                pCart = p;
-            }
+        pCart = Constants.personalCart.getCartOfUser();
+
+        if (pCart.getCartItems().size() == 0) {
+            Intent intent = new Intent(this, EmptyCartActivity.class);
+            startActivity(intent);
         }
 
         CartRecyclerAdapter adapter = new CartRecyclerAdapter(pCart.getCartItems(), this);
@@ -44,14 +43,17 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        for (CartItem item : pCart.getCartItems()) {
-            totalPrice += item.getSale() * item.getQuantity();
-        }
-
+        TextView numberItemInCart = findViewById(R.id.numberItemInCart);
+        numberItemInCart.setText(Integer.toString(pCart.getCartItems().size()));
         TextView textProvisionalPrice = findViewById(R.id.textProvisionalPrice);
-        textProvisionalPrice.setText(Integer.toString(totalPrice) + " đ");
-        TextView textTotalPrice = findViewById(R.id.textTotalPrice);
-        textTotalPrice.setText(Integer.toString(totalPrice) + " đ");
+        textProvisionalPrice.setText(totalCost + " đ");
+        TextView textTotalPrice = findViewById(R.id.txtView23);
+        textTotalPrice.setText(totalCost + " đ");
+    }
+
+    public void onNextStepOrderClick(View view) {
+        Intent intent = new Intent(this, ShippingAddressActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -67,8 +69,13 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
     @Override
     public void onDecreaseQuantityClick(int position) {
         int quantity = pCart.getCartItems().get(position).getQuantity();
-        pCart.getCartItems().get(position).setQuantity(quantity - 1);
-        recreate();
+        if (quantity != 1) {
+            pCart.getCartItems().get(position).setQuantity(quantity - 1);
+            recreate();
+        } else {
+            pCart.getCartItems().remove(position);
+            recreate();
+        }
     }
 
     @Override

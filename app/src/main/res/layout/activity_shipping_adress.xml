@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shippingAddress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.ShippingAddressActivity">
 
     <TextView
-        android:id="@+id/textTotalPrice"
+        android:id="@+id/txtView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,8 +25,8 @@
         android:layout_marginTop="40dp"
         android:text="Full name"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textTotalPrice"
-        app:layout_constraintTop_toBottomOf="@+id/textTotalPrice" />
+        app:layout_constraintStart_toStartOf="@+id/txtView23"
+        app:layout_constraintTop_toBottomOf="@+id/txtView23" />
 
     <TextView
         android:id="@+id/textView5"
@@ -34,11 +35,11 @@
         android:layout_marginTop="25dp"
         android:text="Phone number"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/edtShipName"
+        app:layout_constraintTop_toBottomOf="@+id/edtShipName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edtShipName"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -50,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/edtShipPhone"
         android:layout_width="374dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -58,12 +59,12 @@
         android:hint="Enter your phone number"
         android:inputType="textPersonName"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtShipName"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/edtShipAddress"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -71,7 +72,7 @@
         android:hint="Enter your address"
         android:inputType="textPersonName"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintEnd_toEndOf="@+id/edtShipPhone"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textProvisionalPrice" />
 
@@ -82,16 +83,17 @@
         android:layout_marginTop="25dp"
         android:text="Shipping address"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintStart_toStartOf="@+id/edtShipPhone"
+        app:layout_constraintTop_toBottomOf="@+id/edtShipPhone" />
 
     <Button
-        android:id="@+id/payButton"
+        android:id="@+id/btnConfirmAddress"
         android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:onClick="onConfirmAddressClick"
         android:text="Shipp to this address"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName4"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintEnd_toEndOf="@+id/edtShipAddress"
+        app:layout_constraintStart_toStartOf="@+id/edtShipAddress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

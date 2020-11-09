@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 Constants.statusLogin.checkLogin = Islogin;
                 Constants.accountSave.emailAccount = txtUsername.getText().toString();
                 if (Constants.statusLogin.checkLogin) {
-                    Intent intent = new Intent(MainActivity.this, OrderHistoryActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ShoppingCart.class);
                     startActivity(intent);
                     Log.i("message: ", "da login");
                     Toast.makeText(this, "Logged in", Toast.LENGTH_LONG).show();

@@ -6,6 +6,10 @@ public class PersonalCartItems {
     private String email;
     private ArrayList<CartItem> cartItems;
 
+    public PersonalCartItems() {
+
+    }
+
     public PersonalCartItems(String email, ArrayList<CartItem> cartItems) {
         this.email = email;
         this.cartItems = cartItems;
