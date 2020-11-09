@@ -53,42 +53,42 @@ public class MainActivity extends AppCompatActivity {
         imageSliderModelList.add(new ImageSliderModel(R.drawable.slideshow_4));
         imageSliderModelList.add(new ImageSliderModel(R.drawable.slideshow_1));
 
-        sliderView.setSliderAdapter(new ImageSliderAdapter(this,imageSliderModelList));
+       // sliderView.setSliderAdapter(new ImageSliderAdapter(this,imageSliderModelList));
 
         //top sale
         topSaleRecyclerView = findViewById(R.id.topSaleRecycler);
-
-        topSaleProductList = new ArrayList<>();
-        topSaleProductList.add(new Product(1,R.drawable.dell1));
-        topSaleProductList.add(new Product(2,R.drawable.dell2));
-        topSaleProductList.add(new Product(3,R.drawable.dell1));
-        topSaleProductList.add(new Product(4,R.drawable.dell2));
-        topSaleProductList.add(new Product(4,R.drawable.dell1));
-        topSaleProductList.add(new Product(4,R.drawable.dell2));
+//
+//        topSaleProductList = new ArrayList<>();
+//        topSaleProductList.add(new Product(1,R.drawable.dell1));
+//        topSaleProductList.add(new Product(2,R.drawable.dell2));
+//        topSaleProductList.add(new Product(3,R.drawable.dell1));
+//        topSaleProductList.add(new Product(4,R.drawable.dell2));
+//        topSaleProductList.add(new Product(4,R.drawable.dell1));
+//        topSaleProductList.add(new Product(4,R.drawable.dell2));
         setTopSaleRecycler((ArrayList<Product>) topSaleProductList);
 
         //topNew
         topNewRecyclerView = findViewById(R.id.topNewRecycler);
 
-        topNewProductList = new ArrayList<>();
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList = new ArrayList<>();
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+//        topNewProductList.add(new Product(1,R.drawable.lenovo1));
         setTopNewRecycler((ArrayList<Product>) topNewProductList);
 
         //top Sell
         topSellRecyclerView = findViewById(R.id.topSellRecycler);
 
-        topSellProductList = new ArrayList<>();
-        topSellProductList.add(new Product(1,R.drawable.msi1));
-        topSellProductList.add(new Product(2,R.drawable.msi1));
-        topSellProductList.add(new Product(3,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
+//        topSellProductList = new ArrayList<>();
+//        topSellProductList.add(new Product(1,R.drawable.msi1));
+//        topSellProductList.add(new Product(2,R.drawable.msi1));
+//        topSellProductList.add(new Product(3,R.drawable.msi1));
+//        topSellProductList.add(new Product(4,R.drawable.msi1));
+//        topSellProductList.add(new Product(4,R.drawable.msi1));
+//        topSellProductList.add(new Product(4,R.drawable.msi1));
         setTopSellRecycler((ArrayList<Product>) topSellProductList);
 
         //top sell1

@@ -1,6 +1,7 @@
 package com.system.newtikisystem.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.Product;
 
@@ -36,8 +38,17 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.To
 
     @Override
     public void onBindViewHolder(@NonNull TopSaleProductViewHolder holder, int position) {
-
-        holder.topSaleImageView.setImageResource(productsList.get(position).getImageurl());
+        //holder.topSaleImageView.setImageResource(productsList.get(position).getAvatar());
+        Picasso.get().load(productsList.get(position).getAvatar()).into(holder.topSaleImageView);
+        int productId = productsList.get(position).getId();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,ProductDetailActivity.class);
+                intent.putExtra("productId",productId);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.smarteist.autoimageslider.SliderViewAdapter;
+import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.ImageSliderModel;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public class ProductImageSliderAdapter extends SliderViewAdapter<SliderViewHolder> {
 
     Context context;
-    List<ImageSliderModel> imageSliderModelList;
+    List<String> imageSliderModelList;
 
-    public ProductImageSliderAdapter(Context context, List<ImageSliderModel> imageSliderModelList) {
+    public ProductImageSliderAdapter(Context context, List<String> imageSliderModelList) {
         this.context = context;
         this.imageSliderModelList = imageSliderModelList;
     }
@@ -29,8 +30,8 @@ public class ProductImageSliderAdapter extends SliderViewAdapter<SliderViewHolde
 
     @Override
     public void onBindViewHolder(SliderViewHolder viewHolder, int position) {
-        viewHolder.sliderImageView.setImageResource(imageSliderModelList.get(position).getImage());
-
+       /// viewHolder.sliderImageView.setImageResource(imageSliderModelList.get(position).getImage());
+        Picasso.get().load(imageSliderModelList.get(position)).into(viewHolder.sliderImageView);
     }
 
     @Override

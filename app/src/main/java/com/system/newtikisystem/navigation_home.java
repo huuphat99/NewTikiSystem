@@ -16,9 +16,13 @@ import android.view.ViewGroup;
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.controller.ImageSliderAdapter;
 import com.system.newtikisystem.controller.TopProductAdapter;
+import com.system.newtikisystem.dao.AdDAO;
+import com.system.newtikisystem.dao.ProductDAO;
+import com.system.newtikisystem.entity.Advertisement;
 import com.system.newtikisystem.entity.ImageSliderModel;
 import com.system.newtikisystem.entity.Product;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +43,7 @@ public class navigation_home extends Fragment {
     private String mParam2;
 
     SliderView sliderView;
-    List<ImageSliderModel> imageSliderModelList;
+    List<Advertisement> imageSliderModelList;
 
     //top sale
     RecyclerView topSaleRecyclerView;
@@ -73,47 +77,30 @@ public class navigation_home extends Fragment {
         //ads auto slider
         imageSliderModelList = new ArrayList<>();
         sliderView = getView().findViewById(R.id.imageSlider);
+        AdDAO adDAO = new AdDAO();
 
-        imageSliderModelList.add(new ImageSliderModel(R.drawable.slideshow_1));
-        imageSliderModelList.add(new ImageSliderModel(R.drawable.slideshow_4));
-        imageSliderModelList.add(new ImageSliderModel(R.drawable.slideshow_1));
+        imageSliderModelList = adDAO.getAdList();
 
         sliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),imageSliderModelList));
 
         //top sale
         topSaleRecyclerView = getView().findViewById(R.id.topSaleRecycler);
-
         topSaleProductList = new ArrayList<>();
-        topSaleProductList.add(new Product(1,R.drawable.dell1));
-        topSaleProductList.add(new Product(2,R.drawable.dell2));
-        topSaleProductList.add(new Product(3,R.drawable.dell1));
-        topSaleProductList.add(new Product(4,R.drawable.dell2));
-        topSaleProductList.add(new Product(4,R.drawable.dell1));
-        topSaleProductList.add(new Product(4,R.drawable.dell2));
+        ProductDAO productDAO = new ProductDAO();
+        topSaleProductList = productDAO.getTopProducts("sale");
         setTopSaleRecycler((ArrayList<Product>) topSaleProductList);
 
         //topNew
         topNewRecyclerView =  getView().findViewById(R.id.topNewRecycler);
 
         topNewProductList = new ArrayList<>();
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
-        topNewProductList.add(new Product(1,R.drawable.lenovo1));
+        topNewProductList = productDAO.getTopProducts("newest");
         setTopNewRecycler((ArrayList<Product>) topNewProductList);
 
         //top Sell
         topSellRecyclerView = getView().findViewById(R.id.topSellRecycler);
-
         topSellProductList = new ArrayList<>();
-        topSellProductList.add(new Product(1,R.drawable.msi1));
-        topSellProductList.add(new Product(2,R.drawable.msi1));
-        topSellProductList.add(new Product(3,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
-        topSellProductList.add(new Product(4,R.drawable.msi1));
+        topSellProductList = productDAO.getTopProducts("sell");
         setTopSellRecycler((ArrayList<Product>) topSellProductList);
 
     }
@@ -123,13 +110,6 @@ public class navigation_home extends Fragment {
         topSellRecyclerView.setLayoutManager(layoutManager);
         topSellProductAdapter = new TopProductAdapter(getActivity(), topSellProductList);
         topSellRecyclerView.setAdapter(topSellProductAdapter);
-    }
-
-    private void setTopSell1Recycler(ArrayList<Product> topSellProductList) {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);//truot ngang hay doc
-        topSell1RecyclerView.setLayoutManager(layoutManager);
-        topSell1ProductAdapter = new TopProductAdapter(getActivity(), topSellProductList);
-        topSell1RecyclerView.setAdapter(topSell1ProductAdapter);
     }
 
     private void setTopNewRecycler(ArrayList<Product> topNewproductList) {
