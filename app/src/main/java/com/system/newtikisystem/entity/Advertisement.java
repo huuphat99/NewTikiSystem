@@ -1,15 +1,15 @@
 package com.system.newtikisystem.entity;
 
-public class Advertisements {
+public class Advertisement {
     private int id;
     private int productId;
     private String mediaUrl;
     private boolean status;
 
-    public Advertisements() {
+    public Advertisement() {
     }
 
-    public Advertisements(int id, int productId, String mediaUrl, boolean status) {
+    public Advertisement(int id, int productId, String mediaUrl, boolean status) {
         this.id = id;
         this.productId = productId;
         this.mediaUrl = mediaUrl;
