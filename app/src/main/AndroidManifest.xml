@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.system.newtikisystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"
+        tools:ignore="ProtectedPermissions"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,17 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTikiSystem">
+        <activity android:name=".controller.ChangePasswordActivity">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.ForgetPasswordActivity" />
+        <activity android:name=".controller.ViewProductActivity" />
+        <activity android:name=".controller.SearchProductActivity" />
+        <activity android:name=".controller.RegisterActivity" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home">
+            android:label="@string/title_activity_home" />
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".controller.MainActivity">
-
         </activity>
     </application>
 
