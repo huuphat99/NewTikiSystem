@@ -53,7 +53,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             super(itemView);
             orderItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderItemName = itemView.findViewById(R.id.orderDetailItemName);
-            orderItemPrice = itemView.findViewById(R.id.orderDetailItemPrice);
+            orderItemPrice = itemView.findViewById(R.id.cartSalePrice);
             orderItemQuantity = itemView.findViewById(R.id.orderDetailItemQuantity);
         }
     }

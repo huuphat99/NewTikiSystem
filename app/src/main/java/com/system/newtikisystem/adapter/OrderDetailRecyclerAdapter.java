@@ -1,14 +1,11 @@
 package com.system.newtikisystem.adapter;
 
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,7 +75,7 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
             super(itemView);
             orderDetailItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderDetailItemName = itemView.findViewById(R.id.orderDetailItemName);
-            orderDetailItemPrice = itemView.findViewById(R.id.orderDetailItemPrice);
+            orderDetailItemPrice = itemView.findViewById(R.id.cartSalePrice);
             orderDetailItemQuantity = itemView.findViewById(R.id.orderDetailItemQuantity);
             rateDetailButton = itemView.findViewById(R.id.rateDetailButton);
 

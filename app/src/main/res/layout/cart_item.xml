@@ -29,7 +29,8 @@
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/orderDetailItemPrice"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/cartSalePrice"
             app:layout_constraintStart_toEndOf="@+id/orderDetailItemImage"
             app:layout_constraintTop_toTopOf="@+id/orderDetailItemImage" />
 
@@ -43,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/orderDetailItemPrice"
+            android:id="@+id/cartSalePrice"
             android:layout_width="114dp"
             android:layout_height="21dp"
             android:layout_marginTop="60dp"
@@ -87,7 +88,7 @@
             android:id="@+id/cartItemDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/orderDetailItemPrice"
+            app:layout_constraintEnd_toEndOf="@+id/cartSalePrice"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/cartItemIn"
             app:layout_constraintTop_toTopOf="@+id/cartItemIn"

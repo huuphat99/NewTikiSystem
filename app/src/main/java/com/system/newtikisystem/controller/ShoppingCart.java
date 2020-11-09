@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.system.newtikisystem.R;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapter.OnHandleCartItemListener {
 
     PersonalCartItems pCart;
+    int totalPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,15 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        for (CartItem item : pCart.getCartItems()) {
+            totalPrice += item.getSale() * item.getQuantity();
+        }
+
+        TextView textProvisionalPrice = findViewById(R.id.textProvisionalPrice);
+        textProvisionalPrice.setText(Integer.toString(totalPrice) + " đ");
+        TextView textTotalPrice = findViewById(R.id.textTotalPrice);
+        textTotalPrice.setText(Integer.toString(totalPrice) + " đ");
     }
 
     @Override

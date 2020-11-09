@@ -29,12 +29,12 @@
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:text="Product name"
-            app:layout_constraintEnd_toEndOf="@+id/orderDetailItemPrice"
+            app:layout_constraintEnd_toEndOf="@+id/cartSalePrice"
             app:layout_constraintStart_toEndOf="@+id/orderDetailItemImage"
             app:layout_constraintTop_toTopOf="@+id/orderDetailItemImage" />
 
         <TextView
-            android:id="@+id/orderDetailItemPrice"
+            android:id="@+id/cartSalePrice"
             android:layout_width="114dp"
             android:layout_height="21dp"
             android:layout_marginEnd="20dp"
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quantity"
-            app:layout_constraintBottom_toBottomOf="@+id/orderDetailItemPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/cartSalePrice"
             app:layout_constraintStart_toStartOf="@+id/orderDetailItemName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
