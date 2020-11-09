@@ -1,8 +1,9 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.system.newtikisystem.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

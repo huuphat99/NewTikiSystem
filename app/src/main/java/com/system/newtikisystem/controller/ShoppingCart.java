@@ -69,7 +69,7 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
 
     @Override
     public void onDeleteClick(int position) {
-        int id = pCart.getCartItems().get(position).getId();
-        Constants.personalCart.listPersonalCartItems.remove(id);
+        pCart.getCartItems().remove(position);
+        recreate();
     }
 }

@@ -31,10 +31,9 @@
             android:name=".controller.ShippingAddressActivity"
             android:label="Shipping address" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".controller.HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".controller.MainActivity">
-        </activity>
+        <activity android:name=".controller.MainActivity"></activity>
         <activity
             android:name=".controller.ShoppingCart"
             android:label="Shopping cart">
@@ -44,7 +43,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.MainActivity" />
     </application>
-
 </manifest>

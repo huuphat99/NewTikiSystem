@@ -10,11 +10,8 @@ import android.widget.ImageView;
 import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
-import com.system.newtikisystem.HomeActivity;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.Advertisement;
-import com.system.newtikisystem.entity.ImageSliderModel;
-import com.system.newtikisystem.navigation_home;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import android.os.Bundle;
 
@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.system.newtikisystem.adapter.CartRecyclerAdapter;
+import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.OrderRecyclerAdapter;
 import com.system.newtikisystem.entity.CartItem;
 
