@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.OrderHistoryRecyclerAdapter;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.OrderDAO;
 import com.system.newtikisystem.entity.Orders;
 import com.system.newtikisystem.entity.Products;
@@ -37,9 +38,10 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        OrderDAO orderDAO = new OrderDAO();
+        String email = Constants.accountSave.emailAccount;
 
-        orders = orderDAO.getOrdersByEmail("123123@gmail.com");
+        OrderDAO orderDAO = new OrderDAO();
+        orders = orderDAO.getOrdersByEmail(email);
 
         ArrayList<String> productNames = new ArrayList<>();
         for (Orders order : orders) {
