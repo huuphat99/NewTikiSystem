@@ -1,9 +1,12 @@
 package com.system.newtikisystem.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Constants;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -21,11 +24,20 @@ public class HomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home3, R.id.navigation_category,R.id.navigation_search,R.id.navigation_notification, R.id.navigation_personal)
+                R.id.navigation_home3, R.id.navigation_category, R.id.navigation_search, R.id.navigation_notification, R.id.navigation_personal)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    public void onViewCardClick(View view) {
+        Intent intent;
+        if (Constants.statusLogin.checkLogin) {
+            intent = new Intent(this, ShoppingCartActivity.class);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+        }
+        startActivity(intent);
+    }
 }

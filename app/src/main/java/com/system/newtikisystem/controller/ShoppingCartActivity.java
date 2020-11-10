@@ -17,7 +17,7 @@ import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.entity.PersonalCartItems;
 
-public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapter.OnHandleCartItemListener {
+public class ShoppingCartActivity extends AppCompatActivity implements CartRecyclerAdapter.OnHandleCartItemListener {
 
     PersonalCartItems pCart;
     int totalCost = Constants.personalCart.totalCost();

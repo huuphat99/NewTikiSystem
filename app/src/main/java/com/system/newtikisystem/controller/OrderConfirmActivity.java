@@ -59,7 +59,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     }
 
     public void changeOrderOnClick(View view) {
-        Intent intent = new Intent(this, ShoppingCart.class);
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
         startActivity(intent);
     }
 

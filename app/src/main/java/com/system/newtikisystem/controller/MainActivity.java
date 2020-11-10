@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebase;
     boolean Islogin;
     SharedPreferences prefs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         txtCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-//                    startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -48,34 +47,34 @@ public class MainActivity extends AppCompatActivity {
         txtForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                    Intent intent1 = new Intent(MainActivity.this, ForgetPasswordActivity.class);
-//                    startActivity(intent1);
+                Intent intent1 = new Intent(MainActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent1);
             }
         });
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Islogin = prefs.getBoolean("Islogin", false);
         Islogin = Constants.statusLogin.checkLogin;
-        if (Islogin) {
+        if(Islogin) {
             Log.i("message: ", "da  login");
-        } else {
+        }
+        else {
             Log.i("message: ", "Chua login");
         }
     }
 
-    public void OnClickLogin(View view) {
+    public void OnClickLogin(View view){
         UserDAO userDAO = new UserDAO();
         User user;
         try {
             user = userDAO.checkLogin(txtUsername.getText().toString(), txtPassword.getText().toString());
-            if (user != null) {
+            if(user != null){
                 prefs.edit().putBoolean("Islogin", true);
                 prefs.edit().commit();
                 Islogin = true;
                 Constants.statusLogin.checkLogin = Islogin;
-                Constants.accountSave.emailAccount = txtUsername.getText().toString();
-                if (Constants.statusLogin.checkLogin) {
-                    Intent intent = new Intent(MainActivity.this, ShoppingCart.class);
+                if(Constants.statusLogin.checkLogin){
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
                     Log.i("message: ", "da login");
                     Toast.makeText(this, "Logged in", Toast.LENGTH_LONG).show();
@@ -83,9 +82,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 alert.setText("Email or Password is wrong!");
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
-
 }

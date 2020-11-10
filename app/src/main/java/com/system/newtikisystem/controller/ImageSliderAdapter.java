@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
@@ -57,6 +56,6 @@ class SliderViewHolder extends SliderViewAdapter.ViewHolder {
     ImageView sliderImageView;
     public SliderViewHolder(View itemView) {
         super(itemView);
-        sliderImageView = itemView.findViewById(R.id.imageView);
+        sliderImageView = itemView.findViewById(R.id.imageViewHomeCart);
     }
 }
