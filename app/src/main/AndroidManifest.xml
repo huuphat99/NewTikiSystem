@@ -3,6 +3,7 @@
     package="com.system.newtikisystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,15 @@
         <activity
             android:name=".controller.PayCardActivity"
             android:label="Credit Cart / Debit Cart" />
+        <activity android:name=".controller.ChangePasswordActivity">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.ForgetPasswordActivity" />
+        <activity android:name=".controller.ViewProductActivity" />
+        <activity android:name=".controller.SearchProductActivity" />
+        <activity android:name=".controller.RegisterActivity" />
         <activity
             android:name=".controller.OrderConfirmActivity"
             android:label="Order confirmation" />
@@ -34,6 +44,8 @@
         <activity
             android:name=".controller.HomeActivity"
             android:label="@string/title_activity_home"></activity>
+        android:name=".HomeActivity"
+        android:label="@string/title_activity_home" />
         <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,5 +56,4 @@
             android:name=".controller.ShoppingCart"
             android:label="Shopping cart"></activity>
     </application>
-
 </manifest>

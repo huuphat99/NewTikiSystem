@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.OrderRecyclerAdapter;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.entity.CartItem;
+import com.system.newtikisystem.entity.PersonalCartItems;
 
 import java.util.ArrayList;
 
@@ -68,12 +70,10 @@ public class OrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(R.id.orderRecyclerView);
-        ArrayList<CartItem> items = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            items.add(new CartItem(i, "Logitech" + i, "https://product.hstatic.net/1000026716/product/gvn_log_g304_3df28cd60a48412b8fb1d2ff762dc6a9.png", 2, i * 1000000, i * 1000000 - 500000));
-        }
 
-        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(items);
+        PersonalCartItems pCart = Constants.personalCart.getCartOfUser();
+
+        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(pCart.getCartItems());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext()) {
             @Override

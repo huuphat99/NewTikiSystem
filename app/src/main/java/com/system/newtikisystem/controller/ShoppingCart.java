@@ -47,7 +47,7 @@ public class ShoppingCart extends AppCompatActivity implements CartRecyclerAdapt
         numberItemInCart.setText(Integer.toString(pCart.getCartItems().size()));
         TextView textProvisionalPrice = findViewById(R.id.textProvisionalPrice);
         textProvisionalPrice.setText(totalCost + " đ");
-        TextView textTotalPrice = findViewById(R.id.txtView23);
+        TextView textTotalPrice = findViewById(R.id.totalCost);
         textTotalPrice.setText(totalCost + " đ");
     }
 

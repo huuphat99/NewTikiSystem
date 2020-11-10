@@ -27,12 +27,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textChange"
+            android:id="@+id/textChangeOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="changeOrder"
+            android:onClick="changeOrderOnClick"
             android:text="Change"
             android:textColor="#2196F3"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"

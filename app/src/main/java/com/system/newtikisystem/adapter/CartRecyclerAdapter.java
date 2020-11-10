@@ -60,9 +60,9 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         public CartViewHolder(@NonNull View itemView, OnHandleCartItemListener onHandleCartItemListener) {
             super(itemView);
             cartItemImage = itemView.findViewById(R.id.orderDetailItemImage);
-            cartItemName = itemView.findViewById(R.id.orderDetailItemName);
+            cartItemName = itemView.findViewById(R.id.orderItemName);
             cartItemPrice = itemView.findViewById(R.id.cartItemPrice);
-            cartItemSalePrice = itemView.findViewById(R.id.cartSalePrice);
+            cartItemSalePrice = itemView.findViewById(R.id.orderItemSalePrice);
             cartItemQuantity = itemView.findViewById(R.id.cartItemQuantity);
             decrease = itemView.findViewById(R.id.cartItemDe);
             increase = itemView.findViewById(R.id.cartItemIn);

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.system.newtikisystem.R;
@@ -17,6 +18,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
     int totalCost = Constants.personalCart.totalCost();
     Intent intent;
     Bundle bundle;
+    RadioButton rbtnCard;
+    RadioButton rbtnCash;
+    RadioButton rbtnTransfer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +28,25 @@ public class PaymentMethodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_method);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        TextView textTotalPrice = findViewById(R.id.txtView23);
+        TextView textTotalPrice = findViewById(R.id.totalCost);
         textTotalPrice.setText(totalCost + " đ");
+        rbtnCard = findViewById(R.id.rbtnCard);
+        rbtnCash = findViewById(R.id.rbtnCash);
+        rbtnTransfer = findViewById(R.id.rbtnTransfer);
         intent = getIntent();
         bundle = intent.getExtras();
         if (bundle != null) {
-
+            switch (bundle.getInt("paymentMethod")) {
+                case 1:
+                    rbtnCard.setChecked(true);
+                    break;
+                case 2:
+                    rbtnCash.setChecked(true);
+                    break;
+                case 3:
+                    rbtnTransfer.setChecked(true);
+                    break;
+            }
         }
     }
 
@@ -44,7 +61,20 @@ public class PaymentMethodActivity extends AppCompatActivity {
     }
 
     public void onNextStepOrderClick(View view) {
-        Intent intent = new Intent(this, PayCardActivity.class);
-        startActivity(intent);
+        Intent intentChangeActivity;
+
+        if (rbtnCard.isChecked()) {
+            intentChangeActivity = new Intent(this, PayCardActivity.class);
+            bundle.putInt("paymentMethod", 1);
+        } else {
+            intentChangeActivity = new Intent(this, OrderConfirmActivity.class);
+            if (rbtnCash.isChecked()) {
+                bundle.putInt("paymentMethod", 2);
+            } else if (rbtnTransfer.isChecked()) {
+                bundle.putInt("paymentMethod", 3);
+            }
+        }
+        intentChangeActivity.putExtras(bundle);
+        startActivity(intentChangeActivity);
     }
 }

@@ -15,11 +15,11 @@ import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
 
-public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.CartViewHolder>{
+public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.CartViewHolder> {
 
     ArrayList<CartItem> items;
 
-    public OrderRecyclerAdapter(ArrayList<CartItem> items){
+    public OrderRecyclerAdapter(ArrayList<CartItem> items) {
         this.items = items;
     }
 
@@ -35,8 +35,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Picasso.get().load(items.get(position).getUrl()).into(holder.orderItemImage);
         holder.orderItemName.setText(items.get(position).getName());
-        holder.orderItemPrice.setText(Integer.toString(items.get(position).getPrice()));
+        holder.orderItemPrice.setText(items.get(position).getPrice() + " đ");
         holder.orderItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
+        holder.orderItemSalePrice.setText(items.get(position).getSale() + " đ");
     }
 
     @Override
@@ -47,14 +48,15 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
         ImageView orderItemImage;
-        TextView orderItemName, orderItemPrice, orderItemQuantity;
+        TextView orderItemName, orderItemPrice, orderItemQuantity, orderItemSalePrice;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             orderItemImage = itemView.findViewById(R.id.orderDetailItemImage);
-            orderItemName = itemView.findViewById(R.id.orderDetailItemName);
-            orderItemPrice = itemView.findViewById(R.id.cartSalePrice);
-            orderItemQuantity = itemView.findViewById(R.id.orderDetailItemQuantity);
+            orderItemName = itemView.findViewById(R.id.orderItemName);
+            orderItemSalePrice = itemView.findViewById(R.id.orderItemSalePrice);
+            orderItemQuantity = itemView.findViewById(R.id.orderItemQuantity);
+            orderItemPrice = itemView.findViewById(R.id.orderItemPrice);
         }
     }
 }

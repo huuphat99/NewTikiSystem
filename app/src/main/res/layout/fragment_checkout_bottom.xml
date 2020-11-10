@@ -30,10 +30,10 @@
         android:layout_height="wrap_content"
         android:text="Total payments"
         app:layout_constraintStart_toStartOf="@+id/btnConfirmAddress"
-        app:layout_constraintTop_toTopOf="@+id/txtView23" />
+        app:layout_constraintTop_toTopOf="@+id/totalCost" />
 
     <TextView
-        android:id="@+id/txtView23"
+        android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="totalPrice"

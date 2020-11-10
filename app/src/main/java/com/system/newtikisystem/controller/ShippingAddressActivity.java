@@ -14,12 +14,28 @@ import com.system.newtikisystem.entity.PaymentMethods;
 
 public class ShippingAddressActivity extends AppCompatActivity {
 
+    Intent intent;
+    Bundle bundle;
+    EditText edtShipAddress;
+    EditText edtShipName;
+    EditText edtShipPhone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipping_adress);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        edtShipAddress = findViewById(R.id.edtShipAddress);
+        edtShipName = findViewById(R.id.edtShipName);
+        edtShipPhone = findViewById(R.id.edtShipPhone);
+        intent = getIntent();
+        bundle = intent.getExtras();
+        if (bundle != null) {
+            edtShipAddress.setText(bundle.getString("edtShipAddress"));
+            edtShipName.setText(bundle.getString("edtShipName"));
+            edtShipPhone.setText(bundle.getString("edtShipPhone"));
+        }
     }
 
     @Override
@@ -34,9 +50,6 @@ public class ShippingAddressActivity extends AppCompatActivity {
 
     public void onConfirmAddressClick(View view) {
         Intent intent = new Intent(this, PaymentMethodActivity.class);
-        EditText edtShipAddress = findViewById(R.id.edtShipAddress);
-        EditText edtShipName = findViewById(R.id.edtShipName);
-        EditText edtShipPhone = findViewById(R.id.edtShipPhone);
         Bundle bundle = new Bundle();
         bundle.putString("edtShipAddress", edtShipAddress.getText().toString());
         bundle.putString("edtShipName", edtShipName.getText().toString());

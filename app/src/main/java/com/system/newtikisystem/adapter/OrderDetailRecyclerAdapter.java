@@ -74,9 +74,9 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
         public OrderDetailViewHolder(@NonNull View itemView, OnRateProductListener onRateProductListener) {
             super(itemView);
             orderDetailItemImage = itemView.findViewById(R.id.orderDetailItemImage);
-            orderDetailItemName = itemView.findViewById(R.id.orderDetailItemName);
-            orderDetailItemPrice = itemView.findViewById(R.id.cartSalePrice);
-            orderDetailItemQuantity = itemView.findViewById(R.id.orderDetailItemQuantity);
+            orderDetailItemName = itemView.findViewById(R.id.orderItemName);
+            orderDetailItemPrice = itemView.findViewById(R.id.orderItemSalePrice);
+            orderDetailItemQuantity = itemView.findViewById(R.id.orderItemQuantity);
             rateDetailButton = itemView.findViewById(R.id.rateDetailButton);
 
             this.onRateProductListener = onRateProductListener;

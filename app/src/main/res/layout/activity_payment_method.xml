@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rPayGroup"
         android:layout_width="376dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,13 +34,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Cash on delivery" />
+            android:text="Receiving Payment" />
 
         <RadioButton
             android:id="@+id/rbtnCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Credit card / Debit card" />
+
+        <RadioButton
+            android:id="@+id/rbtnTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transfer" />
     </RadioGroup>
 
     <fragment
@@ -49,8 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="@+id/rPayGroup"
+        app:layout_constraintStart_toStartOf="@+id/rPayGroup"
         tools:layout="@layout/fragment_checkout_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
