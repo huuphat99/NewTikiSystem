@@ -1,27 +1,30 @@
 package com.system.newtikisystem;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Toast;
+
+import com.system.newtikisystem.controller.RecyclerAdapterCategory;
+import com.system.newtikisystem.dao.CategoryDAO;
+import com.system.newtikisystem.entity.Categories;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link navigation_personal#newInstance} factory method to
+ * Use the {@link listCategory#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class navigation_personal extends Fragment {
+public class listCategory extends Fragment implements RecyclerAdapterCategory.OnViewSubCategoryListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,26 +35,26 @@ public class navigation_personal extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public navigation_personal() {
-        // Required empty public constructor
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment navigation_personal.
+     * @return A new instance of fragment category_left.
      */
     // TODO: Rename and change types and number of parameters
-    public static navigation_personal newInstance(String param1, String param2) {
-        navigation_personal fragment = new navigation_personal();
+    public static listCategory newInstance(String param1, String param2) {
+        listCategory fragment = new listCategory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public listCategory() {
+        // Required empty public constructor
     }
 
     @Override
@@ -67,27 +70,30 @@ public class navigation_personal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation_personal, container, false);
+        return inflater.inflate(R.layout.fragment_category_left, container, false);
     }
 
-    ArrayAdapter<String> adapter;
-    ArrayList<String> items = new ArrayList<>();
-    String attributes[] = new String[]{"Management Order", "Purchased Product", "Viewed Products", "Favorite Products", "Deals for bank card holders", "Setting"};
+    RecyclerView recyclerView;
+
+    ArrayList<Categories> categories;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listView = view.findViewById(R.id.listViewItem);
-        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, attributes);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 3) {
-                    Intent intent = new Intent(getActivity().getApplication(), favoriteProducts.class);
-                    startActivity(intent);
-                }
-            }
-        });
+        recyclerView = view.findViewById(R.id.recyclerViewCategory);
+        CategoryDAO categoryDAO = new CategoryDAO();
+        categories = categoryDAO.getListCategories();
+
+        RecyclerAdapterCategory adapter = new RecyclerAdapterCategory(categories,this);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onViewSubCategoryClick(int position) {
+        int categoryId = categories.get(position).getId();
+        Toast toast = Toast.makeText(getContext(), "id : " + categoryId, Toast.LENGTH_LONG);
+        toast.show();
     }
 }
