@@ -58,6 +58,11 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
     }
 
+    public void onOrderToHomeClick(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
     public void changeOrderOnClick(View view) {
         Intent intent = new Intent(this, ShoppingCartActivity.class);
         startActivity(intent);

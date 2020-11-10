@@ -240,6 +240,7 @@
             android:id="@+id/buttonAddToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onAddProductToCartClick"
             android:text="Add to cart" />
     </RelativeLayout>
 </RelativeLayout>

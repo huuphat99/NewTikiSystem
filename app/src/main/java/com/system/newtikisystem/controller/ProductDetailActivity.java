@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.ProductDAO;
+import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.ImageSliderModel;
+import com.system.newtikisystem.entity.PersonalCartItems;
 import com.system.newtikisystem.entity.Product;
 
 import java.util.ArrayList;
@@ -28,7 +32,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView gurantee;
     TextView description;
     TextView descriptionDetail;
-
+    int productId;
+    Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +55,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         descriptionDetail = findViewById(R.id.textViewDescriptionDetail);
 
         Intent intent = getIntent();
-        int productId = intent.getIntExtra("productId",-1);
+        productId = intent.getIntExtra("productId", -1);
         ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.getProductDetail(productId);
+        product = productDAO.getProductDetail(productId);
         name.setText(product.getName());
-        if(product.getSale()!=0) {
-            realPrice.setText(String.valueOf((int)(product.getPrice()*product.getSale()/100)));
+        if (product.getSale() != 0) {
+            realPrice.setText(String.valueOf((int) (product.getPrice() * (1 - product.getSale() / 100))));
             price.setText(String.valueOf(product.getPrice()));
-            sale.setText(String.valueOf(product.getSale())+"%");
+            sale.setText(String.valueOf(product.getSale()) + "%");
         } else {
             realPrice.setText(String.valueOf(product.getPrice()));
         }
-        producer.setText("Producer: "+ product.getProducer());
-        origin.setText("Origin: "+ product.getOrigin());
-        gurantee.setText("Guarantee: "+product.getGuarantee());
+        producer.setText("Producer: " + product.getProducer());
+        origin.setText("Origin: " + product.getOrigin());
+        gurantee.setText("Guarantee: " + product.getGuarantee());
         descriptionDetail.setText(product.getDescription());
 
         //ads auto slider
@@ -71,7 +76,24 @@ public class ProductDetailActivity extends AppCompatActivity {
         sliderView = findViewById(R.id.imageSlider);
         imageSliderModelList = productDAO.getImageUrls(productId);
 
+        sliderView.setSliderAdapter(new ProductImageSliderAdapter(this, imageSliderModelList));
+    }
 
-        sliderView.setSliderAdapter(new ProductImageSliderAdapter(this,imageSliderModelList));
+    public void onAddProductToCartClick(View view) {
+        int itemId = productId;
+        String itemName = product.getName();
+        String itemImageUrl = product.getAvatar();
+        int itemQuantity = 1;
+        int itemPrice = product.getPrice();
+        int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
+        CartItem newCart = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
+        Constants.personalCart.getCartOfUser().getCartItems().add(newCart);
+        Intent intent;
+        if (Constants.statusLogin.checkLogin) {
+            intent = new Intent(this, ShoppingCartActivity.class);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+        }
+        startActivity(intent);
     }
 }
