@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTikiSystem">
-        <activity android:name=".controller.SearchProductActivity"></activity>
-        <activity android:name=".controller.EmptyCartActivity"></activity>
+        <activity android:name=".controller.SearchProductActivity" />
+        <activity
+            android:name=".controller.EmptyCartActivity"
+            android:label="Shopping cart" />
         <activity android:name=".controller.ProductDetailActivity" />
         <activity
             android:name=".controller.OrderDetailActivity"
@@ -30,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.ForgetPasswordActivity" />
-<!--        <activity android:name=".controller.ViewProductActivity" />-->
+        <!--        <activity android:name=".controller.ViewProductActivity" />-->
         <activity android:name=".controller.RegisterActivity" />
         <activity
             android:name=".controller.OrderConfirmActivity"
@@ -49,19 +51,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.MainActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        android:name=".HomeActivity"
-        android:label="@string/title_activity_home" />
+        <activity android:name=".controller.MainActivity" />
         <activity
             android:name=".controller.ShoppingCartActivity"
-            android:label="Shopping cart"></activity>
+            android:label="Shopping cart" />
     </application>
 </manifest>

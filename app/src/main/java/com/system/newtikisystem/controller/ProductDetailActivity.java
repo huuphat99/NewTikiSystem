@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
@@ -96,10 +97,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
         Intent intent;
         if (Constants.statusLogin.checkLogin) {
-            intent = new Intent(this, ShoppingCartActivity.class);
+            intent = new Intent(this, HomeActivity.class);
+            Toast toast = Toast.makeText(this, "Add successfully", Toast.LENGTH_LONG);
+            toast.show();
         } else {
             intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
-        startActivity(intent);
     }
 }

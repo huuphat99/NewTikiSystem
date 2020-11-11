@@ -75,7 +75,7 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
             super(itemView);
             orderDetailItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderDetailItemName = itemView.findViewById(R.id.orderItemName);
-            orderDetailItemPrice = itemView.findViewById(R.id.orderItemSalePrice);
+            orderDetailItemPrice = itemView.findViewById(R.id.cartItemSalePrice);
             orderDetailItemQuantity = itemView.findViewById(R.id.orderItemQuantity);
             rateDetailButton = itemView.findViewById(R.id.rateDetailButton);
 

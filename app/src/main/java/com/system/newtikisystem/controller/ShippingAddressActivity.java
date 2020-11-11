@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.PaymentMethods;
@@ -51,10 +53,26 @@ public class ShippingAddressActivity extends AppCompatActivity {
     public void onConfirmAddressClick(View view) {
         Intent intent = new Intent(this, PaymentMethodActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("edtShipAddress", edtShipAddress.getText().toString());
-        bundle.putString("edtShipName", edtShipName.getText().toString());
-        bundle.putString("edtShipPhone", edtShipPhone.getText().toString());
-        intent.putExtras(bundle);
-        startActivity(intent);
+
+        String name = edtShipName.getText().toString();
+        String address = edtShipAddress.getText().toString();
+        String phone = edtShipPhone.getText().toString();
+        String regexPhone = "\\d+";
+
+        if (name.equals("") || address.equals("") || phone.equals("")) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Please fill all input", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            if (!phone.matches(regexPhone) && !(phone.equals(""))) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Phone number must be only digits", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                bundle.putString("edtShipAddress", edtShipAddress.getText().toString());
+                bundle.putString("edtShipName", edtShipName.getText().toString());
+                bundle.putString("edtShipPhone", edtShipPhone.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 package com.system.newtikisystem.adapter;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +42,11 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Picasso.get().load(items.get(position).getUrl()).into(holder.cartItemImage);
         holder.cartItemName.setText(items.get(position).getName());
-        holder.cartItemPrice.setText(Integer.toString(items.get(position).getPrice()));
-        holder.cartItemSalePrice.setText(Integer.toString(items.get(position).getSale()));
+        holder.cartItemSalePrice.setText(items.get(position).getSale() + " đ");
+        //set price string strikeThroughSpan
+        SpannableString priceString = new SpannableString(items.get(position).getPrice() + " đ");
+        priceString.setSpan(new StrikethroughSpan(), 0, priceString.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        holder.cartItemPrice.setText(priceString);
         holder.cartItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
     }
 
@@ -65,7 +71,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
             cartItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             cartItemName = itemView.findViewById(R.id.orderItemName);
             cartItemPrice = itemView.findViewById(R.id.cartItemPrice);
-            cartItemSalePrice = itemView.findViewById(R.id.orderItemSalePrice);
+            cartItemSalePrice = itemView.findViewById(R.id.cartItemSalePrice);
             cartItemQuantity = itemView.findViewById(R.id.cartItemQuantity);
             decrease = itemView.findViewById(R.id.cartItemDe);
             increase = itemView.findViewById(R.id.cartItemIn);

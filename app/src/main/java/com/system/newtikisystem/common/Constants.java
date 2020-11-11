@@ -3,6 +3,7 @@ package com.system.newtikisystem.common;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.PersonalCartItems;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class Constants {
             ArrayList<PersonalCartItems> listPersonalCartItems = Constants.personalCart.listPersonalCartItems;
             if (listPersonalCartItems.size() != 0) {
                 for (PersonalCartItems p : listPersonalCartItems) {
-                    if (p.getEmail() == email) {
+                    if (p.getEmail().equals(email)) {
                         pCart = p;
                     }
                 }
@@ -40,10 +41,21 @@ public class Constants {
         }
 
         public static void setCartOfUser(CartItem item, String email) {
+            boolean isInCart = false;
+            boolean isExistEmail = false;
             PersonalCartItems pCart = getCartOfUser(email);
             ArrayList<CartItem> listItem = pCart.getCartItems();
             if (listItem != null) {
-                listItem.add(item);
+                for (CartItem cItem : listItem) {
+                    if (cItem.getId() == item.getId()) {
+                        isInCart = true;
+                        cItem.setQuantity(cItem.getQuantity() + 1);
+                        break;
+                    }
+                }
+                if (!isInCart) {
+                    listItem.add(item);
+                }
                 pCart.setCartItems(listItem);
             } else {
                 ArrayList<CartItem> items = new ArrayList<>();
@@ -51,17 +63,37 @@ public class Constants {
                 pCart.setEmail(email);
                 pCart.setCartItems(items);
             }
+//            for (PersonalCartItems p : personalCart.listPersonalCartItems) {
+//                if (p.getEmail().equals(email)) {
+//                    isExistEmail = true;
+//                    ArrayList<CartItem> newCart = p.getCartItems();
+//                    p.getCartItems().add(item);
+//                    p.setCartItems(newCart);
+//                    break;
+//                }
+//            }
+//            if (!isExistEmail) {
             Constants.personalCart.listPersonalCartItems.add(pCart);
+//            }
         }
 
         public static int totalCost(String email) {
             int totalPrice = 0;
-            if (getCartOfUser(email) != null) {
+            if (getCartOfUser(email).getCartItems() != null) {
                 for (CartItem item : getCartOfUser(email).getCartItems()) {
                     totalPrice += item.getSale() * item.getQuantity();
                 }
             }
             return totalPrice;
+        }
+
+        public static int cartQuantity(String email) {
+            int quantity = 0;
+            ArrayList<CartItem> listItems = getCartOfUser(email).getCartItems();
+            if (listItems != null && listItems.size() > 0) {
+                quantity = getCartOfUser(email).getCartItems().size();
+            }
+            return quantity;
         }
 
         public static ArrayList<PersonalCartItems> listPersonalCartItems = new ArrayList<>();

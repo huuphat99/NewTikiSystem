@@ -40,7 +40,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
 
         totalCost = Constants.personalCart.totalCost(email);
 
-        if (items == null) {
+        if (items == null || items.size() == 0) {
             Intent intent = new Intent(this, EmptyCartActivity.class);
             startActivity(intent);
         }
