@@ -1,5 +1,6 @@
 package com.system.newtikisystem.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 public class Product {
@@ -18,7 +19,7 @@ public class Product {
     String specifictions;
     String avatar;
 
-    public Product () {
+    public Product() {
 
     }
 

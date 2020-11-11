@@ -223,7 +223,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewDescription"
-                android:layout_marginTop="8dp"
                 android:textColor="@color/black"
                 android:layout_marginStart="16dp"
                 android:text="Best for gaming \nRAM: 8G \nSSD:256GB\nCPU:i7-8750h\n asdfasdfasdf\nasdfasdfas\nadfasdfasdfasd\nafasdasdfasdf\nadsfasdfasdfasdf\nafasfadsfasd\nadsfasdfasfasdf\nasfasdfasdfas\nadf\asdfasd\fasdfasd\fasdf\nasdfads"
@@ -287,6 +286,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onAddProductToCartClick"
             android:text="Add to cart" />
     </RelativeLayout>
 </RelativeLayout>

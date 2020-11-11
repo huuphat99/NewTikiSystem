@@ -11,19 +11,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
 import com.system.newtikisystem.dao.ProductDAO;
+import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Comment;
 import com.system.newtikisystem.entity.ImageSliderModel;
+import com.system.newtikisystem.entity.PersonalCartItems;
 import com.system.newtikisystem.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -38,14 +45,14 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView gurantee;
     TextView description;
     TextView descriptionDetail;
-
+    int productId;
+    Product product;
 
     //for comment
     RecyclerView commemtRecyclerView;
     CommentAdapter commentAdapter;
     List<Comment> commentList;
     CommentDAO commentDAO;
-    Product product;
     EditText makeComment;
     Button buttonSend;
 
@@ -72,13 +79,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         buttonSend = findViewById(R.id.buttonSend);
 
         Intent intent = getIntent();
-        int productId = intent.getIntExtra("productId", -1);
+        productId = intent.getIntExtra("productId", -1);
         ProductDAO productDAO = new ProductDAO();
-        product = new Product();
         product = productDAO.getProductDetail(productId);
         name.setText(product.getName());
         if (product.getSale() != 0) {
-            realPrice.setText(String.valueOf((int) (product.getPrice() * product.getSale() / 100)));
+            realPrice.setText(String.valueOf((int) (product.getPrice() * (1 - product.getSale() / 100))));
             price.setText(String.valueOf(product.getPrice()));
             sale.setText(String.valueOf(product.getSale()) + "%");
         } else {
@@ -93,6 +99,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageSliderModelList = new ArrayList<>();
         sliderView = findViewById(R.id.imageSlider);
         imageSliderModelList = productDAO.getImageUrls(productId);
+
+        sliderView.setSliderAdapter(new ProductImageSliderAdapter(this, imageSliderModelList));
         sliderView.setSliderAdapter(new ProductImageSliderAdapter(this, imageSliderModelList));
 
         //comments
@@ -163,5 +171,29 @@ public class ProductDetailActivity extends AppCompatActivity {
         commemtRecyclerView.setLayoutManager(layoutManager);
         commentAdapter = new CommentAdapter(this, commentList);
         commemtRecyclerView.setAdapter(commentAdapter);
+    }
+
+    public void onAddProductToCartClick(View view) {
+        String email;
+        if (!Constants.accountSave.emailAccount.equalsIgnoreCase("")) {
+            email = Constants.accountSave.emailAccount;
+            int itemId = productId;
+            String itemName = product.getName();
+            String itemImageUrl = product.getAvatar();
+            int itemQuantity = 1;
+            int itemPrice = product.getPrice();
+            int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
+            CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
+            Constants.personalCart.setCartOfUser(newItem, email);
+        }
+        Intent intent;
+        if (Constants.statusLogin.checkLogin) {
+            intent = new Intent(this, HomeActivity.class);
+            Toast toast = Toast.makeText(this, "Add successfully", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 }
