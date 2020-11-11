@@ -89,55 +89,21 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@color/black" />
 
-            <ImageView
-                android:id="@+id/imageViewStar1"
+            <RatingBar
+                android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
                 android:layout_below="@id/textViewName"
-                android:layout_marginStart="16dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar1"
-                android:layout_marginStart="8dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar2"
-                android:layout_marginStart="8dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar3"
-                android:layout_marginStart="8dp"/>
-            <ImageView
-                android:id="@+id/imageViewStar5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar4"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                android:isIndicator="true"
+                app:srcCompat="@android:drawable/btn_star" />
 
             <TextView
                 android:id="@+id/textViewRealPRice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginTop="10dp"
                 android:text="8.500.000 đ"
                 android:textAlignment="textStart"
@@ -148,7 +114,7 @@
                 android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="10dp"
@@ -161,7 +127,7 @@
                 android:id="@+id/textViewSale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/textViewPrice"
