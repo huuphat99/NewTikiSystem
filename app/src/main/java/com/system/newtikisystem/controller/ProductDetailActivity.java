@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
 import com.system.newtikisystem.dao.ProductDAO;
+import com.system.newtikisystem.dao.RatingDAO;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Comment;
 import com.system.newtikisystem.entity.ImageSliderModel;
@@ -55,6 +57,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     CommentDAO commentDAO;
     EditText makeComment;
     Button buttonSend;
+
+    RatingBar ratingBar;
 
 
     @Override
@@ -113,22 +117,26 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String comment = makeComment.getText().toString();
-                    if (Constants.statusLogin.checkLogin) {
-                        if(comment.isEmpty()) {
-                            showMakeCommentAlert();
-                        } else {
-                            String email = Constants.accountSave.emailAccount;
-                            commentDAO.insertComment(email,productId,comment);
-                            commentList = commentDAO.getCommentsByProductId(productId);
-                            setCommentRecyclerView(commentList);
-                            makeComment.setText("");
-                        }
+                if (Constants.statusLogin.checkLogin) {
+                    if (comment.isEmpty()) {
+                        showMakeCommentAlert();
                     } else {
-                       showLoginAlert();
+                        String email = Constants.accountSave.emailAccount;
+                        commentDAO.insertComment(email, productId, comment);
+                        commentList = commentDAO.getCommentsByProductId(productId);
+                        setCommentRecyclerView(commentList);
+                        makeComment.setText("");
+                    }
+                } else {
+                    showLoginAlert();
                 }
-        }
-    });
+            }
+        });
 
+        ratingBar = findViewById(R.id.ratingBar);
+        RatingDAO ratingDAO = new RatingDAO();
+        float dataStars = ratingDAO.rateProduct(productId);
+        ratingBar.setRating(dataStars);
     }
 
     private void showMakeCommentAlert() {
@@ -163,7 +171,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         builder.create();
         builder.show();
     }
-
 
 
     private void setCommentRecyclerView(List<Comment> commentList) {

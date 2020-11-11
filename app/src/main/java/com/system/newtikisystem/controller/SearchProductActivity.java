@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
-import com.system.newtikisystem.HomeActivity;
+import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.dao.ProductDAO;
 import com.system.newtikisystem.entity.Product;
