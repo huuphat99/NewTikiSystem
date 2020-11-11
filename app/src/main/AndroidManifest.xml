@@ -3,7 +3,8 @@
     package="com.system.newtikisystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +19,7 @@
             android:label="@string/favorite_product">
 
         </activity>
+        <activity android:name=".controller.SearchProductActivity"></activity>
         <activity android:name=".controller.ChangePasswordActivity">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -25,18 +27,25 @@
         </activity>
         <activity android:name=".controller.ForgetPasswordActivity" />
         <activity android:name=".controller.ViewProductActivity" />
-        <activity android:name=".controller.SearchProductActivity" />
         <activity android:name=".controller.RegisterActivity" />
-
+        <activity android:name=".controller.ProductDetailActivity" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" />
-        <activity android:name=".controller.MainActivity">
+            android:label="@string/title_activity_home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".controller.MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
