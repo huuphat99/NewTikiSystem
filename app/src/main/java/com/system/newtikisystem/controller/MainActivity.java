@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     prefs.edit().commit();
                     Islogin = true;
                     Constants.statusLogin.checkLogin = Islogin;
+                    Constants.accountSave.emailAccount = txtUsername.getText().toString();
                     if(Constants.statusLogin.checkLogin){
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
