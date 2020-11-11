@@ -34,6 +34,29 @@ public class ProductDAO extends DatabaseManager {
         return urls;
     }
 
+    public List<Product> getAllProducts() {
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            String sql = "select * from products order by name";
+            connection = connect();
+            statement = connection.prepareStatement(sql);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setSale(rs.getFloat("sale"));
+                p.setPrice(rs.getInt("price"));
+                p.setAvatar(rs.getString("avatar"));
+                productList.add(p);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return productList;
+    }
+
     public List<Product> getTopProducts(String type) {
         List<Product> productList = new ArrayList<>();
 
@@ -100,4 +123,48 @@ public class ProductDAO extends DatabaseManager {
         }
         return p;
     }
+
+    public List<Product> getProductsByName(String name) {
+        List<Product> products = new ArrayList<>();
+        try {
+            String sql = "select * from products where name like ? ";
+            connection = connect();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + name + "%");
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setAvatar(rs.getString("avatar"));
+                products.add(p);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return products;
+    }
+
+
+    public List<String> getAllProductsName() {
+        List<String> nameList = new ArrayList<>();
+
+        try {
+            String sql = "select * from products order by name";
+            connection = connect();
+            statement = connection.prepareStatement(sql);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                nameList.add(name);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return nameList;
+    }
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.system.newtikisystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.system.newtikisystem.controller.SearchProductActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +56,7 @@ public class navigation_search extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        goToAttract();
     }
 
     @Override
@@ -60,5 +64,10 @@ public class navigation_search extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_navigation_search, container, false);
+    }
+
+    public void goToAttract() {
+        Intent intent = new Intent(getActivity(), SearchProductActivity.class);
+        startActivity(intent);
     }
 }

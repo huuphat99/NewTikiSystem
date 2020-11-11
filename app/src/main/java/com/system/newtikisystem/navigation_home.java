@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.controller.ImageSliderAdapter;
+import com.system.newtikisystem.controller.SearchProductActivity;
 import com.system.newtikisystem.controller.ShoppingCartActivity;
 import com.system.newtikisystem.controller.TopProductAdapter;
 import com.system.newtikisystem.dao.AdDAO;
@@ -65,6 +67,7 @@ public class navigation_home extends Fragment {
     TopProductAdapter topSell1ProductAdapter;
     List<Product> topSell1ProductList;
 
+    EditText search;
 
     public navigation_home() {
         // Required empty public constructor
@@ -102,6 +105,16 @@ public class navigation_home extends Fragment {
         topSellProductList = new ArrayList<>();
         topSellProductList = productDAO.getTopProducts("sell");
         setTopSellRecycler((ArrayList<Product>) topSellProductList);
+
+        //Search
+        search = getView().findViewById(R.id.editTextSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SearchProductActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 
     }
 
