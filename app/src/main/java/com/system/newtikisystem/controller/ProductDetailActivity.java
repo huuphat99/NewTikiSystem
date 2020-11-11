@@ -53,7 +53,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     CommentAdapter commentAdapter;
     List<Comment> commentList;
     CommentDAO commentDAO;
-    Product product;
     EditText makeComment;
     Button buttonSend;
 
