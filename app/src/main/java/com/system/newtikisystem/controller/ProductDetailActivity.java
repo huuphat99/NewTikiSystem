@@ -19,6 +19,8 @@ import com.system.newtikisystem.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 public class ProductDetailActivity extends AppCompatActivity {
 
     SliderView sliderView;
@@ -80,14 +82,18 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     public void onAddProductToCartClick(View view) {
-        int itemId = productId;
-        String itemName = product.getName();
-        String itemImageUrl = product.getAvatar();
-        int itemQuantity = 1;
-        int itemPrice = product.getPrice();
-        int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
-        CartItem newCart = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
-        Constants.personalCart.getCartOfUser().getCartItems().add(newCart);
+        String email;
+        if (!Constants.accountSave.emailAccount.equalsIgnoreCase("")) {
+            email = Constants.accountSave.emailAccount;
+            int itemId = productId;
+            String itemName = product.getName();
+            String itemImageUrl = product.getAvatar();
+            int itemQuantity = 1;
+            int itemPrice = product.getPrice();
+            int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
+            CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
+            Constants.personalCart.setCartOfUser(newItem, email);
+        }
         Intent intent;
         if (Constants.statusLogin.checkLogin) {
             intent = new Intent(this, ShoppingCartActivity.class);

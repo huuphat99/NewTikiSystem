@@ -15,7 +15,7 @@ import com.system.newtikisystem.dao.OrderDAO;
 
 public class OrderConfirmActivity extends AppCompatActivity {
 
-    int totalCost = Constants.personalCart.totalCost();
+    int totalCost = Constants.personalCart.totalCost(Constants.accountSave.emailAccount);
     Intent intent;
     Bundle bundle;
     OrderDAO dao = new OrderDAO();

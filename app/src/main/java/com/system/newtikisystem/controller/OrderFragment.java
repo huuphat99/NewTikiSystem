@@ -71,7 +71,7 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(R.id.orderRecyclerView);
 
-        PersonalCartItems pCart = Constants.personalCart.getCartOfUser();
+        PersonalCartItems pCart = Constants.personalCart.getCartOfUser(Constants.accountSave.emailAccount);
 
         OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(pCart.getCartItems());
         recyclerView.setAdapter(adapter);

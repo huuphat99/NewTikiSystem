@@ -30,9 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.ForgetPasswordActivity" />
-        <activity android:name=".controller.ViewProductActivity" />
+<!--        <activity android:name=".controller.ViewProductActivity" />-->
         <activity android:name=".controller.RegisterActivity" />
-        <activity android:name=".controller.ProductDetailActivity" />
         <activity
             android:name=".controller.OrderConfirmActivity"
             android:label="Order confirmation" />

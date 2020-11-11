@@ -26,21 +26,40 @@ public class Constants {
 
     public static class personalCart {
 
-        public static PersonalCartItems getCartOfUser() {
+        public static PersonalCartItems getCartOfUser(String email) {
             PersonalCartItems pCart = new PersonalCartItems();
-            String email = accountSave.emailAccount;
-            for (PersonalCartItems p : personalCart.listPersonalCartItems) {
-                if (p.getEmail() == email) {
-                    pCart = p;
+            ArrayList<PersonalCartItems> listPersonalCartItems = Constants.personalCart.listPersonalCartItems;
+            if (listPersonalCartItems.size() != 0) {
+                for (PersonalCartItems p : listPersonalCartItems) {
+                    if (p.getEmail() == email) {
+                        pCart = p;
+                    }
                 }
             }
             return pCart;
         }
 
-        public static int totalCost() {
+        public static void setCartOfUser(CartItem item, String email) {
+            PersonalCartItems pCart = getCartOfUser(email);
+            ArrayList<CartItem> listItem = pCart.getCartItems();
+            if (listItem != null) {
+                listItem.add(item);
+                pCart.setCartItems(listItem);
+            } else {
+                ArrayList<CartItem> items = new ArrayList<>();
+                items.add(item);
+                pCart.setEmail(email);
+                pCart.setCartItems(items);
+            }
+            Constants.personalCart.listPersonalCartItems.add(pCart);
+        }
+
+        public static int totalCost(String email) {
             int totalPrice = 0;
-            for (CartItem item : getCartOfUser().getCartItems()) {
-                totalPrice += item.getSale() * item.getQuantity();
+            if (getCartOfUser(email) != null) {
+                for (CartItem item : getCartOfUser(email).getCartItems()) {
+                    totalPrice += item.getSale() * item.getQuantity();
+                }
             }
             return totalPrice;
         }

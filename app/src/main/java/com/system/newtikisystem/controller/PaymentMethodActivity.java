@@ -15,7 +15,7 @@ import com.system.newtikisystem.common.Constants;
 
 public class PaymentMethodActivity extends AppCompatActivity {
 
-    int totalCost = Constants.personalCart.totalCost();
+    int totalCost = Constants.personalCart.totalCost(Constants.accountSave.emailAccount);
     Intent intent;
     Bundle bundle;
     RadioButton rbtnCard;

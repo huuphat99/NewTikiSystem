@@ -15,12 +15,15 @@ import android.widget.TextView;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.PersonalCartItems;
+
+import java.util.ArrayList;
 
 public class ShoppingCartActivity extends AppCompatActivity implements CartRecyclerAdapter.OnHandleCartItemListener {
 
     PersonalCartItems pCart;
-    int totalCost = Constants.personalCart.totalCost();
+    int totalCost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +34,28 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         getSupportActionBar().setHomeButtonEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        pCart = Constants.personalCart.getCartOfUser();
+        String email = Constants.accountSave.emailAccount;
+        pCart = Constants.personalCart.getCartOfUser(email);
+        ArrayList<CartItem> items = pCart.getCartItems();
 
-        if (pCart.getCartItems().size() == 0) {
+        totalCost = Constants.personalCart.totalCost(email);
+
+        if (items == null) {
             Intent intent = new Intent(this, EmptyCartActivity.class);
             startActivity(intent);
         }
 
-        CartRecyclerAdapter adapter = new CartRecyclerAdapter(pCart.getCartItems(), this);
+        CartRecyclerAdapter adapter = new CartRecyclerAdapter(items, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         TextView numberItemInCart = findViewById(R.id.numberItemInCart);
-        numberItemInCart.setText(Integer.toString(pCart.getCartItems().size()));
+        if (pCart.getCartItems() != null) {
+            numberItemInCart.setText(Integer.toString(pCart.getCartItems().size()));
+        } else {
+            numberItemInCart.setText(Integer.toString(0));
+        }
         TextView textProvisionalPrice = findViewById(R.id.textProvisionalPrice);
         textProvisionalPrice.setText(totalCost + " đ");
         TextView textTotalPrice = findViewById(R.id.totalCost);

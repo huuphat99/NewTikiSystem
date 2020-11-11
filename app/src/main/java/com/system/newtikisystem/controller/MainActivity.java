@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 prefs.edit().commit();
                 Islogin = true;
                 Constants.statusLogin.checkLogin = Islogin;
-                if(Constants.statusLogin.checkLogin){
+                Constants.accountSave.emailAccount = txtUsername.getText().toString();
+                if (Constants.statusLogin.checkLogin) {
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);
                     Log.i("message: ", "da login");
