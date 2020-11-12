@@ -1,14 +1,18 @@
 package com.system.newtikisystem.controller;
 
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.dao.ProductDAO;
 import com.system.newtikisystem.entity.Product;
@@ -21,6 +25,7 @@ public class SearchProductActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     SearchAdapter searchAdapter;
+    ImageView imageViewHome;
 
     MaterialSearchBar materialSearchBar;
     ProductDAO productDAO;
@@ -92,6 +97,15 @@ public class SearchProductActivity extends AppCompatActivity {
         //init adapter default set all products
         searchAdapter = new SearchAdapter(this,productDAO.getAllProducts());
         recyclerView.setAdapter(searchAdapter);
+
+        imageViewHome = findViewById(R.id.imageViewHome);
+        imageViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchProductActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadSuggestList() {

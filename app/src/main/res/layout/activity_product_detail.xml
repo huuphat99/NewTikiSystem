@@ -83,62 +83,27 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_below="@id/cv_slider_mainActivity"
                 android:text="DELL Inspiron 3593"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@color/black" />
 
-            <ImageView
-                android:id="@+id/imageViewStar1"
+            <RatingBar
+                android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
                 android:layout_below="@id/textViewName"
-                android:layout_marginStart="16dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar1"
-                android:layout_marginStart="8dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar2"
-                android:layout_marginStart="8dp"/>
-
-            <ImageView
-                android:id="@+id/imageViewStar4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar3"
-                android:layout_marginStart="8dp"/>
-            <ImageView
-                android:id="@+id/imageViewStar5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star"
-                android:layout_below="@id/textViewName"
-                android:layout_toEndOf="@id/imageViewStar4"
-                android:layout_marginStart="8dp"/>
-
+                android:layout_marginStart="8dp"
+                android:isIndicator="true"
+                app:srcCompat="@android:drawable/btn_star" />
 
             <TextView
                 android:id="@+id/textViewRealPRice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginTop="10dp"
                 android:text="8.500.000 đ"
                 android:textAlignment="textStart"
@@ -149,7 +114,7 @@
                 android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="10dp"
@@ -162,7 +127,7 @@
                 android:id="@+id/textViewSale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewStar1"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/textViewPrice"
@@ -175,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewRealPRice"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20px"
+                android:layout_marginTop="16dp"
                 android:text="Product information"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -187,7 +152,8 @@
                 android:layout_below="@id/textViewProductInfor"
                 android:layout_marginStart="16dp"
                 android:text="Producer: MSI"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"/>
 
             <TextView
                 android:id="@+id/textViewOrigin"
@@ -215,7 +181,8 @@
                 android:layout_marginStart="8dp"
                 android:text="Description"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"/>
 
             <TextView
                 android:id="@+id/textViewDescriptionDetail"
@@ -226,6 +193,49 @@
                 android:layout_marginStart="16dp"
                 android:text="Best for gaming \nRAM: 8G \nSSD:256GB\nCPU:i7-8750h\n asdfasdfasdf\nasdfasdfas\nadfasdfasdfasd\nafasdasdfasdf\nadsfasdfasdfasdf\nafasfadsfasd\nadsfasdfasfasdf\nasfasdfasdfas\nadf\asdfasd\fasdfasd\fasdf\nasdfads"
                 />
+            <TextView
+                android:id="@+id/textViewAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Questions"
+                android:layout_below="@id/textViewDescriptionDetail"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewAnswer"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/makeComment"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/commentsRecyclerView"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/search_bg"
+                android:textAlignment="gravity"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/buttonSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/makeComment"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Send"
+                android:textColorLink="@color/white"
+                android:textSize="10sp" />
+
         </RelativeLayout>
 
     </ScrollView>
@@ -240,6 +250,9 @@
             android:id="@+id/buttonAddToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="onAddProductToCartClick"
             android:text="Add to cart" />
     </RelativeLayout>
 </RelativeLayout>

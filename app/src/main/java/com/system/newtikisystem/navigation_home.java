@@ -10,22 +10,27 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.smarteist.autoimageslider.SliderView;
+import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.controller.ImageSliderAdapter;
 import com.system.newtikisystem.controller.SearchProductActivity;
+import com.system.newtikisystem.controller.ShoppingCartActivity;
 import com.system.newtikisystem.controller.TopProductAdapter;
 import com.system.newtikisystem.dao.AdDAO;
 import com.system.newtikisystem.dao.ProductDAO;
 import com.system.newtikisystem.entity.Advertisement;
-import com.system.newtikisystem.entity.ImageSliderModel;
 import com.system.newtikisystem.entity.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +89,7 @@ public class navigation_home extends Fragment {
 
         imageSliderModelList = adDAO.getAdList();
 
-        sliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),imageSliderModelList));
+        sliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(), imageSliderModelList));
 
         //top sale
         topSaleRecyclerView = getView().findViewById(R.id.topSaleRecycler);
@@ -94,7 +99,7 @@ public class navigation_home extends Fragment {
         setTopSaleRecycler((ArrayList<Product>) topSaleProductList);
 
         //topNew
-        topNewRecyclerView =  getView().findViewById(R.id.topNewRecycler);
+        topNewRecyclerView = getView().findViewById(R.id.topNewRecycler);
 
         topNewProductList = new ArrayList<>();
         topNewProductList = productDAO.getTopProducts("newest");
@@ -116,6 +121,15 @@ public class navigation_home extends Fragment {
             }
         });
 
+        //set quantity products in cart
+        int cartQuantity;
+        if (Constants.statusLogin.checkLogin) {
+            cartQuantity = Constants.personalCart.cartQuantity(Constants.accountSave.emailAccount);
+        } else {
+            cartQuantity = 0;
+        }
+        TextView homeCartQuantity = getView().findViewById(R.id.txtHomeCartQuantity);
+        homeCartQuantity.setText(Integer.toString(cartQuantity));
     }
 
     private void setTopSellRecycler(ArrayList<Product> topSellProductList) {

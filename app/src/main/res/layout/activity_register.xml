@@ -7,7 +7,7 @@
     tools:context=".controller.RegisterActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewHomeCart"
         android:layout_width="413dp"
         android:layout_height="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHomeCart"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -92,7 +92,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rPayGroup"
         android:layout_width="206dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
@@ -137,7 +137,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rPayGroup"
         app:layout_constraintVertical_bias="0.134" />
 
     <EditText
