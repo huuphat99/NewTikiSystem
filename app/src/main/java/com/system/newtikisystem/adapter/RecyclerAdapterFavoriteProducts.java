@@ -1,4 +1,4 @@
-package com.system.newtikisystem.controller;
+package com.system.newtikisystem.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

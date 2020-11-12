@@ -1,4 +1,4 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.controller.ProductDetailActivity;
-import com.system.newtikisystem.controller.RecyclerAdapterFavoriteProducts;
+import com.system.newtikisystem.adapter.RecyclerAdapterFavoriteProducts;
 import com.system.newtikisystem.dao.ProductTDAO;
 import com.system.newtikisystem.entity.FavoriteProduct;
 
 import java.util.ArrayList;
 
-public class favoriteProducts extends AppCompatActivity implements RecyclerAdapterFavoriteProducts.OnViewProductFavoriteListener {
+public class FavoriteProducts extends AppCompatActivity implements RecyclerAdapterFavoriteProducts.OnViewProductFavoriteListener {
 
 
     ArrayList<FavoriteProduct> products;
