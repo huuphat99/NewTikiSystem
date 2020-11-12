@@ -72,8 +72,13 @@ public class ProductDAO extends DatabaseManager {
                             "order by createtime DESC";
                     break;
                 case "sell":
-                    sql = "select top (10) * from products \n" +
-                            "order by salepriority DESC,sale ASC";
+                    sql = "select top (10) * from products inner join\n" +
+                            "(select productid, SUM(quantity) as totalquantity\n" +
+                            "from (SELECT * FROM orders INNER JOIN\n" +
+                            "                  order_product ON orders.id = order_product.orderid\n" +
+                            " where DATEDIFF(day,ordertime,GETDATE()) < 31) as X\n" +
+                            "group by productid ) as Y ON products.id = Y.productid\n" +
+                            "order by totalquantity DESC";
                     break;
             }
 
