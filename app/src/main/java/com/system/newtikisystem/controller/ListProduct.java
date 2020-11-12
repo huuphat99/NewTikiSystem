@@ -1,14 +1,11 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.system.newtikisystem.controller.RecyclerAdapterListProduct;
-import com.system.newtikisystem.dao.CategoryDAO;
-import com.system.newtikisystem.entity.Categories;
+import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.Products;
 
 import java.util.ArrayList;

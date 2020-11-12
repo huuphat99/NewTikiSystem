@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.controller.MainActivity;
+import com.system.newtikisystem.controller.FavoriteProducts;
+import com.system.newtikisystem.controller.OrderHistoryActivity;
 import com.system.newtikisystem.dao.UserDAO;
 import com.system.newtikisystem.entity.User;
 
@@ -112,7 +114,10 @@ public class navigation_personal extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (position == 3) {
-                        Intent intent = new Intent(getActivity().getApplication(), favoriteProducts.class);
+                        Intent intent = new Intent(getActivity().getApplication(), FavoriteProducts.class);
+                        startActivity(intent);
+                    }else if(position==0){
+                        Intent intent = new Intent(getActivity().getApplication(), OrderHistoryActivity.class);
                         startActivity(intent);
                     }
                 }

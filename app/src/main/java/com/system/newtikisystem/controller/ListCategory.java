@@ -1,4 +1,4 @@
-package com.system.newtikisystem;
+package com.system.newtikisystem.controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.system.newtikisystem.controller.RecyclerAdapterCategory;
+import com.system.newtikisystem.R;
+import com.system.newtikisystem.adapter.RecyclerAdapterCategory;
 import com.system.newtikisystem.dao.CategoryDAO;
 import com.system.newtikisystem.entity.Categories;
 
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link listCategory#newInstance} factory method to
+ * Use the {@link ListCategory#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class listCategory extends Fragment implements RecyclerAdapterCategory.OnViewSubCategoryListener {
+public class ListCategory extends Fragment implements RecyclerAdapterCategory.OnViewSubCategoryListener {
 
     OnSelectCategoryListener callback;
 
@@ -52,8 +53,8 @@ public class listCategory extends Fragment implements RecyclerAdapterCategory.On
      * @return A new instance of fragment category_left.
      */
     // TODO: Rename and change types and number of parameters
-    public static listCategory newInstance(String param1, String param2) {
-        listCategory fragment = new listCategory();
+    public static ListCategory newInstance(String param1, String param2) {
+        ListCategory fragment = new ListCategory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,7 +62,7 @@ public class listCategory extends Fragment implements RecyclerAdapterCategory.On
         return fragment;
     }
 
-    public listCategory() {
+    public ListCategory() {
         // Required empty public constructor
     }
 

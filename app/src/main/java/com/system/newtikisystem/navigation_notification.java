@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.system.newtikisystem.controller.RecyclerAdapterNotification;
+import com.system.newtikisystem.adapter.RecyclerAdapterNotification;
 import com.system.newtikisystem.dao.NotificationDAO;
 import com.system.newtikisystem.entity.Notifications;
 
