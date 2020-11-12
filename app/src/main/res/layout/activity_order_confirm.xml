@@ -51,7 +51,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <fragment
-        android:id="@+id/fragment2"
+        android:id="@+id/rightFragment"
         android:name="com.system.newtikisystem.controller.OrderFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

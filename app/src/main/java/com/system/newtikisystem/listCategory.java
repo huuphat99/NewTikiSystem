@@ -101,5 +101,12 @@ public class listCategory extends Fragment implements RecyclerAdapterCategory.On
     @Override
     public void onViewSubCategoryClick(int position) {
         int categoryId = categories.get(position).getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("cId", categoryId);
+
+        listSubCategory listSubCategory = new listSubCategory();
+        listSubCategory.setArguments(bundle);
+
+        getFragmentManager().beginTransaction().replace(R.id.rightFragment, listSubCategory).commit();
     }
 }

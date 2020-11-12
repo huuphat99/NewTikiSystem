@@ -9,7 +9,7 @@
     tools:context=".navigation_category">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/leftFragment"
         android:name="com.system.newtikisystem.listCategory"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -23,19 +23,17 @@
         tools:layout="@layout/fragment_category_left" />
 
     <fragment
-        android:id="@+id/fragment2"
+        android:id="@+id/rightFragment"
         android:name="com.system.newtikisystem.listSubCategory"
-        android:layout_width="300dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:background="#BDB4B4"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/fragment"
-        app:layout_constraintTop_toTopOf="@+id/fragment"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/leftFragment"
+        app:layout_constraintTop_toTopOf="@+id/leftFragment"
         tools:layout="@layout/fragment_category_right" />
 </androidx.constraintlayout.widget.ConstraintLayout>

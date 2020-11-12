@@ -79,11 +79,15 @@ public class listSubCategory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewSubCategory);
         CategoryDAO categoryDAO = new CategoryDAO();
-        ArrayList<Subcategories> categories = categoryDAO.getListSubCategoryByCategoryID(2);
-        RecyclerAdapterSubCategory adapter = new RecyclerAdapterSubCategory(categories);
-        recyclerView.setAdapter(adapter);
-        GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 3);
-        recyclerView.setLayoutManager(layoutManager);
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            int cId = bundle.getInt("cId");
+            ArrayList<Subcategories> categories = categoryDAO.getListSubCategoryByCategoryID(cId);
+            RecyclerAdapterSubCategory adapter = new RecyclerAdapterSubCategory(categories);
+            recyclerView.setAdapter(adapter);
+            GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 3);
+            recyclerView.setLayoutManager(layoutManager);
+        }
     }
 }

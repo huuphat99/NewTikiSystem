@@ -50,7 +50,7 @@
     </RadioGroup>
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/leftFragment"
         android:name="com.system.newtikisystem.controller.CheckoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
