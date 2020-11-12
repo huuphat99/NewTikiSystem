@@ -1,24 +1,26 @@
 package com.system.newtikisystem;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.controller.ProductDetailActivity;
 import com.system.newtikisystem.controller.RecyclerAdapterFavoriteProducts;
 import com.system.newtikisystem.dao.ProductTDAO;
 import com.system.newtikisystem.entity.FavoriteProduct;
-import com.system.newtikisystem.entity.Products;
 
 import java.util.ArrayList;
 
-public class favoriteProducts extends AppCompatActivity {
+public class favoriteProducts extends AppCompatActivity implements RecyclerAdapterFavoriteProducts.OnViewProductFavoriteListener {
 
+
+    ArrayList<FavoriteProduct> products;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +28,12 @@ public class favoriteProducts extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        String email = Constants.accountSave.emailAccount;
+
         RecyclerView recyclerView = findViewById(R.id.fpRecyclerView);
         ProductTDAO productTDAO = new ProductTDAO();
-        ArrayList<FavoriteProduct> products = productTDAO.getListProductFavorite("linhphuong@gmail.com");
-        RecyclerAdapterFavoriteProducts adapter = new RecyclerAdapterFavoriteProducts(products);
+        products = productTDAO.getListProductFavorite(email);
+        RecyclerAdapterFavoriteProducts adapter = new RecyclerAdapterFavoriteProducts(products, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -43,5 +47,13 @@ public class favoriteProducts extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onViewProductFavoriteClick(int position) {
+        int productId = products.get(position).getId();
+        Intent intent= new Intent(this, ProductDetailActivity.class);
+        intent.putExtra("productId",productId);
+        startActivity(intent);
     }
 }

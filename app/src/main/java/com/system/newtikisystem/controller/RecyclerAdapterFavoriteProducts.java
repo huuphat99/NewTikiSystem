@@ -12,25 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.entity.FavoriteProduct;
-import com.system.newtikisystem.entity.Products;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<RecyclerAdapterFavoriteProducts.ViewHolder> {
     ArrayList<FavoriteProduct> products;
+    private OnViewProductFavoriteListener onViewProductFavoriteListener;
 
-    public RecyclerAdapterFavoriteProducts(ArrayList<FavoriteProduct> products) {
+    public RecyclerAdapterFavoriteProducts(ArrayList<FavoriteProduct> products, OnViewProductFavoriteListener onViewProductFavoriteListener) {
         this.products = products;
+        this.onViewProductFavoriteListener = onViewProductFavoriteListener;
     }
 
     @NonNull
     @Override
     public RecyclerAdapterFavoriteProducts.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_product_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onViewProductFavoriteListener);
     }
 
     @Override
@@ -45,15 +43,28 @@ public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<Recycl
         return products.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView fpImage;
         TextView fpName, fpPrice;
+        OnViewProductFavoriteListener onViewProductFavoriteListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnViewProductFavoriteListener onViewProductFavoriteListener) {
             super(itemView);
             fpName = itemView.findViewById(R.id.fpName);
             fpPrice = itemView.findViewById(R.id.fpPrice);
             fpImage = itemView.findViewById(R.id.fpImage);
+
+            this.onViewProductFavoriteListener = onViewProductFavoriteListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onViewProductFavoriteListener.onViewProductFavoriteClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnViewProductFavoriteListener {
+        void onViewProductFavoriteClick(int position);
     }
 }

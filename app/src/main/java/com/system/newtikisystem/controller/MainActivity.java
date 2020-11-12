@@ -1,23 +1,19 @@
 package com.system.newtikisystem.controller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.se.omapi.Session;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.system.newtikisystem.HomeActivity;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Constants;
@@ -78,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     prefs.edit().commit();
                     Islogin = true;
                     Constants.statusLogin.checkLogin = Islogin;
+                    Constants.accountSave.emailAccount= txtUsername.getText().toString();
                     if(Constants.statusLogin.checkLogin){
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);

@@ -30,7 +30,6 @@ public class RecyclerAdapterCategory extends RecyclerView.Adapter<RecyclerAdapte
     public RecyclerAdapterCategory.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
         return new ViewHolder(view, onViewSubCategoryListener);
-
     }
 
     @Override

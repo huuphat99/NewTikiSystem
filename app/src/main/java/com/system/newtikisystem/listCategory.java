@@ -1,17 +1,15 @@
 package com.system.newtikisystem;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.system.newtikisystem.controller.RecyclerAdapterCategory;
 import com.system.newtikisystem.dao.CategoryDAO;
@@ -25,6 +23,16 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class listCategory extends Fragment implements RecyclerAdapterCategory.OnViewSubCategoryListener {
+
+    OnSelectCategoryListener callback;
+
+    public void setOnSelectCategoryListener(OnSelectCategoryListener callback) {
+        this.callback = callback;
+    }
+
+    public interface OnSelectCategoryListener {
+        public void onCategorySelected(int id);
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,7 +92,7 @@ public class listCategory extends Fragment implements RecyclerAdapterCategory.On
         CategoryDAO categoryDAO = new CategoryDAO();
         categories = categoryDAO.getListCategories();
 
-        RecyclerAdapterCategory adapter = new RecyclerAdapterCategory(categories,this);
+        RecyclerAdapterCategory adapter = new RecyclerAdapterCategory(categories, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -93,7 +101,5 @@ public class listCategory extends Fragment implements RecyclerAdapterCategory.On
     @Override
     public void onViewSubCategoryClick(int position) {
         int categoryId = categories.get(position).getId();
-        Toast toast = Toast.makeText(getContext(), "id : " + categoryId, Toast.LENGTH_LONG);
-        toast.show();
     }
 }

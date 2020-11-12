@@ -1,16 +1,15 @@
 package com.system.newtikisystem;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.system.newtikisystem.controller.RecyclerAdapterSubCategory;
 import com.system.newtikisystem.dao.CategoryDAO;
@@ -69,6 +68,7 @@ public class listSubCategory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_category_right, container, false);
     }
 
@@ -79,11 +79,11 @@ public class listSubCategory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewSubCategory);
         CategoryDAO categoryDAO = new CategoryDAO();
-
         ArrayList<Subcategories> categories = categoryDAO.getListSubCategoryByCategoryID(2);
         RecyclerAdapterSubCategory adapter = new RecyclerAdapterSubCategory(categories);
         recyclerView.setAdapter(adapter);
         GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
+
     }
 }
