@@ -97,10 +97,19 @@ public class ListCategory extends Fragment implements RecyclerAdapterCategory.On
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        onViewSubCategoryClick(0);
     }
 
     @Override
     public void onViewSubCategoryClick(int position) {
+
         int categoryId = categories.get(position).getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("cId", categoryId);
+
+        ListSubCategory listSubCategory = new ListSubCategory();
+        listSubCategory.setArguments(bundle);
+
+        getFragmentManager().beginTransaction().replace(R.id.rightCategoryFragment, listSubCategory).commit();
     }
 }
