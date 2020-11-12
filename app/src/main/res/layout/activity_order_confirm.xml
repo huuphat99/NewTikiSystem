@@ -51,12 +51,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <fragment
-        android:id="@+id/rightFragment"
+        android:id="@+id/OrderConfirmFragment"
         android:name="com.system.newtikisystem.controller.OrderFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragment4"
+        app:layout_constraintBottom_toTopOf="@+id/OrderBottomFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
         tools:layout="@layout/fragment_order" />
 
     <fragment
-        android:id="@+id/fragment4"
+        android:id="@+id/OrderBottomFragment"
         android:name="com.system.newtikisystem.controller.CheckoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
