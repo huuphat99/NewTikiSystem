@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
@@ -55,7 +56,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     CommentDAO commentDAO;
     EditText makeComment;
     Button buttonSend;
-
+    Common common = new Common();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +85,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         product = productDAO.getProductDetail(productId);
         name.setText(product.getName());
         if (product.getSale() != 0) {
-            realPrice.setText(String.valueOf((int) (product.getPrice() * (1 - product.getSale() / 100))));
-            price.setText(String.valueOf(product.getPrice()));
-            sale.setText(String.valueOf(product.getSale()) + "%");
+            realPrice.setText(common.formatPrice((int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000));
+            price.setText(common.formatPrice(product.getPrice()));
+            sale.setText(product.getSale() + "%");
         } else {
-            realPrice.setText(String.valueOf(product.getPrice()));
+            realPrice.setText(common.formatPrice(product.getPrice()));
         }
         producer.setText("Producer: " + product.getProducer());
         origin.setText("Origin: " + product.getOrigin());
@@ -113,22 +114,21 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String comment = makeComment.getText().toString();
-                    if (Constants.statusLogin.checkLogin) {
-                        if(comment.isEmpty()) {
-                            showMakeCommentAlert();
-                        } else {
-                            String email = Constants.accountSave.emailAccount;
-                            commentDAO.insertComment(email,productId,comment);
-                            commentList = commentDAO.getCommentsByProductId(productId);
-                            setCommentRecyclerView(commentList);
-                            makeComment.setText("");
-                        }
+                if (Constants.statusLogin.checkLogin) {
+                    if (comment.isEmpty()) {
+                        showMakeCommentAlert();
                     } else {
-                       showLoginAlert();
+                        String email = Constants.accountSave.emailAccount;
+                        commentDAO.insertComment(email, productId, comment);
+                        commentList = commentDAO.getCommentsByProductId(productId);
+                        setCommentRecyclerView(commentList);
+                        makeComment.setText("");
+                    }
+                } else {
+                    showLoginAlert();
                 }
-        }
-    });
-
+            }
+        });
     }
 
     private void showMakeCommentAlert() {
@@ -164,8 +164,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-
     private void setCommentRecyclerView(List<Comment> commentList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         commemtRecyclerView.setLayoutManager(layoutManager);
@@ -182,13 +180,12 @@ public class ProductDetailActivity extends AppCompatActivity {
             String itemImageUrl = product.getAvatar();
             int itemQuantity = 1;
             int itemPrice = product.getPrice();
-            int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
+            int salePrice = (int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000;
             CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
             Constants.personalCart.setCartOfUser(newItem, email);
         }
         Intent intent;
         if (Constants.statusLogin.checkLogin) {
-            intent = new Intent(this, HomeActivity.class);
             Toast toast = Toast.makeText(this, "Add successfully", Toast.LENGTH_LONG);
             toast.show();
         } else {

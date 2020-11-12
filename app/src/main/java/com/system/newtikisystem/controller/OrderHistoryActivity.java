@@ -38,10 +38,10 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        String email = Constants.accountSave.emailAccount;
+//        String email = Constants.accountSave.emailAccount;
 
         OrderDAO orderDAO = new OrderDAO();
-        orders = orderDAO.getOrdersByEmail(email);
+        orders = orderDAO.getOrdersByEmail("123123@gmail.com");
 
         ArrayList<String> productNames = new ArrayList<>();
         for (Orders order : orders) {

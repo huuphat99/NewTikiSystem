@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 
 public class PaymentMethodActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
     RadioButton rbtnCard;
     RadioButton rbtnCash;
     RadioButton rbtnTransfer;
+    Common common = new Common();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         TextView textTotalPrice = findViewById(R.id.totalCost);
-        textTotalPrice.setText(totalCost + " đ");
+        textTotalPrice.setText(common.formatPrice(totalCost));
         rbtnCard = findViewById(R.id.rbtnCard);
         rbtnCash = findViewById(R.id.rbtnCash);
         rbtnTransfer = findViewById(R.id.rbtnTransfer);

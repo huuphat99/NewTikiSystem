@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.OrderDAO;
 
@@ -19,6 +20,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     Intent intent;
     Bundle bundle;
     OrderDAO dao = new OrderDAO();
+    Common common = new Common();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         TextView textTotalPrice = findViewById(R.id.totalCost);
-        textTotalPrice.setText(totalCost + " đ");
+        textTotalPrice.setText(common.formatPrice(totalCost));
         intent = getIntent();
         bundle = intent.getExtras();
 
