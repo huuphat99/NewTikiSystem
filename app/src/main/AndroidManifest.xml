@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.system.newtikisystem">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +12,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewTikiSystem">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.SearchProductActivity" />
+        <activity
+            android:name=".controller.EmptyCartActivity"
+            android:label="Shopping cart" />
+        <activity android:name=".controller.ProductDetailActivity" />
+        <activity
+            android:name=".controller.OrderDetailActivity"
+            android:label="Order detail" />
+        <activity
+            android:name=".controller.OrderHistoryActivity"
+            android:label="My history orders" />
+        <activity
+            android:name=".controller.PayCardActivity"
+            android:label="Credit Cart / Debit Cart" />
+        <activity android:name=".controller.ChangePasswordActivity">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.ForgetPasswordActivity" />
+        <!--        <activity android:name=".controller.ViewProductActivity" />-->
+        <activity android:name=".controller.RegisterActivity" />
+        <activity
+            android:name=".controller.OrderConfirmActivity"
+            android:label="Order confirmation" />
+        <activity
+            android:name=".controller.PaymentMethodActivity"
+            android:label="Payment method" />
+        <activity
+            android:name=".controller.ShippingAddressActivity"
+            android:label="Shipping address" />
+        <activity
+            android:name=".controller.HomeActivity"
+            android:label="@string/title_activity_home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".controller.MainActivity" />
+        <activity
+            android:name=".controller.ShoppingCartActivity"
+            android:label="Shopping cart">
 
+        </activity>
+    </application>
 </manifest>

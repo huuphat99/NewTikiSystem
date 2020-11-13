@@ -4,16 +4,17 @@ public class Productrating {
     private int productid;
     private String email;
     private String ratingContent;
-    private float stats;
+    private float stars;
 
     public Productrating() {
+    }
+
+    public Productrating(int productid, String email, String ratingContent, float stars) {
         this.productid = productid;
         this.email = email;
         this.ratingContent = ratingContent;
-        this.stats = stats;
+        this.stars = stars;
     }
-
-
 
     public int getProductid() {
         return productid;
@@ -39,11 +40,11 @@ public class Productrating {
         this.ratingContent = ratingContent;
     }
 
-    public float getStats() {
-        return stats;
+    public float getStars() {
+        return stars;
     }
 
-    public void setStats(float stats) {
-        this.stats = stats;
+    public void setStars(float stars) {
+        this.stars = stars;
     }
 }
