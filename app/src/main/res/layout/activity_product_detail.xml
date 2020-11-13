@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.ProductDetailActivity">
@@ -9,15 +9,19 @@
 
     <RelativeLayout
         android:id="@+id/header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/imageViewSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="270dp"
+            android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_search_36" />
 
         <ImageView
@@ -25,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="310dp"
+            android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_home_24" />
 
         <ImageView
@@ -32,7 +37,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="352dp"
+            android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_shopping_cart_36" />
+
+        <TextView
+            android:id="@+id/txtDetailCartQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/round_tv"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="11"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </RelativeLayout>
 
@@ -83,8 +105,8 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_below="@id/cv_slider_mainActivity"
+                android:layout_marginTop="16dp"
                 android:text="DELL Inspiron 3593"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@color/black" />
@@ -102,8 +124,8 @@
                 android:id="@+id/textViewRealPRice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_below="@+id/ratingBar"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:text="8.500.000 đ"
                 android:textAlignment="textStart"
@@ -151,9 +173,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewProductInfor"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Producer: MSI"
-                android:textColor="@color/black"
-                android:layout_marginTop="8dp"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textViewOrigin"
@@ -179,30 +201,30 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewGuarantee"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Description"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewDescriptionDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewDescription"
-                android:textColor="@color/black"
                 android:layout_marginStart="16dp"
                 android:text="Best for gaming \nRAM: 8G \nSSD:256GB\nCPU:i7-8750h\n asdfasdfasdf\nasdfasdfas\nadfasdfasdfasd\nafasdasdfasdf\nadsfasdfasdfasdf\nafasfadsfasd\nadsfasdfasfasdf\nasfasdfasdfas\nadf\asdfasd\fasdfasd\fasdf\nasdfads"
-                />
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/textViewAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Questions"
                 android:layout_below="@id/textViewDescriptionDetail"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Questions"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"/>
+                android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentsRecyclerView"
@@ -210,8 +232,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textViewAnswer"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp" />
 
             <EditText
                 android:id="@+id/makeComment"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,21 +42,20 @@
         <!-- Badge Count -->
 
         <TextView
-            android:id="@+id/txtHomeCartQuantity"
+            android:id="@+id/txtDetailCartQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/round_tv"
+            android:gravity="center"
             android:padding="5dp"
             android:text="11"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewHomeCart"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
             android:id="@+id/editTextSearch"
