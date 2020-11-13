@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
 import com.system.newtikisystem.dao.ProductDAO;
+import com.system.newtikisystem.dao.RatingDAO;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Comment;
 import com.system.newtikisystem.entity.ImageSliderModel;
@@ -57,6 +60,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     EditText makeComment;
     Button buttonSend;
     Common common = new Common();
+
+    RatingBar ratingBar;
+
+    ImageView imageViewSearch,imageViewHome,imageViewCart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +137,46 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //rating
+        ratingBar = findViewById(R.id.ratingBar);
+        RatingDAO ratingDAO = new RatingDAO();
+        float dataStars = ratingDAO.rateProduct(productId);
+        ratingBar.setRating(dataStars);
+
+        //header
+        imageViewSearch = findViewById(R.id.imageViewSearch);
+        imageViewHome = findViewById(R.id.imageViewHome);
+        imageViewCart = findViewById(R.id.imageViewCart);
+
+        imageViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailActivity.this,SearchProductActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                if (Constants.statusLogin.checkLogin) {
+                    intent = new Intent(ProductDetailActivity.this, ShoppingCartActivity.class);
+                } else {
+                    intent = new Intent(ProductDetailActivity.this, MainActivity.class);
+                }
+                startActivity(intent);
+            }
+        });
     }
 
     private void showMakeCommentAlert() {
@@ -163,6 +211,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         builder.create();
         builder.show();
     }
+
 
     private void setCommentRecyclerView(List<Comment> commentList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
