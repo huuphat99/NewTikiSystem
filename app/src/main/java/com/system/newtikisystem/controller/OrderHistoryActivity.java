@@ -41,7 +41,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
 //        String email = Constants.accountSave.emailAccount;
 
         OrderDAO orderDAO = new OrderDAO();
-        orders = orderDAO.getOrdersByEmail("123123@gmail.com");
+        orders = orderDAO.getOrdersByEmail(Constants.accountSave.emailAccount);
 
         ArrayList<String> productNames = new ArrayList<>();
         for (Orders order : orders) {

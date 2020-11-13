@@ -49,7 +49,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         String saleprice = common.formatPrice(items.get(position).getSale());
         holder.cartItemSalePrice.setText(saleprice);
         //set price string strikeThroughSpan
-        SpannableString priceString = new SpannableString(items.get(position).getPrice() + "");
+        SpannableString priceString = new SpannableString(common.formatPrice(items.get(position).getPrice()));
         priceString.setSpan(new StrikethroughSpan(), 0, priceString.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.cartItemPrice.setText(priceString);
         holder.cartItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));

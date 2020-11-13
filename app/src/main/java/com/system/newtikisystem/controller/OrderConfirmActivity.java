@@ -1,18 +1,27 @@
 package com.system.newtikisystem.controller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.OrderDAO;
+import com.system.newtikisystem.entity.CartItem;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class OrderConfirmActivity extends AppCompatActivity {
 
@@ -57,7 +66,40 @@ public class OrderConfirmActivity extends AppCompatActivity {
     }
 
     public void onNextStepOrderClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure want to order ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Order successfully", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(OrderConfirmActivity.this, HomeActivity.class);
+                startActivity(intent);
+                //insert order
+                String email = Constants.accountSave.emailAccount;
+                Date orDate = new Date();
+                Calendar c = Calendar.getInstance();
+                c.setTime(orDate);
+                c.add(Calendar.DATE, 3);
+                Date shipDate = c.getTime();
+                String address = bundle.getString("edtShipAddress");
+                int totalPrice = Constants.personalCart.totalCost(email);
+                int status = 0;
+                int payMethod = bundle.getInt("paymentMethod");
+                ArrayList<CartItem> items = Constants.personalCart.getCartOfUser(email).getCartItems();
+                dao.insertOrder(email, orDate, shipDate, address, totalPrice, status, payMethod, items);
+                Constants.personalCart.removeCartOfUser(Constants.accountSave.emailAccount);
+            }
+        });
 
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
     public void onOrderToHomeClick(View view) {
