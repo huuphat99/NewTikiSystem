@@ -58,8 +58,8 @@ public class OrderDAO extends DatabaseManager {
             String queryInsertOrder = "insert into orders values (?,?,?,?,?,?,?)";
             PreparedStatement ps1 = connection.prepareStatement(queryInsertOrder, Statement.RETURN_GENERATED_KEYS);
             ps1.setString(1, email);
-            ps1.setDate(2, new java.sql.Date(orderTime.getTime()));
-            ps1.setDate(3, new java.sql.Date(shipTime.getTime()));
+            ps1.setTimestamp(2, new java.sql.Timestamp(orderTime.getTime()));
+            ps1.setTimestamp(3, new java.sql.Timestamp(shipTime.getTime()));
             ps1.setString(4, address);
             ps1.setInt(5, totalPrice);
             ps1.setInt(6, status);
@@ -246,5 +246,20 @@ public class OrderDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void insertOrderNotification(String email, Date time, String title, String content) {
+        try {
+            String query = "insert into notifications values (?,?,?,?)";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setTimestamp(2, new java.sql.Timestamp(time.getTime()));
+            ps.setString(3, title);
+            ps.setString(4, content);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

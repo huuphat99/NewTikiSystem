@@ -88,6 +88,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 int payMethod = bundle.getInt("paymentMethod");
                 ArrayList<CartItem> items = Constants.personalCart.getCartOfUser(email).getCartItems();
                 dao.insertOrder(email, orDate, shipDate, address, totalPrice, status, payMethod, items);
+                dao.insertOrderNotification(email, orDate, "Order notification", "Order successfully at " + common.changeDateToString(orDate) + ", Please keep attention at your phone to receive goods. Thanks you");
                 Constants.personalCart.removeCartOfUser(Constants.accountSave.emailAccount);
             }
         });

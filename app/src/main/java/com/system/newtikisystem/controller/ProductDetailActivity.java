@@ -63,7 +63,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     RatingBar ratingBar;
 
-    ImageView imageViewSearch,imageViewHome,imageViewCart;
+    ImageView imageViewSearch, imageViewHome, imageViewCart;
 
 
     @Override
@@ -152,7 +152,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailActivity.this,SearchProductActivity.class);
+                Intent intent = new Intent(ProductDetailActivity.this, SearchProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -160,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageViewHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailActivity.this,HomeActivity.class);
+                Intent intent = new Intent(ProductDetailActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -177,6 +177,21 @@ public class ProductDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        int cartQuantity;
+        if (Constants.statusLogin.checkLogin) {
+            cartQuantity = Constants.personalCart.cartQuantity(Constants.accountSave.emailAccount);
+        } else {
+            cartQuantity = 0;
+        }
+        TextView detailCartQuantity = findViewById(R.id.txtDetailCartQuantity);
+        detailCartQuantity.setText(Integer.toString(cartQuantity));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 
     private void showMakeCommentAlert() {
@@ -212,7 +227,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-
     private void setCommentRecyclerView(List<Comment> commentList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         commemtRecyclerView.setLayoutManager(layoutManager);
@@ -237,6 +251,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (Constants.statusLogin.checkLogin) {
             Toast toast = Toast.makeText(this, "Add successfully", Toast.LENGTH_LONG);
             toast.show();
+            recreate();
         } else {
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
