@@ -2,6 +2,7 @@ package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.UserDAO;
+import com.system.newtikisystem.entity.PersonalCartItems;
 import com.system.newtikisystem.entity.User;
 
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     EditText txtUsername, txtPassword, txtForgetPassword, txtCreateAccount;
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
         Islogin = prefs.getBoolean("Islogin", false);
         Islogin = Constants.statusLogin.checkLogin;
         if(Islogin) {
@@ -69,11 +72,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             user = userDAO.checkLogin(txtUsername.getText().toString(), txtPassword.getText().toString());
             if(user != null){
-                prefs.edit().putBoolean("Islogin", true);
-                prefs.edit().commit();
+                prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("isLogin", true);
                 Islogin = true;
                 Constants.statusLogin.checkLogin = Islogin;
                 Constants.accountSave.emailAccount = txtUsername.getText().toString();
+                editor.putString("emailAccount", txtUsername.getText().toString());
+                editor.commit();
                 if (Constants.statusLogin.checkLogin) {
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(intent);

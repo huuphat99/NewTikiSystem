@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
@@ -26,6 +27,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     PersonalCartItems pCart;
     int totalCost;
     Common common = new Common();
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         getSupportActionBar().setHomeButtonEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        String email = Constants.accountSave.emailAccount;
+        email = Constants.accountSave.emailAccount;
         pCart = Constants.personalCart.getCartOfUser(email);
         ArrayList<CartItem> items = pCart.getCartItems();
 
@@ -65,8 +67,16 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     }
 
     public void onNextStepOrderClick(View view) {
-        Intent intent = new Intent(this, ShippingAddressActivity.class);
-        startActivity(intent);
+        if (Constants.personalCart.cartQuantity(email) != 0) {
+            Intent intent = new Intent(this, ShippingAddressActivity.class);
+            startActivity(intent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "You have no item in cart", Toast.LENGTH_LONG);
+            toast.show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override

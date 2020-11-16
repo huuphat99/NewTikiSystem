@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Common;
@@ -64,6 +66,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     RatingBar ratingBar;
 
     ImageView imageViewSearch, imageViewHome, imageViewCart;
+    SharedPreferences prefs;
 
 
     @Override
@@ -246,6 +249,13 @@ public class ProductDetailActivity extends AppCompatActivity {
             int salePrice = (int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000;
             CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
             Constants.personalCart.setCartOfUser(newItem, email);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(Constants.personalCart.listPersonalCartItems);
+            prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("jsonListPersonalCart", json);
+            editor.commit();
         }
         Intent intent;
         if (Constants.statusLogin.checkLogin) {
