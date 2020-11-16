@@ -1,5 +1,8 @@
 package com.system.newtikisystem.dao;
 
+import android.util.Log;
+
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.databases.DatabaseManager;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Orders;
@@ -11,14 +14,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class OrderDAO extends DatabaseManager {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
+    Common common = new Common();
 
     public ArrayList<Orders> getOrdersByEmail(String email) {
         ArrayList<Orders> orders = new ArrayList<>();
@@ -46,6 +51,47 @@ public class OrderDAO extends DatabaseManager {
         return orders;
     }
 
+    public void insertOrder(String email, Date orderTime, Date shipTime, String address, int totalPrice, int status, int paymentMethod, ArrayList<CartItem> items) {
+        try {
+            connection = connect();
+            connection.setAutoCommit(false);
+            String queryInsertOrder = "insert into orders values (?,?,?,?,?,?,?)";
+            PreparedStatement ps1 = connection.prepareStatement(queryInsertOrder, Statement.RETURN_GENERATED_KEYS);
+            ps1.setString(1, email);
+            ps1.setTimestamp(2, new java.sql.Timestamp(orderTime.getTime()));
+            ps1.setTimestamp(3, new java.sql.Timestamp(shipTime.getTime()));
+            ps1.setString(4, address);
+            ps1.setInt(5, totalPrice);
+            ps1.setInt(6, status);
+            ps1.setInt(7, paymentMethod);
+            ps1.executeUpdate();
+            ResultSet key = ps1.getGeneratedKeys();
+            int returnKey = 0;
+            if (key.next()) {
+                returnKey = key.getInt(1);
+            }
+            for (int i = 0; i < items.size(); i++) {
+                String queryInsertOrderProduct = "insert into order_product values (?,?,?)";
+                PreparedStatement ps2 = connection.prepareStatement(queryInsertOrderProduct);
+                ps2.setInt(1, returnKey);
+                ps2.setInt(2, items.get(i).getId());
+                ps2.setInt(3, items.get(i).getQuantity());
+                ps2.executeUpdate();
+                ps2.close();
+            }
+            connection.commit();
+            connection.close();
+            ps1.close();
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+    }
+
     public void rateProduct(Productrating productrating) {
         try {
             String query = "insert into productrating values (?,?,?,?)";
@@ -59,7 +105,6 @@ public class OrderDAO extends DatabaseManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public Orders getOrderById(int id) {
@@ -201,5 +246,20 @@ public class OrderDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void insertOrderNotification(String email, Date time, String title, String content) {
+        try {
+            String query = "insert into notifications values (?,?,?,?)";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setTimestamp(2, new java.sql.Timestamp(time.getTime()));
+            ps.setString(3, title);
+            ps.setString(4, content);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

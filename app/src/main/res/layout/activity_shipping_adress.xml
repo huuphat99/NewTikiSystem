@@ -88,8 +88,10 @@
 
     <Button
         android:id="@+id/btnConfirmAddress"
-        android:layout_width="375dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:onClick="onConfirmAddressClick"
         android:text="Shipp to this address"

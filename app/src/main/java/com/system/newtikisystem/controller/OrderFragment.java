@@ -1,5 +1,6 @@
 package com.system.newtikisystem.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  * Use the {@link OrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderFragment extends Fragment {
+public class OrderFragment extends Fragment implements OrderRecyclerAdapter.OnViewDetailListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,13 +68,15 @@ public class OrderFragment extends Fragment {
         }
     }
 
+    PersonalCartItems pCart;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(R.id.orderRecyclerView);
 
-        PersonalCartItems pCart = Constants.personalCart.getCartOfUser(Constants.accountSave.emailAccount);
+        pCart = Constants.personalCart.getCartOfUser(Constants.accountSave.emailAccount);
 
-        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(pCart.getCartItems());
+        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(pCart.getCartItems(), this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext()) {
             @Override
@@ -90,5 +93,13 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_order, container, false);
+    }
+
+    @Override
+    public void onViewDetailClick(int position) {
+        int productId =pCart.getCartItems().get(position).getId();
+        Intent intent= new Intent(getContext(),ProductDetailActivity.class);
+        intent.putExtra("productId",productId);
+        startActivity(intent);
     }
 }

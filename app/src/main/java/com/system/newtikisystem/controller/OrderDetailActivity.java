@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.OrderDetailRecyclerAdapter;
 import com.system.newtikisystem.common.Common;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.OrderDAO;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Orders;
@@ -30,7 +31,7 @@ import com.system.newtikisystem.entity.Productrating;
 
 import java.util.ArrayList;
 
-public class OrderDetailActivity extends AppCompatActivity implements OrderDetailRecyclerAdapter.OnRateProductListener {
+public class OrderDetailActivity extends AppCompatActivity implements OrderDetailRecyclerAdapter.OnHandleClickListener {
 
     ArrayList<CartItem> items;
     OrderDAO dao = new OrderDAO();
@@ -75,7 +76,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
         textViewAddress.setText(order.getDestination());
         textViewPaymentMethod.setText(paymentMethod.getName());
         textViewStatus.setText(order.isStatus() == true ? "Successful delivery" : "Shipping");
-        textViewTotalPrice.setText(Integer.toString(order.getTotalPrice()));
+        textViewTotalPrice.setText(common.formatPrice(order.getTotalPrice()));
     }
 
     @Override
@@ -120,7 +121,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
                 int productId = item.getId();
                 String content = rateContent.getText().toString();
                 float stars = rateBar.getRating();
-                String email = "123123@gmail.com";
+                String email = Constants.accountSave.emailAccount;
                 dao.rateProduct(new Productrating(productId, email, content, stars));
                 Toast toast = Toast.makeText(getApplicationContext(), "Successful rating", Toast.LENGTH_LONG);
                 toast.show();
@@ -130,5 +131,13 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
         });
 
         rateDialog.show();
+    }
+
+    @Override
+    public void onViewDetailClick(int position) {
+        int productId = items.get(position).getId();
+        Intent intent = new Intent(this, ProductDetailActivity.class);
+        intent.putExtra("productId", productId);
+        startActivity(intent);
     }
 }

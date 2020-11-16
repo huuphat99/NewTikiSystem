@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.OrderDAO;
 import com.system.newtikisystem.entity.CartItem;
 
@@ -20,9 +22,10 @@ import java.util.ArrayList;
 public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetailRecyclerAdapter.OrderDetailViewHolder> {
 
     ArrayList<CartItem> items;
-    private OnRateProductListener onRateProductListener;
+    private OnHandleClickListener onHandleClickListener;
     private boolean isRated;
     OrderDAO dao = new OrderDAO();
+    Common common = new Common();
 
     public boolean isRated() {
         return isRated;
@@ -32,9 +35,9 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
         isRated = rated;
     }
 
-    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items, OnRateProductListener onRateProductListener) {
+    public OrderDetailRecyclerAdapter(ArrayList<CartItem> items, OnHandleClickListener onHandleClickListener) {
         this.items = items;
-        this.onRateProductListener = onRateProductListener;
+        this.onHandleClickListener = onHandleClickListener;
     }
 
     @NonNull
@@ -42,17 +45,17 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
     public OrderDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.order_detail_item, parent, false);
-        return new OrderDetailViewHolder(view, onRateProductListener);
+        return new OrderDetailViewHolder(view, onHandleClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, int position) {
         Picasso.get().load(items.get(position).getUrl()).into(holder.orderDetailItemImage);
         holder.orderDetailItemName.setText(items.get(position).getName());
-        holder.orderDetailItemPrice.setText(Integer.toString(items.get(position).getPrice()));
+        holder.orderDetailItemPrice.setText(common.formatPrice((items.get(position).getSale())));
         holder.orderDetailItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
         int productId = items.get(position).getId();
-        String email = "123123@gmail.com";
+        String email = Constants.accountSave.emailAccount;
         if (dao.isRatedPosition(email, productId)) {
             holder.rateDetailButton.setClickable(false);
             holder.rateDetailButton.setText("Rated");
@@ -68,10 +71,10 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
 
         ImageView orderDetailItemImage;
         TextView orderDetailItemName, orderDetailItemPrice, orderDetailItemQuantity;
-        OnRateProductListener onRateProductListener;
+        OnHandleClickListener onRateProductListener;
         Button rateDetailButton;
 
-        public OrderDetailViewHolder(@NonNull View itemView, OnRateProductListener onRateProductListener) {
+        public OrderDetailViewHolder(@NonNull View itemView, OnHandleClickListener onRateProductListener) {
             super(itemView);
             orderDetailItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderDetailItemName = itemView.findViewById(R.id.orderItemName);
@@ -80,7 +83,8 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
             rateDetailButton = itemView.findViewById(R.id.rateDetailButton);
 
             this.onRateProductListener = onRateProductListener;
-            rateDetailButton.setOnClickListener(this);
+            rateDetailButton.setOnClickListener(v -> onHandleClickListener.onRateProductClick(getAdapterPosition()));
+            orderDetailItemImage.setOnClickListener(v -> onHandleClickListener.onViewDetailClick(getAdapterPosition()));
         }
 
         @Override
@@ -89,7 +93,9 @@ public class OrderDetailRecyclerAdapter extends RecyclerView.Adapter<OrderDetail
         }
     }
 
-    public interface OnRateProductListener {
+    public interface OnHandleClickListener {
         void onRateProductClick(int position);
+
+        void onViewDetailClick(int position);
     }
 }
