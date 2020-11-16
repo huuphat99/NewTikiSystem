@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:paddingBottom="50dp"
         tools:context=".controller.MainActivity">
 
         <TextView
@@ -59,25 +60,18 @@
 
         <EditText
             android:id="@+id/editTextSearch"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/search_bg"
             android:drawableLeft="@android:drawable/ic_menu_search"
-            android:editable="false"
             android:ems="10"
             android:focusableInTouchMode="false"
             android:hint="Search"
             android:inputType="textPersonName"
             android:paddingStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.02" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_slider_mainActivity"
@@ -142,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
             android:text="Top Newest"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topSaleRecycler" />
 
@@ -164,8 +158,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
             android:text="Top Sell"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topNewRecycler" />
 
@@ -188,24 +182,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTopSell1" />
-
-
-        <!--    <RelativeLayout-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="50dp"-->
-        <!--        android:layout_marginBottom="8dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/button"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Button" />-->
-        <!--    </RelativeLayout>-->
+            app:layout_constraintTop_toBottomOf="@+id/topSellRecycler" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
