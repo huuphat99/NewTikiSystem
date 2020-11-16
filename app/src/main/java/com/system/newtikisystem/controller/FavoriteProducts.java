@@ -3,6 +3,7 @@ package com.system.newtikisystem.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,10 @@ public class FavoriteProducts extends AppCompatActivity implements RecyclerAdapt
         RecyclerView recyclerView = findViewById(R.id.fpRecyclerView);
         ProductTDAO productTDAO = new ProductTDAO();
         products = productTDAO.getListProductFavorite(email);
+        if(products.size()==0){
+            TextView fpNotification= findViewById(R.id.fpNotification);
+            fpNotification.setText("No favorite products");
+        }
         RecyclerAdapterFavoriteProducts adapter = new RecyclerAdapterFavoriteProducts(products, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

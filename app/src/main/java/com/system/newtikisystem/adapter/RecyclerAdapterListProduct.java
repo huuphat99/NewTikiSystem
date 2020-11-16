@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.entity.ProductList;
 
 import java.util.ArrayList;
@@ -35,7 +36,9 @@ public class RecyclerAdapterListProduct extends RecyclerView.Adapter<RecyclerAda
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterListProduct.ViewHolder holder, int position) {
         holder.lpName.setText(products.get(position).getName());
-        holder.lpPrice.setText(Integer.toString(products.get(position).getPrice()));
+        Common common= new Common();
+        String price=common.formatPrice(products.get(position).getPrice());
+        holder.lpPrice.setText(price);
         Picasso.get().load(products.get(position).getImageUrl()).into(holder.lpImage);
     }
 

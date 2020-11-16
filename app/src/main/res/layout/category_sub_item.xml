@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/textViewSubCategory"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#FFFFFF"
         android:text="TextView"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewSubCategory"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageViewSubCategory"
         app:layout_constraintTop_toBottomOf="@+id/imageViewSubCategory" />
 
