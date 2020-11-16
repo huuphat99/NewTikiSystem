@@ -26,6 +26,7 @@ public class ListProduct extends AppCompatActivity implements RecyclerAdapterLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         int subCategoryID;
         Intent intent = getIntent();
         subCategoryID = intent.getIntExtra("subcategoryID", -1);
@@ -44,6 +45,7 @@ public class ListProduct extends AppCompatActivity implements RecyclerAdapterLis
             case android.R.id.home:
                 Intent intent= new Intent(this, HomeActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

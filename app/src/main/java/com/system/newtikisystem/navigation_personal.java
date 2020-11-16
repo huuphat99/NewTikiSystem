@@ -104,6 +104,7 @@ public class navigation_personal extends Fragment {
 
         Boolean checkLogin= Constants.statusLogin.checkLogin;
 
+
         if(checkLogin==true){
             String email= Constants.accountSave.emailAccount;
             UserDAO userDAO= new UserDAO();
@@ -131,6 +132,13 @@ public class navigation_personal extends Fragment {
             personalEmail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
                     startActivity(intent);
                 }

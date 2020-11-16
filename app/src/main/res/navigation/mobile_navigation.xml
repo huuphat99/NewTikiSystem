@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_category"
         android:name="com.system.newtikisystem.navigation_category"
-        android:label="@string/notification"
+        android:label="Category"
         tools:layout="@layout/fragment_navigation_category" />
     <fragment
         android:id="@+id/navigation_search"
