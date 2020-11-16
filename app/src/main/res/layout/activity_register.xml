@@ -15,8 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/_60379" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/personalName"
@@ -25,7 +24,6 @@
         android:layout_marginBottom="156dp"
         android:fontFamily="sans-serif"
         android:includeFontPadding="true"
-        android:text="New Tiki System"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
