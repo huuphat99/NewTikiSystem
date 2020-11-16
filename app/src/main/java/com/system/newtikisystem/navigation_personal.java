@@ -1,12 +1,30 @@
 package com.system.newtikisystem;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.controller.MainActivity;
+import com.system.newtikisystem.controller.FavoriteProducts;
+import com.system.newtikisystem.controller.OrderHistoryActivity;
+import com.system.newtikisystem.dao.UserDAO;
+import com.system.newtikisystem.entity.User;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +77,64 @@ public class navigation_personal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         return inflater.inflate(R.layout.fragment_navigation_personal, container, false);
+
+    }
+
+    ArrayAdapter<String> adapter;
+    ArrayList<String> items = new ArrayList<>();
+    String attributes[] = new String[]{"Management Order", "Purchased Product", "Viewed Products", "Favorite Products", "Deals for bank card holders", "Setting"};
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        TextView personalName, personalEmail;
+        personalName= view.findViewById(R.id.personalName);
+        personalEmail= view.findViewById(R.id.personalEmail);
+
+        ImageView personalImage= view.findViewById(R.id.personalImage);
+        personalImage.setImageResource(R.drawable.icon_user);
+
+        ListView listView = view.findViewById(R.id.listViewItem);
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, attributes);
+        listView.setAdapter(adapter);
+
+        Boolean checkLogin= Constants.statusLogin.checkLogin;
+
+        if(checkLogin==true){
+            String email= Constants.accountSave.emailAccount;
+            UserDAO userDAO= new UserDAO();
+            User user= userDAO.getInfo(email);
+            personalName.setText(user.getName());
+            personalEmail.setText(user.getEmail());
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 3) {
+                        Intent intent = new Intent(getActivity().getApplication(), FavoriteProducts.class);
+                        startActivity(intent);
+                    }else if(position==0){
+                        Intent intent = new Intent(getActivity().getApplication(), OrderHistoryActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }else {
+            personalName.setText("Welcome to Gear");
+            personalName.setTextSize(14);
+            personalEmail.setTextColor(Color.BLUE);
+            personalEmail.setTextSize(18);
+            personalEmail.setText("Click here to login or register");
+            personalEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }

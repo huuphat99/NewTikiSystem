@@ -238,7 +238,7 @@
             <EditText
                 android:id="@+id/makeComment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="50dp"
                 android:layout_below="@id/commentsRecyclerView"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"

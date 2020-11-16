@@ -1,19 +1,16 @@
 package com.system.newtikisystem.dao;
 
 import com.system.newtikisystem.databases.DatabaseManager;
-import com.system.newtikisystem.entity.Productrating;
 import com.system.newtikisystem.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class UserDAO extends DatabaseManager {
 
 
-
-    public User checkLogin(String username, String password){
+    public User checkLogin(String username, String password) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -29,7 +26,7 @@ public class UserDAO extends DatabaseManager {
                 ps.setString(1, username);
                 ps.setString(2, password);
                 rs = ps.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     User user = new User();
                     user.setEmail(rs.getString(1));
                     user.setPass_word(rs.getString(2));
@@ -41,13 +38,13 @@ public class UserDAO extends DatabaseManager {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public boolean checkUserForget(String email){
+    public boolean checkUserForget(String email) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -61,7 +58,7 @@ public class UserDAO extends DatabaseManager {
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 User user = new User();
                 user.setEmail(rs.getString(1));
                 user.setPass_word(rs.getString(2));
@@ -70,13 +67,13 @@ public class UserDAO extends DatabaseManager {
                 user.setDob(rs.getDate(5));
                 return true;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public int updatePassword(String username, String password){
+    public int updatePassword(String username, String password) {
         PreparedStatement ps = null;
 
         try {
@@ -90,5 +87,26 @@ public class UserDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public User getInfo(String email) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT name,email from [users] where email=?";
+            connection = connect();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setName(rs.getString(1));
+                user.setEmail(rs.getString(2));
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

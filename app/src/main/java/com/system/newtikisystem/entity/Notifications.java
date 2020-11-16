@@ -6,16 +6,18 @@ public class Notifications {
     private int id;
     private String email;
     private Date time;
-    private String notificationContent;
+    private String content;
+    private String title;
 
     public Notifications() {
     }
 
-    public Notifications(int id, String email, Date time, String notificationContent) {
+    public Notifications(int id, String email, Date time, String content, String title) {
         this.id = id;
         this.email = email;
         this.time = time;
-        this.notificationContent = notificationContent;
+        this.content = content;
+        this.title = title;
     }
 
     public int getId() {
@@ -42,11 +44,19 @@ public class Notifications {
         this.time = time;
     }
 
-    public String getNotificationContent() {
-        return notificationContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setNotificationContent(String notificationContent) {
-        this.notificationContent = notificationContent;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

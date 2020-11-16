@@ -8,16 +8,18 @@ public class Categories {
     private String description;
     private boolean status;
     private Date createDate;
+    private String imageURL;
 
     public Categories() {
     }
 
-    public Categories(int id, String name, String description, boolean status, Date createDate) {
+    public Categories(int id, String name, String description, boolean status, Date createDate, String imageURL) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
         this.createDate = createDate;
+        this.imageURL = imageURL;
     }
 
     public int getId() {
@@ -58,5 +60,13 @@ public class Categories {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

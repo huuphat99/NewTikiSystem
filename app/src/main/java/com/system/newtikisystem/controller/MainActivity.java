@@ -81,8 +81,21 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("emailAccount", txtUsername.getText().toString());
                 editor.commit();
                 if (Constants.statusLogin.checkLogin) {
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
+                    Intent arrivedIntent = getIntent();
+                    String lastActivity = arrivedIntent.getStringExtra("lastActivity");
+
+                    if(lastActivity != null && lastActivity.equals("productDetail")) {
+                        int pid = arrivedIntent.getIntExtra("productId",-1);
+                        String lastComment = arrivedIntent.getStringExtra("lastComment");
+                        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                        intent.putExtra("productId",pid);
+                        intent.putExtra("lastComment",lastComment);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+
                     Log.i("message: ", "da login");
                     Toast.makeText(this, "Logged in", Toast.LENGTH_LONG).show();
                 }

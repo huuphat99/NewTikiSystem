@@ -9,17 +9,19 @@ public class Subcategories {
     private boolean status;
     private Date createDate;
     private int categoryId;
+    private  String imageURL;
 
     public Subcategories() {
     }
 
-    public Subcategories(int id, String name, String description, boolean status, Date createDate, int categoryId) {
+    public Subcategories(int id, String name, String description, boolean status, Date createDate, int categoryId, String imageURL) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
         this.createDate = createDate;
         this.categoryId = categoryId;
+        this.imageURL = imageURL;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class Subcategories {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }
