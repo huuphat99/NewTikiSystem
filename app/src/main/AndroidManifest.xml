@@ -26,14 +26,13 @@
         <activity
             android:name=".controller.PayCardActivity"
             android:label="Credit Cart / Debit Cart" />
-        <activity android:name=".controller.ListProduct">
-
+        <activity android:name=".controller.ListProduct"
+            android:label="List Product">
         </activity>
         <activity android:name=".controller.FavoriteProducts"
             android:label="@string/favorite_product">
 
         </activity>
-        <activity android:name=".controller.SearchProductActivity"></activity>
         <activity android:name=".controller.ChangePasswordActivity">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

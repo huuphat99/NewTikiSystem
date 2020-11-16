@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.system.newtikisystem.R;
-import com.system.newtikisystem.common.Constants;
-import com.system.newtikisystem.controller.ProductDetailActivity;
 import com.system.newtikisystem.adapter.RecyclerAdapterFavoriteProducts;
+import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.ProductTDAO;
 import com.system.newtikisystem.entity.FavoriteProduct;
 
@@ -54,7 +53,7 @@ public class FavoriteProducts extends AppCompatActivity implements RecyclerAdapt
     public void onViewProductFavoriteClick(int position) {
         int productId = products.get(position).getId();
         Intent intent= new Intent(this, ProductDetailActivity.class);
-        intent.putExtra("productId",productId);
+
         startActivity(intent);
     }
 }

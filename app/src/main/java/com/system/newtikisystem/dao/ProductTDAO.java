@@ -2,9 +2,7 @@ package com.system.newtikisystem.dao;
 
 import com.system.newtikisystem.databases.DatabaseManager;
 import com.system.newtikisystem.entity.FavoriteProduct;
-import com.system.newtikisystem.entity.Favorites;
-import com.system.newtikisystem.entity.Notifications;
-import com.system.newtikisystem.entity.Products;
+import com.system.newtikisystem.entity.ProductList;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,4 +41,31 @@ public class ProductTDAO extends DatabaseManager {
         }
         return list;
     }
+    public ArrayList<ProductList> getListProductBySubCategory(int subcategoryId) {
+        ArrayList<ProductList> list = new ArrayList<>();
+        try {
+            String query = "select top 1 with ties p.id, p.name, p.price, pp.imageurl\n" +
+                    "  from products p \n" +
+                    "  inner join product_pictures pp on p.id = pp.productid\n" +
+                    "  inner join product_subcategory ps on p.id = ps.productid\n" +
+                    "  where ps.subcategoryid = ?\n" +
+                    "  order by ROW_NUMBER() over (partition by p.id order by p.id)";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setInt(1,subcategoryId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductList p = new ProductList();
+                p.setId(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setPrice(rs.getInt(3));
+                p.setImageUrl(rs.getString(4));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }

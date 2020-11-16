@@ -1,5 +1,6 @@
 package com.system.newtikisystem.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * Use the {@link ListSubCategory#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListSubCategory extends Fragment {
+public class ListSubCategory extends Fragment implements RecyclerAdapterSubCategory.OnViewListProductListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +75,7 @@ public class ListSubCategory extends Fragment {
     }
 
     RecyclerView recyclerView;
+    ArrayList<Subcategories> categories;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -84,11 +86,19 @@ public class ListSubCategory extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             int cId = bundle.getInt("cId");
-            ArrayList<Subcategories> categories = categoryDAO.getListSubCategoryByCategoryID(cId);
-            RecyclerAdapterSubCategory adapter = new RecyclerAdapterSubCategory(categories);
+            categories = categoryDAO.getListSubCategoryByCategoryID(cId);
+            RecyclerAdapterSubCategory adapter = new RecyclerAdapterSubCategory(categories, this);
             recyclerView.setAdapter(adapter);
             GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
         }
+    }
+
+    @Override
+    public void onSubCategoryCLick(int position) {
+        int subCategoryID= categories.get(position).getId();
+        Intent intent= new Intent(getContext(),ListProduct.class);
+        intent.putExtra("subcategoryID",subCategoryID);
+        startActivity(intent);
     }
 }
