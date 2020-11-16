@@ -16,12 +16,12 @@ public class Products {
     private String origin;
     private String guarantee;
     private String specifications;
+    private String imageUrl;
 
     public Products() {
     }
 
-    public Products(int id, String name, String description, boolean status, float sale, int salepriority, int price, int clickTimes, Date createTime,
-                    String producer, String origin, String guarantee, String specifications) {
+    public Products(int id, String name, String description, boolean status, float sale, int salepriority, int price, int clickTimes, Date createTime, String producer, String origin, String guarantee, String specifications, String imageUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -35,6 +35,15 @@ public class Products {
         this.origin = origin;
         this.guarantee = guarantee;
         this.specifications = specifications;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
