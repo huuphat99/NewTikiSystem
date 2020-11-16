@@ -20,7 +20,7 @@
             android:id="@+id/imageViewSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="270dp"
+            android:layout_marginStart="250dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_search_36" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/imageViewHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="310dp"
+            android:layout_marginStart="290dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_home_24" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/imageViewCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="352dp"
+            android:layout_marginStart="330dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/ic_baseline_shopping_cart_36" />
 
@@ -109,7 +109,8 @@
                 android:layout_marginTop="16dp"
                 android:text="DELL Inspiron 3593"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginStart="8dp"/>
 
             <RatingBar
                 android:id="@+id/ratingBar"
