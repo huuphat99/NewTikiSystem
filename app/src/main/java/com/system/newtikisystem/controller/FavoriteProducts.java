@@ -53,7 +53,7 @@ public class FavoriteProducts extends AppCompatActivity implements RecyclerAdapt
     public void onViewProductFavoriteClick(int position) {
         int productId = products.get(position).getId();
         Intent intent= new Intent(this, ProductDetailActivity.class);
-
+        intent.putExtra("productId",productId);
         startActivity(intent);
     }
 }
