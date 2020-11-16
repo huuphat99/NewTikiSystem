@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         txtUsername = findViewById(R.id.txtEmail);
         txtPassword = findViewById(R.id.txtPassword);
         alert = findViewById(R.id.alert);
@@ -75,8 +76,21 @@ public class MainActivity extends AppCompatActivity {
                 Constants.statusLogin.checkLogin = Islogin;
                 Constants.accountSave.emailAccount = txtUsername.getText().toString();
                 if (Constants.statusLogin.checkLogin) {
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
+                    Intent arrivedIntent = getIntent();
+                    String lastActivity = arrivedIntent.getStringExtra("lastActivity");
+
+                    if(lastActivity != null && lastActivity.equals("productDetail")) {
+                        int pid = arrivedIntent.getIntExtra("productId",-1);
+                        String lastComment = arrivedIntent.getStringExtra("lastComment");
+                        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                        intent.putExtra("productId",pid);
+                        intent.putExtra("lastComment",lastComment);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+
                     Log.i("message: ", "da login");
                     Toast.makeText(this, "Logged in", Toast.LENGTH_LONG).show();
                 }

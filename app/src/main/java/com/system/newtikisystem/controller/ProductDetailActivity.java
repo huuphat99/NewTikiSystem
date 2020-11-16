@@ -1,5 +1,6 @@
 package com.system.newtikisystem.controller;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,7 +66,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     RatingBar ratingBar;
 
     ImageView imageViewSearch, imageViewHome, imageViewCart;
-
+    String lastComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +91,15 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         productId = intent.getIntExtra("productId", -1);
+        lastComment = intent.getStringExtra("lastComment")== null ? "" : intent.getStringExtra("lastComment");
         ProductDAO productDAO = new ProductDAO();
         product = productDAO.getProductDetail(productId);
         name.setText(product.getName());
         if (product.getSale() != 0) {
             realPrice.setText(common.formatPrice((int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000));
-            price.setText(common.formatPrice(product.getPrice()));
-            sale.setText(product.getSale() + "%");
+            String strikePrice = "<strike>" + common.formatPrice(product.getPrice()) + "</strike>";
+            price.setText(android.text.Html.fromHtml(strikePrice));
+            sale.setText("-" + product.getSale() + "%");
         } else {
             realPrice.setText(common.formatPrice(product.getPrice()));
         }
@@ -103,6 +107,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         origin.setText("Origin: " + product.getOrigin());
         gurantee.setText("Guarantee: " + product.getGuarantee());
         descriptionDetail.setText(product.getDescription());
+        makeComment.setText(lastComment);
 
         //ads auto slider
         imageSliderModelList = new ArrayList<>();
@@ -213,6 +218,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent loginIntent = new Intent(ProductDetailActivity.this, MainActivity.class);
+                loginIntent.putExtra("lastActivity", "productDetail");
+                loginIntent.putExtra("productId", productId);
+                loginIntent.putExtra("lastComment",makeComment.getText().toString());
                 startActivity(loginIntent);
             }
         });
@@ -257,4 +265,5 @@ public class ProductDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }
