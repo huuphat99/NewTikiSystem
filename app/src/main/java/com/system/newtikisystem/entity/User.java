@@ -6,16 +6,18 @@ public class User {
     private String  email;
     private String pass_word;
     private String name;
+    private boolean gender;
     private String phone;
-    private Date dob;
+    private String dob;
 
     public User() {
     }
 
-    public User(String email, String pass_word, String name, String phone, Date dob) {
+    public User(String email, String pass_word, String name, boolean gender, String phone, String dob) {
         this.email = email;
         this.pass_word = pass_word;
         this.name = name;
+        this.gender = gender;
         this.phone = phone;
         this.dob = dob;
     }
@@ -44,6 +46,14 @@ public class User {
         this.name = name;
     }
 
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -52,11 +62,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 }
