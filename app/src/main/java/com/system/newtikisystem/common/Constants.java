@@ -26,6 +26,7 @@ public class Constants {
     public static class statusLogin {
         public static boolean checkLogin;
     }
+
     public static class accountSave {
         public static String emailAccount = "";
     }
@@ -98,7 +99,7 @@ public class Constants {
 //            return listPersonalCartItems;
 //        }
 
-        public static ArrayList<PersonalCartItems> setCartOfUser(CartItem item, String email) {
+        public static ArrayList<PersonalCartItems> addItemToCart(CartItem item, String email) {
             boolean isInCart = false;
             PersonalCartItems pCart = getCartOfUser(email);
             ArrayList<CartItem> listItem = pCart.getCartItems();
@@ -120,8 +121,17 @@ public class Constants {
                 pCart.setEmail(email);
                 pCart.setCartItems(items);
             }
-//            Constants.personalCart.listPersonalCartItems.add(pCart);
             listPersonalCartItems.add(pCart);
+            return listPersonalCartItems;
+        }
+
+        public static ArrayList<PersonalCartItems> updateCart(PersonalCartItems pCart, String email) {
+            for (PersonalCartItems item : listPersonalCartItems) {
+                if (item.getEmail() == email) {
+                    listPersonalCartItems.remove(item);
+                    listPersonalCartItems.add(pCart);
+                }
+            }
             return listPersonalCartItems;
         }
 

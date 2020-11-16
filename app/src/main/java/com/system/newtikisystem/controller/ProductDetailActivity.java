@@ -1,6 +1,5 @@
 package com.system.newtikisystem.controller;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,11 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -25,20 +22,15 @@ import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
-import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
 import com.system.newtikisystem.dao.ProductDAO;
 import com.system.newtikisystem.dao.RatingDAO;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.Comment;
-import com.system.newtikisystem.entity.ImageSliderModel;
-import com.system.newtikisystem.entity.PersonalCartItems;
 import com.system.newtikisystem.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -257,7 +249,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             int itemPrice = product.getPrice();
             int salePrice = (int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000;
             CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
-            Constants.personalCart.setCartOfUser(newItem, email);
+            Constants.personalCart.addItemToCart(newItem, email);
 
             Gson gson = new Gson();
             String json = gson.toJson(Constants.personalCart.listPersonalCartItems);
@@ -276,5 +268,4 @@ public class ProductDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
 }

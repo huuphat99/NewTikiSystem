@@ -37,8 +37,8 @@ public class OrderDAO extends DatabaseManager {
                 Orders order = new Orders();
                 order.setId(rs.getInt(1));
                 order.setEmail(rs.getString(2));
-                order.setOrderTime(rs.getDate(3));
-                order.setShipTime(rs.getDate(4));
+                order.setOrderTime(rs.getTimestamp(3));
+                order.setShipTime(rs.getTimestamp(4));
                 order.setDestination(rs.getString(5));
                 order.setTotalPrice(rs.getInt(6));
                 order.setStatus(rs.getInt(7) == 1 ? true : false);
@@ -119,8 +119,8 @@ public class OrderDAO extends DatabaseManager {
                 Orders order = new Orders();
                 order.setId(rs.getInt(1));
                 order.setEmail(rs.getString(2));
-                order.setOrderTime(rs.getDate(3));
-                order.setShipTime(rs.getDate(4));
+                order.setOrderTime(rs.getTimestamp(3));
+                order.setShipTime(rs.getTimestamp(4));
                 order.setDestination(rs.getString(5));
                 order.setTotalPrice(rs.getInt(6));
                 order.setStatus(rs.getInt(7) == 1 ? true : false);
@@ -155,7 +155,7 @@ public class OrderDAO extends DatabaseManager {
                 product.setSalepriority(rs.getInt(6));
                 product.setPrice(rs.getInt(7));
                 product.setClickTimes(rs.getInt(8));
-                product.setCreateTime(rs.getDate(9));
+                product.setCreateTime(rs.getTimestamp(9));
                 product.setProducer(rs.getString(10));
                 product.setOrigin(rs.getString(11));
                 product.setGuarantee(rs.getString(12));

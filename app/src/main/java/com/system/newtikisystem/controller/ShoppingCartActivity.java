@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.common.Common;
@@ -89,28 +91,40 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveCartToSharedData(PersonalCartItems pCart) {
+        Gson gson = new Gson();
+        Constants.personalCart.updateCart(pCart, email);
+        String json = gson.toJson(Constants.personalCart.listPersonalCartItems);
+        SharedPreferences prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("jsonListPersonalCart", json);
+        editor.commit();
+    }
+
     @Override
     public void onDecreaseQuantityClick(int position) {
         int quantity = pCart.getCartItems().get(position).getQuantity();
         if (quantity != 1) {
             pCart.getCartItems().get(position).setQuantity(quantity - 1);
-            recreate();
         } else {
             pCart.getCartItems().remove(position);
-            recreate();
         }
+        saveCartToSharedData(pCart);
+        recreate();
     }
 
     @Override
     public void onIncreaseQuantityClick(int position) {
         int quantity = pCart.getCartItems().get(position).getQuantity();
         pCart.getCartItems().get(position).setQuantity(quantity + 1);
+        saveCartToSharedData(pCart);
         recreate();
     }
 
     @Override
     public void onDeleteClick(int position) {
         pCart.getCartItems().remove(position);
+        saveCartToSharedData(pCart);
         recreate();
     }
 
