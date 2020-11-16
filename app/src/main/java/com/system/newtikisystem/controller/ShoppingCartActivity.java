@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.entity.CartItem;
 import com.system.newtikisystem.entity.PersonalCartItems;
@@ -24,6 +25,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
 
     PersonalCartItems pCart;
     int totalCost;
+    Common common = new Common();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
             numberItemInCart.setText(Integer.toString(0));
         }
         TextView textProvisionalPrice = findViewById(R.id.textProvisionalPrice);
-        textProvisionalPrice.setText(totalCost + " đ");
+        textProvisionalPrice.setText(common.formatPrice(totalCost));
         TextView textTotalPrice = findViewById(R.id.totalCost);
-        textTotalPrice.setText(totalCost + " đ");
+        textTotalPrice.setText(common.formatPrice(totalCost));
     }
 
     public void onNextStepOrderClick(View view) {
@@ -100,5 +102,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     public void onDeleteClick(int position) {
         pCart.getCartItems().remove(position);
         recreate();
+    }
+
+    @Override
+    public void onViewDetailClick(int position) {
+        int productId = pCart.getCartItems().get(position).getId();
+        Intent intent = new Intent(this, ProductDetailActivity.class);
+        intent.putExtra("productId", productId);
+        startActivity(intent);
     }
 }

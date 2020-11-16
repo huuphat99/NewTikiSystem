@@ -10,9 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +18,8 @@ import android.widget.TextView;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.common.Constants;
-import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.controller.ImageSliderAdapter;
 import com.system.newtikisystem.controller.SearchProductActivity;
-import com.system.newtikisystem.controller.ShoppingCartActivity;
 import com.system.newtikisystem.controller.TopProductAdapter;
 import com.system.newtikisystem.dao.AdDAO;
 import com.system.newtikisystem.dao.ProductDAO;
@@ -128,7 +123,7 @@ public class navigation_home extends Fragment {
         } else {
             cartQuantity = 0;
         }
-        TextView homeCartQuantity = getView().findViewById(R.id.txtHomeCartQuantity);
+        TextView homeCartQuantity = getView().findViewById(R.id.txtDetailCartQuantity);
         homeCartQuantity.setText(Integer.toString(cartQuantity));
     }
 

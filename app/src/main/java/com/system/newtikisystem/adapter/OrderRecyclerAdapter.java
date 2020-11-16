@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.entity.CartItem;
 
 import java.util.ArrayList;
@@ -21,9 +22,12 @@ import java.util.ArrayList;
 public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.CartViewHolder> {
 
     ArrayList<CartItem> items;
+    private OnViewDetailListener OnViewDetailListener;
+    Common common = new Common();
 
-    public OrderRecyclerAdapter(ArrayList<CartItem> items) {
+    public OrderRecyclerAdapter(ArrayList<CartItem> items, OnViewDetailListener onViewDetailListener) {
         this.items = items;
+        this.OnViewDetailListener = onViewDetailListener;
     }
 
     @NonNull
@@ -31,7 +35,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.order_item, parent, false);
-        return new CartViewHolder(view);
+        return new CartViewHolder(view, OnViewDetailListener);
     }
 
     @Override
@@ -39,11 +43,11 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         Picasso.get().load(items.get(position).getUrl()).into(holder.orderItemImage);
         holder.orderItemName.setText(items.get(position).getName());
         //set price string strikeThroughSpan
-        SpannableString priceString = new SpannableString(items.get(position).getPrice() + " đ");
+        SpannableString priceString = new SpannableString(common.formatPrice(items.get(position).getPrice()));
         priceString.setSpan(new StrikethroughSpan(), 0, priceString.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.orderItemPrice.setText(priceString);
         holder.orderItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
-        holder.orderItemSalePrice.setText(items.get(position).getSale() + " đ");
+        holder.orderItemSalePrice.setText(common.formatPrice(items.get(position).getSale()));
     }
 
     @Override
@@ -51,18 +55,30 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         return items.size();
     }
 
-    public class CartViewHolder extends RecyclerView.ViewHolder {
+    public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView orderItemImage;
         TextView orderItemName, orderItemPrice, orderItemQuantity, orderItemSalePrice;
+        OnViewDetailListener onViewDetailListener;
 
-        public CartViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull View itemView, OnViewDetailListener onViewDetailListener) {
             super(itemView);
             orderItemImage = itemView.findViewById(R.id.orderDetailItemImage);
             orderItemName = itemView.findViewById(R.id.orderItemName);
             orderItemSalePrice = itemView.findViewById(R.id.cartItemSalePrice);
             orderItemQuantity = itemView.findViewById(R.id.orderItemQuantity);
             orderItemPrice = itemView.findViewById(R.id.orderItemPrice);
+            this.onViewDetailListener = onViewDetailListener;
+            orderItemImage.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onViewDetailListener.onViewDetailClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnViewDetailListener {
+        void onViewDetailClick(int position);
     }
 }

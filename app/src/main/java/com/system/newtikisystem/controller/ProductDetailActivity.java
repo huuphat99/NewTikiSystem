@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.smarteist.autoimageslider.SliderView;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.CommentDAO;
@@ -58,10 +59,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     CommentDAO commentDAO;
     EditText makeComment;
     Button buttonSend;
+    Common common = new Common();
 
     RatingBar ratingBar;
 
-    ImageView imageViewSearch,imageViewHome,imageViewCart;
+    ImageView imageViewSearch, imageViewHome, imageViewCart;
 
 
     @Override
@@ -91,11 +93,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         product = productDAO.getProductDetail(productId);
         name.setText(product.getName());
         if (product.getSale() != 0) {
-            realPrice.setText(String.valueOf((int) (product.getPrice() * (1 - product.getSale() / 100))));
-            price.setText(String.valueOf(product.getPrice()));
-            sale.setText(String.valueOf(product.getSale()) + "%");
+            realPrice.setText(common.formatPrice((int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000));
+            price.setText(common.formatPrice(product.getPrice()));
+            sale.setText(product.getSale() + "%");
         } else {
-            realPrice.setText(String.valueOf(product.getPrice()));
+            realPrice.setText(common.formatPrice(product.getPrice()));
         }
         producer.setText("Producer: " + product.getProducer());
         origin.setText("Origin: " + product.getOrigin());
@@ -150,7 +152,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailActivity.this,SearchProductActivity.class);
+                Intent intent = new Intent(ProductDetailActivity.this, SearchProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -158,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageViewHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailActivity.this,HomeActivity.class);
+                Intent intent = new Intent(ProductDetailActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -175,6 +177,21 @@ public class ProductDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        int cartQuantity;
+        if (Constants.statusLogin.checkLogin) {
+            cartQuantity = Constants.personalCart.cartQuantity(Constants.accountSave.emailAccount);
+        } else {
+            cartQuantity = 0;
+        }
+        TextView detailCartQuantity = findViewById(R.id.txtDetailCartQuantity);
+        detailCartQuantity.setText(Integer.toString(cartQuantity));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 
     private void showMakeCommentAlert() {
@@ -210,7 +227,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-
     private void setCommentRecyclerView(List<Comment> commentList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         commemtRecyclerView.setLayoutManager(layoutManager);
@@ -227,15 +243,15 @@ public class ProductDetailActivity extends AppCompatActivity {
             String itemImageUrl = product.getAvatar();
             int itemQuantity = 1;
             int itemPrice = product.getPrice();
-            int salePrice = (int) (product.getPrice() * (1 - product.getSale() / 100));
+            int salePrice = (int) Math.ceil(product.getPrice() * (1 - product.getSale() / 100) / 1000) * 1000;
             CartItem newItem = new CartItem(itemId, itemName, itemImageUrl, itemQuantity, itemPrice, salePrice);
             Constants.personalCart.setCartOfUser(newItem, email);
         }
         Intent intent;
         if (Constants.statusLogin.checkLogin) {
-            intent = new Intent(this, HomeActivity.class);
             Toast toast = Toast.makeText(this, "Add successfully", Toast.LENGTH_LONG);
             toast.show();
+            recreate();
         } else {
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);

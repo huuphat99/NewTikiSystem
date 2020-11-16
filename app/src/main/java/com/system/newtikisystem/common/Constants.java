@@ -63,18 +63,13 @@ public class Constants {
                 pCart.setEmail(email);
                 pCart.setCartItems(items);
             }
-//            for (PersonalCartItems p : personalCart.listPersonalCartItems) {
-//                if (p.getEmail().equals(email)) {
-//                    isExistEmail = true;
-//                    ArrayList<CartItem> newCart = p.getCartItems();
-//                    p.getCartItems().add(item);
-//                    p.setCartItems(newCart);
-//                    break;
-//                }
-//            }
-//            if (!isExistEmail) {
             Constants.personalCart.listPersonalCartItems.add(pCart);
-//            }
+        }
+
+        public static void removeCartOfUser(String email) {
+            int index = -1;
+            ArrayList<CartItem> cItems = Constants.personalCart.getCartOfUser(email).getCartItems();
+            cItems.clear();
         }
 
         public static int totalCost(String email) {

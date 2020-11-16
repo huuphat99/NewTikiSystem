@@ -16,14 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.entity.CartItem;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder> {
 
     ArrayList<CartItem> items;
     OnHandleCartItemListener onHandleCartItemListener;
+    Common common = new Common();
 
     public CartRecyclerAdapter(ArrayList<CartItem> items, OnHandleCartItemListener onHandleCartItemListener) {
         this.items = items;
@@ -42,9 +46,10 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Picasso.get().load(items.get(position).getUrl()).into(holder.cartItemImage);
         holder.cartItemName.setText(items.get(position).getName());
-        holder.cartItemSalePrice.setText(items.get(position).getSale() + " đ");
+        String saleprice = common.formatPrice(items.get(position).getSale());
+        holder.cartItemSalePrice.setText(saleprice);
         //set price string strikeThroughSpan
-        SpannableString priceString = new SpannableString(items.get(position).getPrice() + " đ");
+        SpannableString priceString = new SpannableString(common.formatPrice(items.get(position).getPrice()));
         priceString.setSpan(new StrikethroughSpan(), 0, priceString.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.cartItemPrice.setText(priceString);
         holder.cartItemQuantity.setText(Integer.toString(items.get(position).getQuantity()));
@@ -81,6 +86,8 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
             increase.setOnClickListener(v -> onHandleCartItemListener.onIncreaseQuantityClick(getAdapterPosition()));
             decrease.setOnClickListener(v -> onHandleCartItemListener.onDecreaseQuantityClick(getAdapterPosition()));
             delete.setOnClickListener(v -> onHandleCartItemListener.onDeleteClick(getAdapterPosition()));
+            cartItemImage.setOnClickListener(v -> onHandleCartItemListener.onViewDetailClick(getAdapterPosition()));
+
         }
     }
 
@@ -90,5 +97,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         void onIncreaseQuantityClick(int position);
 
         void onDeleteClick(int position);
+
+        void onViewDetailClick(int position);
     }
 }

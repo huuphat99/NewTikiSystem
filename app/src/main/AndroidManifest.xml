@@ -61,6 +61,8 @@
         <activity android:name=".controller.MainActivity" />
         <activity
             android:name=".controller.ShoppingCartActivity"
-            android:label="Shopping cart" />
+            android:label="Shopping cart">
+
+        </activity>
     </application>
 </manifest>
