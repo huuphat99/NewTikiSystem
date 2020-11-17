@@ -268,4 +268,14 @@ public class ProductDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String checkHome = getIntent().getStringExtra("checkHome");
+        if (checkHome != null) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+    }
 }

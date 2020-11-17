@@ -85,7 +85,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                String checkHome = getIntent().getStringExtra("checkHome");
+                if (checkHome != null) {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -134,5 +140,15 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         Intent intent = new Intent(this, ProductDetailActivity.class);
         intent.putExtra("productId", productId);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String checkHome = getIntent().getStringExtra("checkHome");
+        if (checkHome != null) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }

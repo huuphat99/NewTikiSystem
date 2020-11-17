@@ -62,17 +62,12 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        recreate();
-    }
-
     public void onViewCardClick(View view) {
         Intent intent;
         boolean isLogin = Constants.statusLogin.checkLogin;
         if (isLogin) {
             intent = new Intent(this, ShoppingCartActivity.class);
+            intent.putExtra("checkHome", "checkHome");
         } else {
             intent = new Intent(this, MainActivity.class);
         }

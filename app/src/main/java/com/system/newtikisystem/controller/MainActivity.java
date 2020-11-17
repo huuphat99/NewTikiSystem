@@ -85,12 +85,16 @@ public class MainActivity extends AppCompatActivity {
                     Intent arrivedIntent = getIntent();
                     String lastActivity = arrivedIntent.getStringExtra("lastActivity");
 
-                    if(lastActivity != null && lastActivity.equals("productDetail")) {
-                        int pid = arrivedIntent.getIntExtra("productId",-1);
+                    if (lastActivity != null && lastActivity.equals("productDetail")) {
+                        int pid = arrivedIntent.getIntExtra("productId", -1);
                         String lastComment = arrivedIntent.getStringExtra("lastComment");
                         Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                        intent.putExtra("productId",pid);
-                        intent.putExtra("lastComment",lastComment);
+                        intent.putExtra("productId", pid);
+                        intent.putExtra("lastComment", lastComment);
+                        startActivity(intent);
+                    } else if (lastActivity != null && lastActivity.equals("nav_personal")) {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.putExtra("nav_name", "personal");
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 alert.setText("Email or Password is wrong!");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
