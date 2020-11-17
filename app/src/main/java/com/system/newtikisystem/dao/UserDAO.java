@@ -32,7 +32,7 @@ public class UserDAO extends DatabaseManager {
                     user.setPass_word(rs.getString(2));
                     user.setName(rs.getString(3));
                     user.setPhone(rs.getString(4));
-                    user.setDob(rs.getDate(5));
+                    user.setDob(rs.getString(5));
                     return user;
                 }
             } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class UserDAO extends DatabaseManager {
                 user.setPass_word(rs.getString(2));
                 user.setName(rs.getString(3));
                 user.setPhone(rs.getString(4));
-                user.setDob(rs.getDate(5));
+                user.setDob(rs.getString(5));
                 return true;
             }
         } catch (Exception e) {
@@ -108,5 +108,50 @@ public class UserDAO extends DatabaseManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean checkExist(String email) throws Exception{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean flag = false;
+        try {
+            String query = "SELECT email\n"
+                    + "  FROM users WHERE email = ?";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                flag = true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+        return flag;
+    }
+
+    public  boolean insert(User user) throws Exception{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean flag = false;
+        try {
+            String query = "INSERT INTO users (email, pass_word, name, gender, phone, dob) VALUES (?, ?, ?, ?, ?, ?)";
+            connection = connect();
+            ps = connection.prepareStatement(query);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPass_word());
+            ps.setString(3, user.getName());
+            ps.setBoolean(4, user.isGender());
+            ps.setString(5, user.getPhone());
+            ps.setString(6, user.getDob());
+            int retVal = ps.executeUpdate();
+            if (retVal > 0) {
+                flag = true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

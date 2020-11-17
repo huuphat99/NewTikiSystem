@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
-        android:id="@+id/rPayGroup"
+        android:id="@+id/groupSex"
         android:layout_width="206dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
@@ -105,6 +105,7 @@
             android:id="@+id/rdMale"
             android:layout_width="103dp"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Male" />
 
         <RadioButton
@@ -135,21 +136,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rPayGroup"
+        app:layout_constraintTop_toBottomOf="@+id/groupSex"
         app:layout_constraintVertical_bias="0.134" />
 
     <EditText
         android:id="@+id/txtDate"
-        android:layout_width="317dp"
-        android:layout_height="46dp"
+        android:layout_width="221dp"
+        android:layout_height="45dp"
         android:ems="10"
+        android:forceHasOverlappingRendering="false"
         android:hint="Date of birth"
+        android:focusable="false"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintEnd_toStartOf="@+id/btnSelectDate"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.054" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="549dp"
+        android:layout_height="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051"
+        app:srcCompat="@drawable/gear" />
+
+    <Button
+        android:id="@+id/btnSelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:onClick="showDate"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.569" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

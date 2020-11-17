@@ -1,8 +1,22 @@
 package com.system.newtikisystem.controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.entity.PersonalCartItems;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,11 +24,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.system.newtikisystem.R;
-import com.system.newtikisystem.common.Constants;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +45,29 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        pref = getSharedPreferences("dataStore", MODE_PRIVATE);
 
+        if (pref != null) {
+            Constants.statusLogin.checkLogin = pref.getBoolean("isLogin", false);
+            Constants.accountSave.emailAccount = pref.getString("emailAccount", "");
+            String serializedObject = pref.getString("jsonListPersonalCart", "");
+            ArrayList<PersonalCartItems> listPersonalCartItems = new ArrayList<>();
+            if (serializedObject != null) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<ArrayList<PersonalCartItems>>() {
+                }.getType();
+                listPersonalCartItems = gson.fromJson(serializedObject, type);
+            }
+            Constants.personalCart.listPersonalCartItems = listPersonalCartItems == null ? new ArrayList<>() : listPersonalCartItems;
+        }
     }
-
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        recreate();
-//    }
 
     public void onViewCardClick(View view) {
         Intent intent;
-        if (Constants.statusLogin.checkLogin) {
+        boolean isLogin = Constants.statusLogin.checkLogin;
+        if (isLogin) {
             intent = new Intent(this, ShoppingCartActivity.class);
+            intent.putExtra("checkHome", "checkHome");
         } else {
             intent = new Intent(this, MainActivity.class);
         }

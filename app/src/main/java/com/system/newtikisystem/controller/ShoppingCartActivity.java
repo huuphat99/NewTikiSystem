@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.adapter.CartRecyclerAdapter;
 import com.system.newtikisystem.common.Common;
@@ -26,6 +29,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     PersonalCartItems pCart;
     int totalCost;
     Common common = new Common();
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         getSupportActionBar().setHomeButtonEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        String email = Constants.accountSave.emailAccount;
+        email = Constants.accountSave.emailAccount;
         pCart = Constants.personalCart.getCartOfUser(email);
         ArrayList<CartItem> items = pCart.getCartItems();
 
@@ -65,18 +69,42 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
     }
 
     public void onNextStepOrderClick(View view) {
-        Intent intent = new Intent(this, ShippingAddressActivity.class);
-        startActivity(intent);
+        if (Constants.personalCart.cartQuantity(email) != 0) {
+            Intent intent = new Intent(this, ShippingAddressActivity.class);
+            startActivity(intent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "You have no item in cart", Toast.LENGTH_LONG);
+            toast.show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                String checkHome = getIntent().getStringExtra("checkHome");
+                if (checkHome != null) {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveCartToSharedData(PersonalCartItems pCart) {
+        Gson gson = new Gson();
+        Constants.personalCart.updateCart(pCart, email);
+        String json = gson.toJson(Constants.personalCart.listPersonalCartItems);
+        SharedPreferences prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("jsonListPersonalCart", json);
+        editor.commit();
     }
 
     @Override
@@ -84,23 +112,25 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         int quantity = pCart.getCartItems().get(position).getQuantity();
         if (quantity != 1) {
             pCart.getCartItems().get(position).setQuantity(quantity - 1);
-            recreate();
         } else {
             pCart.getCartItems().remove(position);
-            recreate();
         }
+        saveCartToSharedData(pCart);
+        recreate();
     }
 
     @Override
     public void onIncreaseQuantityClick(int position) {
         int quantity = pCart.getCartItems().get(position).getQuantity();
         pCart.getCartItems().get(position).setQuantity(quantity + 1);
+        saveCartToSharedData(pCart);
         recreate();
     }
 
     @Override
     public void onDeleteClick(int position) {
         pCart.getCartItems().remove(position);
+        saveCartToSharedData(pCart);
         recreate();
     }
 
@@ -110,5 +140,15 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartRecyc
         Intent intent = new Intent(this, ProductDetailActivity.class);
         intent.putExtra("productId", productId);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String checkHome = getIntent().getStringExtra("checkHome");
+        if (checkHome != null) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }

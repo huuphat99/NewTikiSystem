@@ -46,6 +46,7 @@ public class TopProductAdapter extends RecyclerView.Adapter<TopProductAdapter.To
             public void onClick(View view) {
                 Intent intent = new Intent(context,ProductDetailActivity.class);
                 intent.putExtra("productId",productId);
+                intent.putExtra("checkHome","checkHome");
                 context.startActivity(intent);
             }
         });
