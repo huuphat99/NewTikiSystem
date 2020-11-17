@@ -32,6 +32,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        getSupportActionBar().hide();
         ActivityCompat.requestPermissions(ForgetPasswordActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS},
                 PackageManager.PERMISSION_GRANTED);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,8 +57,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         UserDAO userDAO = new UserDAO();
         try {
             checkUser = userDAO.checkUserForget(email);
-            if (checkUser == true) {
-                Log.i("message : ", "co user");
+
+            if (checkUser == true && !email.trim().equals("")) {
                 SmsManager sendSms = SmsManager.getDefault();
                 String random = Constants.getRandomNumber.numberRandom;
                 Constants.accountSave.emailAccount = email;
@@ -65,9 +66,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 Intent intent = new Intent(ForgetPasswordActivity.this, ChangePasswordActivity.class);
                 intent.putExtra("sms", random);
                 startActivity(intent);
+            } else if(email.trim().equals("")) {
+                textView.setText("Please enter your email address or phone number!");
             } else {
-                Log.i("message : ", "khong co user");
-                textView.setText("Khong tim thay account");
+                textView.setText("Please re-enter email or phone number!");
             }
         } catch (Exception e) {
             e.printStackTrace();

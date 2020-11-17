@@ -4,12 +4,12 @@
     android:id="@+id/categoryFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context=".controller.ListCategory">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DDECE5" />
+        android:background="@android:color/white" />
 </FrameLayout>

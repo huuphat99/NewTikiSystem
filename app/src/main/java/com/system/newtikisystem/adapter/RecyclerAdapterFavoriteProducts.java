@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.entity.FavoriteProduct;
 
 import java.util.ArrayList;
@@ -34,7 +35,9 @@ public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<Recycl
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterFavoriteProducts.ViewHolder holder, int position) {
         holder.fpName.setText(products.get(position).getName());
-        holder.fpPrice.setText(Integer.toString(products.get(position).getPrice()));
+        Common common= new Common();
+        String price=common.formatPrice(products.get(position).getPrice());
+        holder.fpPrice.setText(price);
         Picasso.get().load(products.get(position).getImageURL()).into(holder.fpImage);
     }
 

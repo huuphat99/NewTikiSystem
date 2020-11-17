@@ -150,6 +150,13 @@ public class navigation_personal extends Fragment {
                     startActivity(intent);
                 }
             });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

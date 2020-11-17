@@ -19,6 +19,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     EditText newPassword, retypeNewPass, code;
     TextView alertPass;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,23 +33,28 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     public void onClickChange(View view){
-        if(Constants.getRandomNumber.numberCheck == Integer.parseInt(code.getText().toString())){
-            String password1 = newPassword.getText().toString();
-            String password2 = retypeNewPass.getText().toString();
-            UserDAO userDAO = new UserDAO();
-
-            userDAO.updatePassword(password1, Constants.accountSave.emailAccount);
-            Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
-            startActivity(intent);
-//            } else if(password1 != password2){
-//                alertPass.setText("Please check password or code");
-//            }
-        } else if(Constants.getRandomNumber.numberCheck != Integer.parseInt(code.getText().toString())) {
-            Toast.makeText(this, "Random Number is wrong", Toast.LENGTH_LONG).show();
+        String password1 = newPassword.getText().toString();
+        String password2 = retypeNewPass.getText().toString();
+        UserDAO userDAO = new UserDAO();
+        if(password1.trim().length() > 0 && password2.trim().length() > 0){
+            if(Constants.getRandomNumber.numberCheck == Integer.parseInt(code.getText().toString())){
+                if(password1.equals(password2)){
+                    if(password1.matches(pattern)){
+                        userDAO.updatePassword(password1, Constants.accountSave.emailAccount);
+                        Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(this, "Change Password Success!", Toast.LENGTH_LONG).show();
+                    } else {
+                        alertPass.setText("Please enter a password that is 8 characters long and contains at least one special character!");
+                    }
+                } else {
+                    alertPass.setText("Please check password or code");
+                }
+            } else if(Constants.getRandomNumber.numberCheck != Integer.parseInt(code.getText().toString())) {
+                Toast.makeText(this, "Random Number is wrong", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            alertPass.setText("Please enter a new password!");
         }
-
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
-        int idName = prefs.getInt("idName", 0);
     }
 }
