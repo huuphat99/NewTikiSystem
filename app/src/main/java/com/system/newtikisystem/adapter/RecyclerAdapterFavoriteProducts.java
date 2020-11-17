@@ -1,5 +1,6 @@
 package com.system.newtikisystem.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,20 @@ public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<Recycl
     public void onBindViewHolder(@NonNull RecyclerAdapterFavoriteProducts.ViewHolder holder, int position) {
         holder.fpName.setText(products.get(position).getName());
         Common common= new Common();
-        String price=common.formatPrice(products.get(position).getPrice());
-        holder.fpPrice.setText(price);
         Picasso.get().load(products.get(position).getImageURL()).into(holder.fpImage);
+
+        if (products.get(position).getSale() != 0) {
+            int price = products.get(position).getPrice();
+            String priceFact = "<strike>" + common.formatPrice(products.get(position).getPrice()) + "</strike>";
+            holder.fpPrice.setText(android.text.Html.fromHtml(priceFact));
+
+            int sale = products.get(position).getSale();
+            holder.fpSale.setText("-" + Integer.toString(sale) + "%");
+            holder.fpSale.setTextColor(Color.RED);
+
+            String priceSale = common.formatPrice((int) Math.ceil((price - price * sale / 100) / 1000) * 1000);
+            holder.fpPriceSale.setText(priceSale);
+        }
     }
 
     @Override
@@ -48,7 +60,7 @@ public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<Recycl
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView fpImage;
-        TextView fpName, fpPrice;
+        TextView fpName, fpPrice,fpSale,fpPriceSale;
         OnViewProductFavoriteListener onViewProductFavoriteListener;
 
         public ViewHolder(@NonNull View itemView, OnViewProductFavoriteListener onViewProductFavoriteListener) {
@@ -56,6 +68,8 @@ public class RecyclerAdapterFavoriteProducts extends RecyclerView.Adapter<Recycl
             fpName = itemView.findViewById(R.id.fpName);
             fpPrice = itemView.findViewById(R.id.fpPrice);
             fpImage = itemView.findViewById(R.id.fpImage);
+            fpSale=itemView.findViewById(R.id.fpSale);
+            fpPriceSale=itemView.findViewById(R.id.fpRealPrice);
 
             this.onViewProductFavoriteListener = onViewProductFavoriteListener;
             itemView.setOnClickListener(this);

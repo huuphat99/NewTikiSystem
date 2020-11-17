@@ -9,18 +9,20 @@ public class FavoriteProduct {
     private String imageURL;
     private Date time;
     private int price;
+    private int sale;
 
     public FavoriteProduct() {
 
     }
 
-    public FavoriteProduct(int id, String email, String name, String imageURL, Date time, int price) {
+    public FavoriteProduct(int id, String email, String name, String imageURL, Date time, int price, int sale) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.imageURL = imageURL;
         this.time = time;
         this.price = price;
+        this.sale = sale;
     }
 
     public int getId() {
@@ -69,5 +71,13 @@ public class FavoriteProduct {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getSale() {
+        return sale;
+    }
+
+    public void setSale(int sale) {
+        this.sale = sale;
     }
 }

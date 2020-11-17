@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="10dp">
 
     <ImageView
@@ -27,8 +27,27 @@
         android:id="@+id/lpPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/lpName"
         app:layout_constraintTop_toBottomOf="@+id/lpName" />
+
+    <TextView
+        android:id="@+id/lpSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/lpPrice"
+        app:layout_constraintTop_toTopOf="@+id/lpPrice" />
+
+    <TextView
+        android:id="@+id/lpPriceSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/lpPrice"
+        app:layout_constraintTop_toBottomOf="@+id/lpPrice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,21 +2,17 @@ package com.system.newtikisystem.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.View;
-import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.system.newtikisystem.R;
-import com.system.newtikisystem.common.Constants;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.system.newtikisystem.R;
+import com.system.newtikisystem.common.Constants;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -37,11 +33,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        recreate();
-    }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        recreate();
+//    }
 
     public void onViewCardClick(View view) {
         Intent intent;
