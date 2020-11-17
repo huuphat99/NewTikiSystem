@@ -1,6 +1,8 @@
 package com.system.newtikisystem;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.system.newtikisystem.common.Constants;
+import com.system.newtikisystem.controller.HomeActivity;
 import com.system.newtikisystem.controller.MainActivity;
 import com.system.newtikisystem.controller.FavoriteProducts;
 import com.system.newtikisystem.controller.OrderHistoryActivity;
@@ -25,6 +29,9 @@ import com.system.newtikisystem.dao.UserDAO;
 import com.system.newtikisystem.entity.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,8 +90,7 @@ public class navigation_personal extends Fragment {
     }
 
     ArrayAdapter<String> adapter;
-    ArrayList<String> items = new ArrayList<>();
-    String attributes[] = new String[]{"Management Order", "Purchased Product", "Viewed Products", "Favorite Products", "Deals for bank card holders", "Setting"};
+    ArrayList<String> attributes = new ArrayList<>(Arrays.asList("Management Order", "Purchased Product", "Viewed Products", "Favorite Products", "Deals for bank card holders", "Setting"));
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -92,23 +98,23 @@ public class navigation_personal extends Fragment {
 
 
         TextView personalName, personalEmail;
-        personalName= view.findViewById(R.id.personalName);
-        personalEmail= view.findViewById(R.id.personalEmail);
+        personalName = view.findViewById(R.id.personalName);
+        personalEmail = view.findViewById(R.id.personalEmail);
 
-        ImageView personalImage= view.findViewById(R.id.personalImage);
+        ImageView personalImage = view.findViewById(R.id.personalImage);
         personalImage.setImageResource(R.drawable.icon_user);
 
         ListView listView = view.findViewById(R.id.listViewItem);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, attributes);
         listView.setAdapter(adapter);
 
-        Boolean checkLogin= Constants.statusLogin.checkLogin;
+        Boolean checkLogin = Constants.statusLogin.checkLogin;
 
-
-        if(checkLogin==true){
-            String email= Constants.accountSave.emailAccount;
-            UserDAO userDAO= new UserDAO();
-            User user= userDAO.getInfo(email);
+        if (checkLogin == true) {
+            attributes.add("Log out");
+            String email = Constants.accountSave.emailAccount;
+            UserDAO userDAO = new UserDAO();
+            User user = userDAO.getInfo(email);
             personalName.setText(user.getName());
             personalEmail.setText(user.getEmail());
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,13 +123,21 @@ public class navigation_personal extends Fragment {
                     if (position == 3) {
                         Intent intent = new Intent(getActivity().getApplication(), FavoriteProducts.class);
                         startActivity(intent);
-                    }else if(position==0){
+                    } else if (position == 0) {
                         Intent intent = new Intent(getActivity().getApplication(), OrderHistoryActivity.class);
+                        startActivity(intent);
+                    } else if (position == 6) {
+                        SharedPreferences prefs = requireActivity().getSharedPreferences("dataStore", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.remove("isLogin");
+                        editor.remove("emailAccount");
+                        editor.commit();
+                        Intent intent = new Intent(getActivity().getApplication(), HomeActivity.class);
                         startActivity(intent);
                     }
                 }
             });
-        }else {
+        } else {
             personalName.setText("Welcome to Gear");
             personalName.setTextSize(14);
             personalEmail.setTextColor(Color.BLUE);

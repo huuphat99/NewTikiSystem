@@ -2,6 +2,7 @@ package com.system.newtikisystem.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Constants;
 import com.system.newtikisystem.dao.UserDAO;
+import com.system.newtikisystem.entity.PersonalCartItems;
 import com.system.newtikisystem.entity.User;
 
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     EditText txtUsername, txtPassword, txtForgetPassword, txtCreateAccount;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
         Islogin = prefs.getBoolean("Islogin", false);
         Islogin = Constants.statusLogin.checkLogin;
         if(Islogin) {
@@ -70,21 +73,28 @@ public class MainActivity extends AppCompatActivity {
         try {
             user = userDAO.checkLogin(txtUsername.getText().toString(), txtPassword.getText().toString());
             if(user != null){
-                prefs.edit().putBoolean("Islogin", true);
-                prefs.edit().commit();
+                prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("isLogin", true);
                 Islogin = true;
                 Constants.statusLogin.checkLogin = Islogin;
                 Constants.accountSave.emailAccount = txtUsername.getText().toString();
+                editor.putString("emailAccount", txtUsername.getText().toString());
+                editor.commit();
                 if (Constants.statusLogin.checkLogin) {
                     Intent arrivedIntent = getIntent();
                     String lastActivity = arrivedIntent.getStringExtra("lastActivity");
 
-                    if(lastActivity != null && lastActivity.equals("productDetail")) {
-                        int pid = arrivedIntent.getIntExtra("productId",-1);
+                    if (lastActivity != null && lastActivity.equals("productDetail")) {
+                        int pid = arrivedIntent.getIntExtra("productId", -1);
                         String lastComment = arrivedIntent.getStringExtra("lastComment");
                         Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                        intent.putExtra("productId",pid);
-                        intent.putExtra("lastComment",lastComment);
+                        intent.putExtra("productId", pid);
+                        intent.putExtra("lastComment", lastComment);
+                        startActivity(intent);
+                    } else if (lastActivity != null && lastActivity.equals("nav_personal")) {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.putExtra("nav_name", "personal");
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
@@ -97,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 alert.setText("Email or Password is wrong!");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

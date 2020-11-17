@@ -26,7 +26,7 @@ public class ImageSliderAdapter extends SliderViewAdapter<SliderViewHolder> {
 
     @Override
     public SliderViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_item_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_item_layout, parent, false);
         return new SliderViewHolder(view);
     }
 
@@ -39,8 +39,9 @@ public class ImageSliderAdapter extends SliderViewAdapter<SliderViewHolder> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,ProductDetailActivity.class);
-                intent.putExtra("productId",productId);
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", productId);
+                intent.putExtra("checkHome", "checkHome");
                 context.startActivity(intent);
             }
         });
