@@ -26,20 +26,18 @@
         <activity
             android:name=".controller.PayCardActivity"
             android:label="Credit Cart / Debit Cart" />
-        <activity android:name=".controller.ListProduct"
-            android:label="List Product">
-        </activity>
-        <activity android:name=".controller.FavoriteProducts"
-            android:label="@string/favorite_product">
-
-        </activity>
+        <activity
+            android:name=".controller.ListProduct"
+            android:label="List Product"></activity>
+        <activity
+            android:name=".controller.FavoriteProducts"
+            android:label="@string/favorite_product"></activity>
         <activity android:name=".controller.ChangePasswordActivity">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.ForgetPasswordActivity" />
-        <!--        <activity android:name=".controller.ViewProductActivity" />-->
+        <activity android:name=".controller.ForgetPasswordActivity" /> <!-- <activity android:name=".controller.ViewProductActivity" /> -->
         <activity android:name=".controller.RegisterActivity" />
         <activity
             android:name=".controller.OrderConfirmActivity"
@@ -55,14 +53,14 @@
             android:label="@string/title_activity_home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".controller.MainActivity" />
         <activity
             android:name=".controller.ShoppingCartActivity"
-            android:label="Shopping cart">
-
-        </activity>
+            android:label="Shopping cart"></activity>
     </application>
+
 </manifest>

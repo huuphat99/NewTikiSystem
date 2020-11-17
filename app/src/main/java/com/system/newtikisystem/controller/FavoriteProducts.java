@@ -33,10 +33,12 @@ public class FavoriteProducts extends AppCompatActivity implements RecyclerAdapt
 
         RecyclerView recyclerView = findViewById(R.id.fpRecyclerView);
         ProductTDAO productTDAO = new ProductTDAO();
+        TextView fpNotification= findViewById(R.id.fpNotification);
         products = productTDAO.getListProductFavorite(email);
         if(products.size()==0){
-            TextView fpNotification= findViewById(R.id.fpNotification);
             fpNotification.setText("No favorite products");
+        }else {
+            fpNotification.setText("");
         }
         RecyclerAdapterFavoriteProducts adapter = new RecyclerAdapterFavoriteProducts(products, this);
         recyclerView.setAdapter(adapter);
