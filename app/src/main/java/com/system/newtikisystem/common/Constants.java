@@ -136,8 +136,11 @@ public class Constants {
         }
 
         public static void removeCartOfUser(String email) {
-            ArrayList<CartItem> cItems = Constants.personalCart.getCartOfUser(email).getCartItems();
-            cItems.clear();
+            for(PersonalCartItems pItem : listPersonalCartItems){
+                if(pItem.getEmail().equals(email)){
+                    pItem.getCartItems().clear();
+                }
+            }
         }
 
 //        public static void removeCartOfUser(String email, Context context) {

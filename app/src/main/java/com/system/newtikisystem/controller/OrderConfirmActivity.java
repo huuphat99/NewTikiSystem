@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.system.newtikisystem.R;
 import com.system.newtikisystem.common.Common;
 import com.system.newtikisystem.common.Constants;
@@ -89,7 +91,13 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 ArrayList<CartItem> items = Constants.personalCart.getCartOfUser(email).getCartItems();
                 dao.insertOrder(email, orDate, shipDate, address, totalPrice, status, payMethod, items);
                 dao.insertOrderNotification(email, orDate, "Order notification", "Order successfully at " + common.changeDateToString(orDate) + ", Please keep attention at your phone to receive goods. Thanks you");
-                Constants.personalCart.removeCartOfUser(Constants.accountSave.emailAccount);
+                Constants.personalCart.removeCartOfUser(email);
+                Gson gson = new Gson();
+                String json = gson.toJson(Constants.personalCart.listPersonalCartItems);
+                SharedPreferences prefs = getSharedPreferences("dataStore", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("jsonListPersonalCart", json);
+                editor.commit();
             }
         });
 

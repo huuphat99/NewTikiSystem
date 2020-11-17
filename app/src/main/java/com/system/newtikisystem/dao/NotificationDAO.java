@@ -15,7 +15,7 @@ public class NotificationDAO extends DatabaseManager {
     public ArrayList<Notifications> getListNotifications() {
         ArrayList<Notifications> list = new ArrayList<>();
         try {
-            String query = "select * from notifications";
+            String query = "select * from notifications order by time desc";
             connection = connect();
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -23,7 +23,7 @@ public class NotificationDAO extends DatabaseManager {
                 Notifications notification = new Notifications();
                 notification.setId(rs.getInt(1));
                 notification.setEmail(rs.getString(2));
-                notification.setTime(rs.getDate(3));
+                notification.setTime(rs.getTimestamp(3));
                 notification.setTitle(rs.getString(4));
                 notification.setContent(rs.getString(5));
                 list.add(notification);

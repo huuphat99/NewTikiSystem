@@ -28,7 +28,7 @@ public class OrderDAO extends DatabaseManager {
     public ArrayList<Orders> getOrdersByEmail(String email) {
         ArrayList<Orders> orders = new ArrayList<>();
         try {
-            String query = "select * from orders where email = ?";
+            String query = "select * from orders where email = ? order by ordertime desc";
             connection = connect();
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
